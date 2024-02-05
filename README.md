@@ -1,4 +1,4 @@
-<img src="https://comfyui.ma.pe/logo.svg" style="width: 300px;display:block;margin:0 auto;aspect-ratio: 273/150;"/>
+<center><img src="https://comfyui.ma.pe/logo.svg" style="width: 300px;display:block;margin:0 auto;aspect-ratio: 273/150;"/></center>
 
 <h1 align="center">
     mape's ComfyUI Helpers
@@ -10,7 +10,7 @@
 </p>
 <hr />
 
-This extension includes multi-monitor image preview, variable Assigment/wireless nodes, prompt tweaking, command palette, pinned favourite nodes, node navigation, fuzzy search, node time tracking, organizing and error management.
+This extension includes multi-monitor image preview, variable assigment/wireless nodes, prompt tweaking, command palette, pinned favourite nodes, node navigation, fuzzy search, node time tracking, organizing and error management.
 
 For more info visit: https://comfyui.ma.pe/
 
