@@ -1,4 +1,6 @@
-<center><img src="https://comfyui.ma.pe/logo.svg" style="width: 300px;display:block;margin:0 auto;aspect-ratio: 273/150;"/></center>
+<p align="center">
+    <img src="https://comfyui.ma.pe/logo.svg" style="width: 300px;aspect-ratio: 273/150;"/>
+</p>
 
 <h1 align="center">
     mape's ComfyUI Helpers
