@@ -4,8 +4,6 @@
 
 <h1 align="center">
     mape's ComfyUI Helpers
-    <br>
-    <sub><sup><i>Quality of life improvements</i></sup></sub>
 </h1>
 <p align="center">
     <a href="#multi-monitor-image-preview">Multi-monitor image preview</a> &nbsp; | &nbsp; <a href="#wireless-nodes">Wireless nodes</a>  &nbsp; | &nbsp; <a href="#prompt-tweaking">Prompt tweaking</a>  &nbsp; | &nbsp; <a href="#command-palette">Command Palette</a>  &nbsp; | &nbsp; + More
