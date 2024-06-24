@@ -1,6 +1,7868 @@
-const ds="modulepreload",fs=function(e){return"/extensions/ComfyUI-Mape-Helpers/tweak/"+e},Ro={},Et=function(t,n,o){let i=Promise.resolve();if(n&&n.length>0){const s=document.getElementsByTagName("link");i=Promise.all(n.map(r=>{if(r=fs(r),r in Ro)return;Ro[r]=!0;const l=r.endsWith(".css"),a=l?'[rel="stylesheet"]':"";if(!!o)for(let p=s.length-1;p>=0;p--){const h=s[p];if(h.href===r&&(!l||h.rel==="stylesheet"))return}else if(document.querySelector(`link[href="${r}"]${a}`))return;const c=document.createElement("link");if(c.rel=l?"stylesheet":ds,l||(c.as="script",c.crossOrigin=""),c.href=r,document.head.appendChild(c),l)return new Promise((p,h)=>{c.addEventListener("load",p),c.addEventListener("error",()=>h(new Error(`Unable to preload CSS for ${r}`)))})}))}return i.then(()=>t()).catch(s=>{const r=new Event("vite:preloadError",{cancelable:!0});if(r.payload=s,window.dispatchEvent(r),!r.defaultPrevented)throw s})},ps=(e,t)=>e===t,ht=Symbol("solid-proxy"),lo=Symbol("solid-track"),$n={equals:ps};let gi=$i;const st=1,wn=2,vi={owned:null,cleanups:null,context:null,owner:null};var me=null;let Bn=null,hs=null,$e=null,je=null,Ve=null,Tn=0;function dn(e,t){const n=$e,o=me,i=e.length===0,s=t===void 0?o:t,r=i?vi:{owned:null,cleanups:null,context:s?s.context:null,owner:s},l=i?e:()=>e(()=>Xe(()=>Ln(r)));me=r,$e=null;try{return Tt(l,!0)}finally{$e=n,me=o}}function ne(e,t){t=t?Object.assign({},$n,t):$n;const n={value:e,observers:null,observerSlots:null,comparator:t.equals||void 0},o=i=>(typeof i=="function"&&(i=i(n.value)),_i(n,i));return[yi.bind(n),o]}function F(e,t,n){const o=Ao(e,t,!1,st);tn(o)}function Le(e,t,n){gi=ws;const o=Ao(e,t,!1,st),i=Ho&&vs(Ho);i&&(o.suspense=i),(!n||!n.render)&&(o.user=!0),Ve?Ve.push(o):tn(o)}function le(e,t,n){n=n?Object.assign({},$n,n):$n;const o=Ao(e,t,!0,0);return o.observers=null,o.observerSlots=null,o.comparator=n.equals||void 0,tn(o),yi.bind(o)}function ms(e){return Tt(e,!1)}function Xe(e){if($e===null)return e();const t=$e;$e=null;try{return e()}finally{$e=t}}function Qe(e){Le(()=>Xe(e))}function Vt(e){return me===null||(me.cleanups===null?me.cleanups=[e]:me.cleanups.push(e)),e}function ao(){return $e}function gs(){return me}function vs(e){return me&&me.context&&me.context[e.id]!==void 0?me.context[e.id]:e.defaultValue}function ys(e){const t=le(e),n=le(()=>co(t()));return n.toArray=()=>{const o=n();return Array.isArray(o)?o:o!=null?[o]:[]},n}let Ho;function yi(){if(this.sources&&this.state)if(this.state===st)tn(this);else{const e=je;je=null,Tt(()=>kn(this),!1),je=e}if($e){const e=this.observers?this.observers.length:0;$e.sources?($e.sources.push(this),$e.sourceSlots.push(e)):($e.sources=[this],$e.sourceSlots=[e]),this.observers?(this.observers.push($e),this.observerSlots.push($e.sources.length-1)):(this.observers=[$e],this.observerSlots=[$e.sources.length-1])}return this.value}function _i(e,t,n){let o=e.value;return(!e.comparator||!e.comparator(o,t))&&(e.value=t,e.observers&&e.observers.length&&Tt(()=>{for(let i=0;i<e.observers.length;i+=1){const s=e.observers[i],r=Bn&&Bn.running;r&&Bn.disposed.has(s),(r?!s.tState:!s.state)&&(s.pure?je.push(s):Ve.push(s),s.observers&&wi(s)),r||(s.state=st)}if(je.length>1e6)throw je=[],new Error},!1)),t}function tn(e){if(!e.fn)return;Ln(e);const t=Tn;_s(e,e.value,t)}function _s(e,t,n){let o;const i=me,s=$e;$e=me=e;try{o=e.fn(t)}catch(r){return e.pure&&(e.state=st,e.owned&&e.owned.forEach(Ln),e.owned=null),e.updatedAt=n+1,bi(r)}finally{$e=s,me=i}(!e.updatedAt||e.updatedAt<=n)&&(e.updatedAt!=null&&"observers"in e?_i(e,o):e.value=o,e.updatedAt=n)}function Ao(e,t,n,o=st,i){const s={fn:e,state:o,updatedAt:null,owned:null,sources:null,sourceSlots:null,cleanups:null,value:t,owner:me,context:me?me.context:null,pure:n};return me===null||me!==vi&&(me.owned?me.owned.push(s):me.owned=[s]),s}function bn(e){if(e.state===0)return;if(e.state===wn)return kn(e);if(e.suspense&&Xe(e.suspense.inFallback))return e.suspense.effects.push(e);const t=[e];for(;(e=e.owner)&&(!e.updatedAt||e.updatedAt<Tn);)e.state&&t.push(e);for(let n=t.length-1;n>=0;n--)if(e=t[n],e.state===st)tn(e);else if(e.state===wn){const o=je;je=null,Tt(()=>kn(e,t[0]),!1),je=o}}function Tt(e,t){if(je)return e();let n=!1;t||(je=[]),Ve?n=!0:Ve=[],Tn++;try{const o=e();return $s(n),o}catch(o){n||(Ve=null),je=null,bi(o)}}function $s(e){if(je&&($i(je),je=null),e)return;const t=Ve;Ve=null,t.length&&Tt(()=>gi(t),!1)}function $i(e){for(let t=0;t<e.length;t++)bn(e[t])}function ws(e){let t,n=0;for(t=0;t<e.length;t++){const o=e[t];o.user?e[n++]=o:bn(o)}for(t=0;t<n;t++)bn(e[t])}function kn(e,t){e.state=0;for(let n=0;n<e.sources.length;n+=1){const o=e.sources[n];if(o.sources){const i=o.state;i===st?o!==t&&(!o.updatedAt||o.updatedAt<Tn)&&bn(o):i===wn&&kn(o,t)}}}function wi(e){for(let t=0;t<e.observers.length;t+=1){const n=e.observers[t];n.state||(n.state=wn,n.pure?je.push(n):Ve.push(n),n.observers&&wi(n))}}function Ln(e){let t;if(e.sources)for(;e.sources.length;){const n=e.sources.pop(),o=e.sourceSlots.pop(),i=n.observers;if(i&&i.length){const s=i.pop(),r=n.observerSlots.pop();o<i.length&&(s.sourceSlots[r]=o,i[o]=s,n.observerSlots[o]=r)}}if(e.owned){for(t=e.owned.length-1;t>=0;t--)Ln(e.owned[t]);e.owned=null}if(e.cleanups){for(t=e.cleanups.length-1;t>=0;t--)e.cleanups[t]();e.cleanups=null}e.state=0}function bs(e){return e instanceof Error?e:new Error(typeof e=="string"?e:"Unknown error",{cause:e})}function bi(e,t=me){throw bs(e)}function co(e){if(typeof e=="function"&&!e.length)return co(e());if(Array.isArray(e)){const t=[];for(let n=0;n<e.length;n++){const o=co(e[n]);Array.isArray(o)?t.push.apply(t,o):t.push(o)}return t}return e}const ks=Symbol("fallback");function zo(e){for(let t=0;t<e.length;t++)e[t]()}function xs(e,t,n={}){let o=[],i=[],s=[],r=0,l=t.length>1?[]:null;return Vt(()=>zo(s)),()=>{let a=e()||[],u,c;return a[lo],Xe(()=>{let h=a.length,d,f,m,w,$,b,_,k,x;if(h===0)r!==0&&(zo(s),s=[],o=[],i=[],r=0,l&&(l=[])),n.fallback&&(o=[ks],i[0]=dn(j=>(s[0]=j,n.fallback())),r=1);else if(r===0){for(i=new Array(h),c=0;c<h;c++)o[c]=a[c],i[c]=dn(p);r=h}else{for(m=new Array(h),w=new Array(h),l&&($=new Array(h)),b=0,_=Math.min(r,h);b<_&&o[b]===a[b];b++);for(_=r-1,k=h-1;_>=b&&k>=b&&o[_]===a[k];_--,k--)m[k]=i[_],w[k]=s[_],l&&($[k]=l[_]);for(d=new Map,f=new Array(k+1),c=k;c>=b;c--)x=a[c],u=d.get(x),f[c]=u===void 0?-1:u,d.set(x,c);for(u=b;u<=_;u++)x=o[u],c=d.get(x),c!==void 0&&c!==-1?(m[c]=i[u],w[c]=s[u],l&&($[c]=l[u]),c=f[c],d.set(x,c)):s[u]();for(c=b;c<h;c++)c in m?(i[c]=m[c],s[c]=w[c],l&&(l[c]=$[c],l[c](c))):i[c]=dn(p);i=i.slice(0,r=h),o=a.slice(0)}return i});function p(h){if(s[c]=h,l){const[d,f]=ne(c);return l[c]=f,t(a[c],d)}return t(a[c])}}}let Ss=!1;function Ae(e,t){return Xe(()=>e(t||{}))}const As=e=>`Stale read from <${e}>.`;function ki(e){const t="fallback"in e&&{fallback:()=>e.fallback};return le(xs(()=>e.each,e.children,t||void 0))}function xi(e){let t=!1;const n=(s,r)=>(t?s[1]===r[1]:!s[1]==!r[1])&&s[2]===r[2],o=ys(()=>e.children),i=le(()=>{let s=o();Array.isArray(s)||(s=[s]);for(let r=0;r<s.length;r++){const l=s[r].when;if(l)return t=!!s[r].keyed,[r,l,s[r]]}return[-1]},void 0,{equals:n});return le(()=>{const[s,r,l]=i();if(s<0)return e.fallback;const a=l.children;return typeof a=="function"&&a.length>0?Xe(()=>a(t?r:()=>{if(Xe(i)[0]!==s)throw As("Match");return l.when})):a},void 0,void 0)}function dt(e){return e}function Es(e,t,n){let o=n.length,i=t.length,s=o,r=0,l=0,a=t[i-1].nextSibling,u=null;for(;r<i||l<s;){if(t[r]===n[l]){r++,l++;continue}for(;t[i-1]===n[s-1];)i--,s--;if(i===r){const c=s<o?l?n[l-1].nextSibling:n[s-l]:a;for(;l<s;)e.insertBefore(n[l++],c)}else if(s===l)for(;r<i;)(!u||!u.has(t[r]))&&t[r].remove(),r++;else if(t[r]===n[s-1]&&n[l]===t[i-1]){const c=t[--i].nextSibling;e.insertBefore(n[l++],t[r++].nextSibling),e.insertBefore(n[--s],c),t[i]=n[s]}else{if(!u){u=new Map;let p=l;for(;p<s;)u.set(n[p],p++)}const c=u.get(t[r]);if(c!=null)if(l<c&&c<s){let p=r,h=1,d;for(;++p<i&&p<s&&!((d=u.get(t[p]))==null||d!==c+h);)h++;if(h>c-l){const f=t[r];for(;l<c;)e.insertBefore(n[l++],f)}else e.replaceChild(n[l++],t[r++])}else r++;else t[r++].remove()}}}const Do="_$DX_DELEGATE";function Si(e,t,n,o={}){let i;return dn(s=>{i=s,t===document?e():L(t,e(),t.firstChild?null:void 0,n)},o.owner),()=>{i(),t.textContent=""}}function S(e,t,n){let o;const i=()=>{const r=document.createElement("template");return r.innerHTML=e,n?r.content.firstChild.firstChild:r.content.firstChild},s=t?()=>Xe(()=>document.importNode(o||(o=i()),!0)):()=>(o||(o=i())).cloneNode(!0);return s.cloneNode=s,s}function yt(e,t=window.document){const n=t[Do]||(t[Do]=new Set);for(let o=0,i=e.length;o<i;o++){const s=e[o];n.has(s)||(n.add(s),t.addEventListener(s,Os))}}function he(e,t,n){n==null?e.removeAttribute(t):e.setAttribute(t,n)}function Cs(e,t){t==null?e.removeAttribute("class"):e.className=t}function Eo(e,t,n,o){if(o)Array.isArray(n)?(e[`$$${t}`]=n[0],e[`$$${t}Data`]=n[1]):e[`$$${t}`]=n;else if(Array.isArray(n)){const i=n[0];e.addEventListener(t,n[0]=s=>i.call(e,n[1],s))}else e.addEventListener(t,n)}function Fo(e,t,n){if(!t)return n?he(e,"style"):t;const o=e.style;if(typeof t=="string")return o.cssText=t;typeof n=="string"&&(o.cssText=n=void 0),n||(n={}),t||(t={});let i,s;for(s in n)t[s]==null&&o.removeProperty(s),delete n[s];for(s in t)i=t[s],i!==n[s]&&(o.setProperty(s,i),n[s]=i);return n}function Ct(e,t,n){return Xe(()=>e(t,n))}function L(e,t,n,o){if(n!==void 0&&!o&&(o=[]),typeof t!="function")return xn(e,t,o,n);F(i=>xn(e,t(),i,n),o)}function Os(e){const t=`$$${e.type}`;let n=e.composedPath&&e.composedPath()[0]||e.target;for(e.target!==n&&Object.defineProperty(e,"target",{configurable:!0,value:n}),Object.defineProperty(e,"currentTarget",{configurable:!0,get(){return n||document}});n;){const o=n[t];if(o&&!n.disabled){const i=n[`${t}Data`];if(i!==void 0?o.call(n,i,e):o.call(n,e),e.cancelBubble)return}n=n._$host||n.parentNode||n.host}}function xn(e,t,n,o,i){for(;typeof n=="function";)n=n();if(t===n)return n;const s=typeof t,r=o!==void 0;if(e=r&&n[0]&&n[0].parentNode||e,s==="string"||s==="number")if(s==="number"&&(t=t.toString()),r){let l=n[0];l&&l.nodeType===3?l.data!==t&&(l.data=t):l=document.createTextNode(t),n=$t(e,n,o,l)}else n!==""&&typeof n=="string"?n=e.firstChild.data=t:n=e.textContent=t;else if(t==null||s==="boolean")n=$t(e,n,o);else{if(s==="function")return F(()=>{let l=t();for(;typeof l=="function";)l=l();n=xn(e,l,n,o)}),()=>n;if(Array.isArray(t)){const l=[],a=n&&Array.isArray(n);if(uo(l,t,n,i))return F(()=>n=xn(e,l,n,o,!0)),()=>n;if(l.length===0){if(n=$t(e,n,o),r)return n}else a?n.length===0?Bo(e,l,o):Es(e,n,l):(n&&$t(e),Bo(e,l));n=l}else if(t.nodeType){if(Array.isArray(n)){if(r)return n=$t(e,n,o,t);$t(e,n,null,t)}else n==null||n===""||!e.firstChild?e.appendChild(t):e.replaceChild(t,e.firstChild);n=t}}return n}function uo(e,t,n,o){let i=!1;for(let s=0,r=t.length;s<r;s++){let l=t[s],a=n&&n[s],u;if(!(l==null||l===!0||l===!1))if((u=typeof l)=="object"&&l.nodeType)e.push(l);else if(Array.isArray(l))i=uo(e,l,a)||i;else if(u==="function")if(o){for(;typeof l=="function";)l=l();i=uo(e,Array.isArray(l)?l:[l],Array.isArray(a)?a:[a])||i}else e.push(l),i=!0;else{const c=String(l);a&&a.nodeType===3&&a.data===c?e.push(a):e.push(document.createTextNode(c))}}return i}function Bo(e,t,n=null){for(let o=0,i=t.length;o<i;o++)e.insertBefore(t[o],n)}function $t(e,t,n,o){if(n===void 0)return e.textContent="";const i=o||document.createTextNode("");if(t.length){let s=!1;for(let r=t.length-1;r>=0;r--){const l=t[r];if(i!==l){const a=l.parentNode===e;!s&&!r?a?e.replaceChild(i,l):e.insertBefore(i,n):a&&l.remove()}else s=!0}}else e.insertBefore(i,n);return[i]}const Ps=async()=>{const{ImagePreviews:e}=await Et(()=>Promise.resolve().then(()=>Vs),void 0),t=document.createElement("div");document.body.appendChild(t),Si(()=>Ae(e,{}),t)},js=async()=>{const{registerPlugin:e}=await Et(()=>Promise.resolve().then(()=>Lr),void 0);e(),async function t(){if(typeof app>"u"){setTimeout(t);return}const{MapeTweak:n}=await Et(()=>Promise.resolve().then(()=>Wa),void 0),o=document.createElement("div");document.body.appendChild(o),Si(()=>Ae(n,{}),o)}()};window.standaloneImagePreview?Ps():js();function se(e){let t=e.type;return e.IS_MAPE_VARIABLE?!0:(t===void 0&&(t=e.comfyClass),t?t.startsWith(Ye):!1)}const pt=e=>{var t,n,o;return!!(se(e)&&((o=(n=(t=e.outputs)==null?void 0:t[0])==null?void 0:n.links)!=null&&o.length))},Ie=e=>{var t,n;return!!(se(e)&&((n=(t=e.inputs)==null?void 0:t[0])!=null&&n.link))},cn="mape_tweak_",Is="mape_imagepreview_",tt="mape_tweak_pos_",Un="mape_group",Ye="mape Variable",Ns="*",He=()=>graph._nodes,ae=(e,t)=>t?t.find(n=>n.id===e):graph.getNodeById(e),nn=(e=He())=>e.filter(se),Ai=(e=He())=>nn(e).filter(Ie),fn=()=>graph._groups,Ts=()=>{var e;return(e=Ze())==null?void 0:e[0]},Ze=()=>Object.values(graph.list_of_graphcanvas[0].selected_nodes),et=e=>e?`/view?filename=${e.filename}&subfolder=${e.subfolder}&type=${e.type}&rand=42`:void 0,Sn=(e,t,n,o)=>{const i=n-e,s=o-t;return Math.sqrt(i**2+s**2)},Ei=e=>{const t=Object.fromEntries(Object.values(e).map(s=>[s.name,s.pos??[0,0]])),n=Math.min(...Object.values(t).map(([s,r])=>s)),o=Math.min(...Object.values(t).map(([s,r])=>r)),i=Object.fromEntries(Object.entries(t).map(([s,[r,l]])=>[s,Sn(n,o,r,l)]));return(s,r)=>i[s.name]-i[r.name]},Ls=(e,t,n)=>{const o=Object.fromEntries(e.map(l=>[l[t],l[n]??[0,0]])),i=Math.min(...Object.values(o).map(([l,a])=>l)),s=Math.min(...Object.values(o).map(([l,a])=>a)),r=Object.fromEntries(Object.entries(o).map(([l,[a,u]])=>[l,Sn(i,s,a,u)]));return(l,a)=>r[l[t]]-r[a[t]]},Ms=(e,t,n=.35)=>{let o=1,i=1,s=1,r=1,l=1,a=1,u=1;const c=e[0],p=e[1],h=p/c;for(let d=1;d<=t;d++){const f=d,m=Math.ceil(t/f);m/f*n>h?(u=Math.floor(p/m),a=Math.floor(u/n)):(a=Math.floor(c/f),u=Math.floor(a*n));const w=a*u*t;(o===void 0||w>o)&&(o=w,r=u,l=a,i=f,s=m)}return{targetCols:i,targetRows:s,targetHeight:r,targetWidth:l}};var Rs=S("<div class=imagePreviews>"),Hs=S("<div class=imagePreviewTweaks><label>Image Previews</label><label>Display type"),Uo=S("<img class=fullImage>"),zs=S("<div class=mosaicGrid><div class=inner>"),Ds=S('<div class=flipbookFps><label for="">FPS</label><input type=number step=1 min=1 max=120><label for=flipflop title="Reverse at end of clip instead of restarting">Flip Flop</label><input id=flipflop type=checkbox>'),Fs=S("<div class=content><div class=bigPreview><div class=zoom>x"),Go=S("<div class=button>"),Bs=S("<div class=thumbnails>"),Us=S("<div class=thumb><img class=smallImage>"),Gs=S("<div class=mosaicImage><img class=smallImage>"),Ks=S("<div class=imagePreviewHelp><p>Shift + Click a link and enable tweak to have it show up in the images preview window.</p><video src=https://comfyui.ma.pe/help/imagePreview.mp4>");const Ut="mape_image_previews",Gn=`${Is}FPS`,Ws=()=>{const[e,t]=ne(1),[n,o]=ne([0,0]),[i,s]=ne(0),[r,l]=ne("images"),[a,u]=ne({}),[c,p]=ne(localStorage.mapeImageDisplayType??"single");let h;Le(()=>{r(),f(0)});const[d,f]=ne(0),[m,w]=ne(localStorage[Gn]?JSON.parse(localStorage[Gn]):{}),[$,b]=ne(!!localStorage.mape_tweak_flipflop);Le(()=>{localStorage[Gn]=JSON.stringify(m())}),Le(()=>{$()?localStorage.mape_tweak_flipflop=!0:delete localStorage.mape_tweak_flipflop});let _=1;const k=()=>{if(clearTimeout(h),c()==="flipbook"){if(h=setTimeout(k,1e3/(m()[r()]??12)),!j()||!j().value){f(0);return}const M=j().value.length;if(M===1){f(0);return}if($()){const Q=d()+_;(Q<0||Q>=M)&&(_=-_);const Z=d()+_;f(Z)}else{let Q=d()+1;Q>=M&&(Q=0),f(Q)}}};Vt(()=>{clearTimeout(h)}),Le(()=>{localStorage.mapeImageDisplayType=c(),f(0),_=1,c()==="flipbook"&&(f(0),setTimeout(k))}),localStorage[Ut]&&u(JSON.parse(localStorage[Ut]));function x(M){const{key:Q,newValue:Z}=M;Q===Ut&&Z&&(u(JSON.parse(Z)),j()||l(Object.keys(a())[0]??""),j()&&j().value&&j().value.length<=i()&&s(0))}window.addEventListener("storage",x);const j=()=>a()[r()],H=()=>`scale(${U()}) translate(calc(-50% + ${n()[0]}px), calc(-50% + ${n()[1]}px))`;let z;const[R,V]=ne([100,100]);Le(()=>{c(),z&&V([z.clientWidth,z.clientHeight])}),window.addEventListener("resize",()=>{z&&V([z.clientWidth,z.clientHeight])});const[v,C]=ne(1),[B,K]=ne([1,1]);Le(()=>{const M=J()[0];if(!M)return;const Q=et(M),Z=new Image;Z.addEventListener("load",()=>{C(Z.height/Z.width),K([Z.width,Z.height])}),Z.src=Q});const E=()=>{const M=Ms(R(),J().length,v()),Q=M.targetHeight*M.targetRows,Z=M.targetWidth*M.targetCols;return{imageWidth:Math.min(B()[0],M.targetWidth),imageHeight:Math.min(B()[1],M.targetHeight),containerHeight:Q,containerWidth:Z,ratio:Math.min(1,Math.max(M.targetWidth,M.targetHeight)/Math.max(...B()))}},q=(M=!1)=>{s(0),M&&(o([0,0]),t(1))},J=()=>(j()??{}).value??[],W=M=>Math.pow(M,2.5),U=()=>W(e());return(()=>{var M=Rs();return L(M,(()=>{var Q=le(()=>!!j());return()=>Q()?[(()=>{var Z=Hs(),de=Z.firstChild,ke=de.nextSibling;return L(Z,()=>Object.values(a()).sort(Ei(a())).map(Ee=>(()=>{var T=Go();return T.$$click=()=>{q(),s(0),l(Ee.name)},L(T,()=>Ee.name),F(()=>T.classList.toggle("active",Ee.name===r())),T})()),ke),L(Z,()=>[{id:"single",text:"Single image"},{id:"mosaic",text:"Grid view"},{id:"flipbook",text:"Flipbook"}].map(Ee=>(()=>{var T=Go();return T.$$click=()=>{q(),p(Ee.id)},L(T,()=>Ee.text),F(()=>T.classList.toggle("active",c()===Ee.id)),T})()),null),Z})(),(()=>{var Z=Fs(),de=Z.firstChild,ke=de.firstChild,Ee=ke.firstChild;return L(Z,(()=>{var T=le(()=>c()==="single"&&J().length>1);return()=>T()?(()=>{var oe=Bs();return L(oe,()=>J().map((g,y)=>(()=>{var A=Us(),O=A.firstChild;return A.$$click=()=>{s(y)},F(I=>{var N=y===i(),P=et(g);return N!==I.e&&A.classList.toggle("active",I.e=N),P!==I.t&&he(O,"src",I.t=P),I},{e:void 0,t:void 0}),A})())),oe})():null})(),de),de.addEventListener("wheel",T=>{const oe=z.getClientRects()[0],[g,y]=[T.clientX,T.clientY],{x:A,y:O,width:I,height:N}=oe,P=(g-A)/I,G=(y-O)/N;t(Math.max(.1,e()-(T.deltaY>0?.075:-.075))),(()=>{o([0,0]);const ee=z.getClientRects()[0],{x:ce,y:X,width:re,height:ie}=ee,xe=(g-ce)/re,Ce=(y-X)/ie,D=xe-P,fe=Ce-G,pe=D*re/U(),Se=fe*ie/U();o([n()[0]+pe,n()[1]+Se])})()}),de.$$mousedown=T=>{const oe=T.clientX,g=T.clientY,[y,A]=n(),O=N=>{N.preventDefault();const P=N.clientX,G=N.clientY,ee=oe-P,ce=g-G;o([y-ee/U(),A-ce/U()])},I=()=>{document.removeEventListener("mousemove",O),document.removeEventListener("mouseup",I)};document.addEventListener("mousemove",O),document.addEventListener("mouseup",I)},de.$$dblclick=()=>{q(!0)},L(de,Ae(xi,{get children(){return[Ae(dt,{get when(){return c()==="single"},get children(){var T=Uo(),oe=z;return typeof oe=="function"?Ct(oe,T):z=T,F(g=>{var y=H(),A=et((j().value??[])[i()]);return y!==g.e&&((g.e=y)!=null?T.style.setProperty("transform",y):T.style.removeProperty("transform")),A!==g.t&&he(T,"src",g.t=A),g},{e:void 0,t:void 0}),T}}),Ae(dt,{get when(){return c()==="mosaic"},get children(){var T=zs(),oe=T.firstChild;T.$$dblclick=()=>{q(!0)};var g=z;return typeof g=="function"?Ct(g,T):z=T,L(oe,()=>J().map((y,A)=>(()=>{var O=Gs(),I=O.firstChild;return O.$$click=()=>{s(A)},F(N=>{var P=`${E().imageWidth}px`,G=`${E().imageHeight}px`,ee=et(y);return P!==N.e&&((N.e=P)!=null?O.style.setProperty("width",P):O.style.removeProperty("width")),G!==N.t&&((N.t=G)!=null?O.style.setProperty("height",G):O.style.removeProperty("height")),ee!==N.a&&he(I,"src",N.a=ee),N},{e:void 0,t:void 0,a:void 0}),O})())),F(y=>{var A=H(),O=`${E().containerWidth}px`,I=`${E().containerHeight}px`;return A!==y.e&&((y.e=A)!=null?T.style.setProperty("transform",A):T.style.removeProperty("transform")),O!==y.t&&((y.t=O)!=null?oe.style.setProperty("width",O):oe.style.removeProperty("width")),I!==y.a&&((y.a=I)!=null?oe.style.setProperty("height",I):oe.style.removeProperty("height")),y},{e:void 0,t:void 0,a:void 0}),T}}),Ae(dt,{get when(){return c()==="flipbook"},get children(){return[(()=>{var T=Ds(),oe=T.firstChild,g=oe.nextSibling,y=g.nextSibling,A=y.nextSibling;return g.$$input=O=>{w({...m(),[r()]:Math.max(1,parseInt(O.currentTarget.value,10))})},A.addEventListener("change",()=>{b(!$())}),F(()=>g.value=m()[r()]??12),F(()=>A.checked=$()),T})(),(()=>{var T=Uo(),oe=z;return typeof oe=="function"?Ct(oe,T):z=T,F(g=>{var y=H(),A=et((j().value??[])[d()]);return y!==g.e&&((g.e=y)!=null?T.style.setProperty("transform",y):T.style.removeProperty("transform")),A!==g.t&&he(T,"src",g.t=A),g},{e:void 0,t:void 0}),T})()]}})]}}),ke),ke.$$click=()=>{q(!0)},L(ke,(()=>{var T=le(()=>c()==="mosaic");return()=>T()?parseFloat((E().ratio*U()).toFixed(2)):parseFloat(U().toFixed(2))})(),Ee),Z})()]:null})(),null),L(M,(()=>{var Q=le(()=>!j());return()=>Q()?(()=>{var Z=Ks(),de=Z.firstChild,ke=de.nextSibling;return ke.muted=!0,ke.autoplay=!0,ke.loop=!0,Z})():null})(),null),F(()=>{var Q,Z;return M.classList.toggle("hasMultiple",((Z=(Q=j())==null?void 0:Q.value)==null?void 0:Z.length)>0)}),M})()};yt(["dblclick","mousedown","input","click"]);const Vs=Object.freeze(Object.defineProperty({__proto__:null,ImagePreviews:Ws,localStoragePreviewImagesKey:Ut},Symbol.toStringTag,{value:"Module"})),fo=Symbol("store-raw"),Ot=Symbol("store-node"),Ke=Symbol("store-has"),Ci=Symbol("store-self");function Oi(e){let t=e[ht];if(!t&&(Object.defineProperty(e,ht,{value:t=new Proxy(e,Xs)}),!Array.isArray(e))){const n=Object.keys(e),o=Object.getOwnPropertyDescriptors(e);for(let i=0,s=n.length;i<s;i++){const r=n[i];o[r].get&&Object.defineProperty(e,r,{enumerable:o[r].enumerable,get:o[r].get.bind(t)})}}return t}function it(e){let t;return e!=null&&typeof e=="object"&&(e[ht]||!(t=Object.getPrototypeOf(e))||t===Object.prototype||Array.isArray(e))}function jt(e,t=new Set){let n,o,i,s;if(n=e!=null&&e[fo])return n;if(!it(e)||t.has(e))return e;if(Array.isArray(e)){Object.isFrozen(e)?e=e.slice(0):t.add(e);for(let r=0,l=e.length;r<l;r++)i=e[r],(o=jt(i,t))!==i&&(e[r]=o)}else{Object.isFrozen(e)?e=Object.assign({},e):t.add(e);const r=Object.keys(e),l=Object.getOwnPropertyDescriptors(e);for(let a=0,u=r.length;a<u;a++)s=r[a],!l[s].get&&(i=e[s],(o=jt(i,t))!==i&&(e[s]=o))}return e}function An(e,t){let n=e[t];return n||Object.defineProperty(e,t,{value:n=Object.create(null)}),n}function Yt(e,t,n){if(e[t])return e[t];const[o,i]=ne(n,{equals:!1,internal:!0});return o.$=i,e[t]=o}function Ys(e,t){const n=Reflect.getOwnPropertyDescriptor(e,t);return!n||n.get||!n.configurable||t===ht||t===Ot||(delete n.value,delete n.writable,n.get=()=>e[ht][t]),n}function Pi(e){ao()&&Yt(An(e,Ot),Ci)()}function Js(e){return Pi(e),Reflect.ownKeys(e)}const Xs={get(e,t,n){if(t===fo)return e;if(t===ht)return n;if(t===lo)return Pi(e),n;const o=An(e,Ot),i=o[t];let s=i?i():e[t];if(t===Ot||t===Ke||t==="__proto__")return s;if(!i){const r=Object.getOwnPropertyDescriptor(e,t);ao()&&(typeof s!="function"||e.hasOwnProperty(t))&&!(r&&r.get)&&(s=Yt(o,t,s)())}return it(s)?Oi(s):s},has(e,t){return t===fo||t===ht||t===lo||t===Ot||t===Ke||t==="__proto__"?!0:(ao()&&Yt(An(e,Ke),t)(),t in e)},set(){return!0},deleteProperty(){return!0},ownKeys:Js,getOwnPropertyDescriptor:Ys};function Fe(e,t,n,o=!1){if(!o&&e[t]===n)return;const i=e[t],s=e.length;n===void 0?(delete e[t],e[Ke]&&e[Ke][t]&&i!==void 0&&e[Ke][t].$()):(e[t]=n,e[Ke]&&e[Ke][t]&&i===void 0&&e[Ke][t].$());let r=An(e,Ot),l;if((l=Yt(r,t,i))&&l.$(()=>n),Array.isArray(e)&&e.length!==s){for(let a=e.length;a<s;a++)(l=r[a])&&l.$();(l=Yt(r,"length",s))&&l.$(e.length)}(l=r[Ci])&&l.$()}function ji(e,t){const n=Object.keys(t);for(let o=0;o<n.length;o+=1){const i=n[o];Fe(e,i,t[i])}}function qs(e,t){if(typeof t=="function"&&(t=t(e)),t=jt(t),Array.isArray(t)){if(e===t)return;let n=0,o=t.length;for(;n<o;n++){const i=t[n];e[n]!==i&&Fe(e,n,i)}Fe(e,"length",o)}else ji(e,t)}function Ft(e,t,n=[]){let o,i=e;if(t.length>1){o=t.shift();const r=typeof o,l=Array.isArray(e);if(Array.isArray(o)){for(let a=0;a<o.length;a++)Ft(e,[o[a]].concat(t),n);return}else if(l&&r==="function"){for(let a=0;a<e.length;a++)o(e[a],a)&&Ft(e,[a].concat(t),n);return}else if(l&&r==="object"){const{from:a=0,to:u=e.length-1,by:c=1}=o;for(let p=a;p<=u;p+=c)Ft(e,[p].concat(t),n);return}else if(t.length>1){Ft(e[o],t,[o].concat(n));return}i=e[o],n=[o].concat(n)}let s=t[0];typeof s=="function"&&(s=s(i,n),s===i)||o===void 0&&s==null||(s=jt(s),o===void 0||it(i)&&it(s)&&!Array.isArray(s)?ji(i,s):Fe(e,o,s))}function xt(...[e,t]){const n=jt(e||{}),o=Array.isArray(n),i=Oi(n);function s(...r){ms(()=>{o&&r.length===1?qs(n,r[0]):Ft(n,r)})}return[i,s]}const po=Symbol("store-root");function wt(e,t,n,o,i){const s=t[n];if(e===s)return;const r=Array.isArray(e);if(n!==po&&(!it(e)||!it(s)||r!==Array.isArray(s)||i&&e[i]!==s[i])){Fe(t,n,e);return}if(r){if(e.length&&s.length&&(!o||i&&e[0]&&e[0][i]!=null)){let u,c,p,h,d,f,m,w;for(p=0,h=Math.min(s.length,e.length);p<h&&(s[p]===e[p]||i&&s[p]&&e[p]&&s[p][i]===e[p][i]);p++)wt(e[p],s,p,o,i);const $=new Array(e.length),b=new Map;for(h=s.length-1,d=e.length-1;h>=p&&d>=p&&(s[h]===e[d]||i&&s[p]&&e[p]&&s[h][i]===e[d][i]);h--,d--)$[d]=s[h];if(p>d||p>h){for(c=p;c<=d;c++)Fe(s,c,e[c]);for(;c<e.length;c++)Fe(s,c,$[c]),wt(e[c],s,c,o,i);s.length>e.length&&Fe(s,"length",e.length);return}for(m=new Array(d+1),c=d;c>=p;c--)f=e[c],w=i&&f?f[i]:f,u=b.get(w),m[c]=u===void 0?-1:u,b.set(w,c);for(u=p;u<=h;u++)f=s[u],w=i&&f?f[i]:f,c=b.get(w),c!==void 0&&c!==-1&&($[c]=s[u],c=m[c],b.set(w,c));for(c=p;c<e.length;c++)c in $?(Fe(s,c,$[c]),wt(e[c],s,c,o,i)):Fe(s,c,e[c])}else for(let u=0,c=e.length;u<c;u++)wt(e[u],s,u,o,i);s.length>e.length&&Fe(s,"length",e.length);return}const l=Object.keys(e);for(let u=0,c=l.length;u<c;u++)wt(e[l[u]],s,l[u],o,i);const a=Object.keys(s);for(let u=0,c=a.length;u<c;u++)e[a[u]]===void 0&&Fe(s,a[u],void 0)}function ho(e,t={}){const{merge:n,key:o="id"}=t,i=jt(e);return s=>{if(!it(s)||!it(i))return i;const r=wt(i,{[po]:s},po,n,o);return r===void 0?s:r}}var St=typeof globalThis<"u"?globalThis:typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{},mo={},Ii={};Object.defineProperty(Ii,"__esModule",{value:!0});var Je={},Zs=St&&St.__extends||function(){var e=function(t,n){return e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(o,i){o.__proto__=i}||function(o,i){for(var s in i)Object.prototype.hasOwnProperty.call(i,s)&&(o[s]=i[s])},e(t,n)};return function(t,n){if(typeof n!="function"&&n!==null)throw new TypeError("Class extends value "+String(n)+" is not a constructor or null");e(t,n);function o(){this.constructor=t}t.prototype=n===null?Object.create(n):(o.prototype=n.prototype,new o)}}();Object.defineProperty(Je,"__esModule",{value:!0});Je.TokenReader=Je.TokenError=Je.tokenizePrompt=void 0;function Qs(e){var t=[],n="",o=0,i=0,s=!1;function r(){n!==""&&(t.push([n,o]),n=""),o=i}function l(h){n+=h,i++}function a(){i++}for(var u=0,c=e.replace(/，/g,",").replace(/：/g,":").replace(/（/g,"(").replace(/）/g,")");u<c.length;u++){var p=c[u];if(s)s=!1,l(p);else switch(p){case"\\":{s=!0,l(p);break}case"(":case")":case"[":case"]":case"<":case">":case":":case",":case"|":{r(),l(p),r();break}case" ":{a(),r();break}default:l(p)}}return r(),t}Je.tokenizePrompt=Qs;var go=function(e){Zs(t,e);function t(n,o,i){var s=e.call(this,n)||this;return s.token=o,s.position=i,s}return t}(Error);Je.TokenError=go;var er=function(){function e(t){this.tokens=t,this.index=0}return e.prototype.position=function(){if(this.index<this.tokens.length)return this.tokens[this.index][1]},e.prototype.look=function(){if(this.index<this.tokens.length)return this.tokens[this.index][0]},e.prototype.lookMany=function(t){return this.tokens.slice(this.index,this.index+t).map(function(n){var o=n[0];return o})},e.prototype.next=function(){this.index<this.tokens.length&&this.index++},e.prototype.error=function(t){var n=this.look();if(n===void 0)throw new go("Error happened at the end of the input: ".concat(t));var o=this.position();throw new go("Error happened at (".concat(n,",").concat(o,"):").concat(t),n,o)},e}();Je.TokenReader=er;var Mn={};Object.defineProperty(Mn,"__esModule",{value:!0});Mn.parsePrompt=void 0;var Kn=Je;function Ni(e){return e.replace(/\\(.)/g,"$1")}function tr(e){var t=[];e:for(;;){var n=e.look();switch(n){case"(":case")":case"[":case"]":case"<":case">":case":":case",":case"|":case void 0:break e;default:t.push(n),e.next()}}if(t.length===0)e.error("Tag expected");else return{kind:"tag",name:t.map(Ni).join(" "),tokens:t}}function nr(e){e.next();for(var t=En(e,!1);;){var n=e.lookMany(2),o=n[0],i=n[1];if(o!==":"||!Number.isNaN(Number.parseFloat(i)))break;e.next(),t.push.apply(t,En(e,!1))}if(e.look()===":"){e.next();var s=Mi(e),r=s[0],l=s[1];return e.look()===","&&e.next(),(e.look()===")"||e.look()==="}"||e.look()===void 0)&&e.next(),{kind:"ew",weight:r,weightText:l,contents:t}}return(e.look()===")"||e.look()==="}"||e.look()===void 0)&&e.next(),{kind:"pw",contents:t}}function or(e){e.next();var t=En(e,!1);return(e.look()==="]"||e.look()==="}"||e.look()===void 0)&&e.next(),{kind:"nw",contents:t}}function Ti(e,t){var n=e.look();switch(n){case"(":case")":case"[":case"]":case"<":case">":case":":case",":case void 0:e.error("".concat(t," expected"));default:return Ni(n)}}function ir(e){var t=Ti(e,"Filename");return e.next(),t}function Li(e,t){function n(c){var p=Number.parseInt(c);return!Number.isNaN(p)&&"".concat(p)===c}{var o=e.lookMany(3),i=o[0],s=o[1],r=o[2];if(n(i)&&s===","&&n(r))return e.next(),e.next(),e.next(),[Number.parseFloat("".concat(i,".").concat(r)),"".concat(i).concat(s).concat(r)]}{var l=e.lookMany(2),i=l[0],s=l[1];if(i.endsWith(".")&&n(i.substring(0,i.length-1))&&n(s))return e.next(),e.next(),[Number.parseFloat("".concat(i).concat(s)),"".concat(i," ").concat(s)]}var a=Ti(e,t),u=Number.parseFloat(a);return Number.isNaN(u)&&e.error("Incorrect ".concat(t.toLowerCase()," format: ").concat(a)),e.next(),[u,a]}function Mi(e){return Li(e,"Weight")}function sr(e){return Li(e,"Multiplier")}function rr(e,t){e.next(),e.next(),e.look()!==":"&&e.error('":" expected'),e.next();var n=ir(e);if(e.look()===":"){e.next();var o=sr(e),i=o[0],s=o[1];if(e.look()===">")return e.next(),{kind:t,filename:n,multiplier:i,multiplierText:s}}if(e.look()===">")return e.next(),{kind:t,filename:n};e.next(),e.error('">" expected')}function lr(e,t){switch(e.look()){case"(":return nr(e);case"[":return or(e);case"<":{var n=e.lookMany(2)[1];switch(n){case"lora":case"hypernet":return rr(e,n);default:{e.next();return}}break}case",":e.error("Prompt expected");default:{var o=tr(e);if(t&&e.look()===":"&&!Number.isNaN(Number.parseFloat(e.lookMany(2)[1]))){e.next();var i=Mi(e),s=i[0],r=i[1];return{kind:"ew",weight:s,weightText:r,contents:[o]}}else return o}}}function En(e,t){for(var n=[];;){var o=e.look();switch(o){case",":{e.next();break}case":":case")":case"]":case">":case"|":case void 0:return n;default:{var i=lr(e,t);i!==void 0&&n.push(i)}}}}function ar(e){var t,n=typeof e=="string"?new Kn.TokenReader((0,Kn.tokenizePrompt)(e)):e instanceof Array?new Kn.TokenReader(e):e,o=[],i=!1;e:for(;;){i=!1;t:for(;;)switch(n.look()){case"|":{i=!0,n.next();break}case")":case"]":case">":case":":{n.next();continue e}case void 0:return o;default:break t}var s=En(n,!0);i||o.length===0?o.push({kind:"prompt",contents:s}):(t=o[o.length-1].contents).push.apply(t,s)}}Mn.parsePrompt=ar;var Rn={};Object.defineProperty(Rn,"__esModule",{value:!0});Rn.printPrompt=void 0;function pn(e){for(var t="",n=!1,o=0,i=e;o<i.length;o++){var s=i[o];switch(s.kind==="tag"&&n?t+=", ":t!==""&&(t+=" "),s.kind){case"pw":{t+="(".concat(pn(s.contents),")");break}case"nw":{t+="[".concat(pn(s.contents),"]");break}case"ew":{t+="(".concat(pn(s.contents),":").concat(s.weightText?s.weightText:s.weight,")");break}case"lora":case"hypernet":{t+="<".concat(s.kind,":").concat(s.filename,":").concat(s.multiplierText?s.multiplierText:s.multiplier,">");break}default:t+=s.name}n=s.kind==="tag"}return t}function cr(e){return pn(e.contents)}Rn.printPrompt=cr;var Hn={};Object.defineProperty(Hn,"__esModule",{value:!0});Hn.evaluatePrompt=void 0;function hn(e,t,n,o){for(var i,s,r=0,l=e;r<l.length;r++){var a=l[r];switch(a.kind){case"pw":{hn(a.contents,t*n,n,o);break}case"nw":{hn(a.contents,t/n,n,o);break}case"ew":{hn(a.contents,t*a.weight,n,o);break}case"lora":{o.loras.push({filename:a.filename,multiplier:(i=a.multiplier)!==null&&i!==void 0?i:1});break}case"hypernet":{o.hypernets.push({filename:a.filename,multiplier:(s=a.multiplier)!==null&&s!==void 0?s:1});break}default:o.tags.push({tag:a.name,weight:t})}}}function ur(e,t){t===void 0&&(t=1.1);var n={tags:[],loras:[],hypernets:[]};return hn(e.contents,1,t,n),n}Hn.evaluatePrompt=ur;(function(e){var t=St&&St.__createBinding||(Object.create?function(o,i,s,r){r===void 0&&(r=s);var l=Object.getOwnPropertyDescriptor(i,s);(!l||("get"in l?!i.__esModule:l.writable||l.configurable))&&(l={enumerable:!0,get:function(){return i[s]}}),Object.defineProperty(o,r,l)}:function(o,i,s,r){r===void 0&&(r=s),o[r]=i[s]}),n=St&&St.__exportStar||function(o,i){for(var s in o)s!=="default"&&!Object.prototype.hasOwnProperty.call(i,s)&&t(i,o,s)};Object.defineProperty(e,"__esModule",{value:!0}),n(Ii,e),n(Je,e),n(Mn,e),n(Rn,e),n(Hn,e)})(mo);const nt=e=>JSON.parse(JSON.stringify(e));var dr=S('<div class=prompt><div class=arrows><div class="arrow down"title="Move down">▼</div></div><label><input></label><div class=weight title="Click scroll wheel button to reset to 1"></div><button class=less title="Use Scroll Wheel to quickly change value">- 0.05</button><input type=range step=0.05><button class=more title="Use Scroll Wheel to quickly change value">+ 0.05</button><button class=remove title="Remove token">X</button><input type=checkbox>'),fr=S('<div class="arrow up"title="Move up">▲'),pr=S('<div class=promptTweaker><div class=buttons><button title="Use Scroll Wheel to quickly change all values">- 0.05 All</button><button title="Move all values 5% towards 1">Compress 5%</button><button title="Converts weights so they all add up to 1">Normalize</button><button title="Use Scroll Wheel to quickly change all values">+ 0.05 All</button></div><div class=promptTweakerPrompts>');const mn="🔒",gn="🔏",hr=e=>{const t=n=>{var o,i;return n.kind==="pw"&&(n={kind:"ew",weight:1.1,weightText:"1.1",contents:(o=n.contents)==null?void 0:o.map(t)}),n.kind==="nw"&&(n={kind:"ew",weight:.9,weightText:"0.9",contents:(i=n.contents)==null?void 0:i.map(t)}),n};return e.map(n=>(n.contents=n.contents.flatMap(o=>{const i=t(o);return Ri(i)}),n))};function Ri(e,t=1){if(e.contents&&e.contents.length>0)return e.contents.flatMap(n=>Ri(n,t*(e.weight??1)));{const n=vo(t);return{kind:"ew",weight:n,weightText:n.toString(),contents:[e]}}}function mr(e,t,n){return e+n*(t-e)}function De(e,t){if(e){if(typeof e[t]<"u")return e[t];if(e.contents)for(const n of e.contents){const o=De(n,t);if(o!==void 0)return o}}}const vo=e=>parseFloat(e.toFixed(2)),gr=e=>{const[t,n]=xt([]),o=()=>{e.update([{contents:t}].map(mo.printPrompt).join(", "))};Le(()=>{const h=mo.parsePrompt(e.prompt),d=hr(h);n(d[0]?ho(d[0].contents):[])});const i=le(()=>Math.min(...t.map(h=>h.weight??1))),s=le(()=>Math.max(...t.map(h=>h.weight??1))),r=(h,d)=>{const f=t.findIndex(k=>De(k,"name")===h),m=f+d;if(m<0)return;const w=t.length;if(m===w)return;const $=nt(t),b=$[f],_=$[m];$[m]=b,$[f]=_,n(ho($)),o()},l=h=>{for(const[d,f]of t.entries())n(d,"weight",vo(h(f.weight??-666))),n(d,"weightText",(f.weight??-666).toString());o()},a=(h,d,f="weight")=>{var w;const m=t.findIndex($=>De($,"name")===h);f==="weight"?(n(m,f,vo(d(t[m][f]))),n(m,"weightText",(w=t[m].weight)==null?void 0:w.toString())):f==="name"?n(m,"contents",0,f,d(t[m][f])):alert(`Implement ${f}`),o()},u=h=>{const d=h.deltaY<0?.05:-.05;l(f=>f+d)},c=()=>{const h=t.reduce((d,f)=>d+(f.weight??0),0);l(d=>parseFloat((d/h).toFixed(3)))},p=(h,d)=>{const f=()=>De(h,"name")??"",m=()=>f().includes(mn)&&f().includes(gn);return(()=>{var w=dr(),$=w.firstChild,b=$.firstChild,_=$.nextSibling,k=_.firstChild,x=_.nextSibling,j=x.nextSibling,H=j.nextSibling,z=H.nextSibling,R=z.nextSibling,V=R.nextSibling;return w.addEventListener("wheel",v=>{const C=v.deltaY<0?.05:-.05;a(f(),B=>B+C)}),L($,(()=>{var v=fr();return v.$$click=()=>{r(f(),-1)},v})(),b),b.$$click=()=>{r(f(),1)},k.addEventListener("change",v=>{const C=v.currentTarget.value;a(f(),()=>C,"name")}),x.$$mousedown=v=>{v.which===2&&(a(f(),()=>1),o())},x.$$dblclick=()=>{document.querySelector(".comfy-queue-btn").click()},L(x,()=>(De(h,"weight")??1).toFixed(2)),j.$$click=()=>{a(f(),v=>v-.05)},H.addEventListener("change",v=>{a(f(),()=>parseFloat(v.currentTarget.value))}),H.$$input=v=>{const C=t[d()].weight;!C||C<0||C>2||a(f(),()=>parseFloat(v.currentTarget.value))},z.$$click=()=>{a(f(),v=>v+.05)},R.$$click=()=>{n(t.filter(v=>De(v,"name")!==De(h,"name"))),o()},V.addEventListener("change",()=>{m()?a(f(),()=>{var v;return(v=De(h,"name"))==null?void 0:v.replace(mn,"").replace(gn,"")},"name"):a(f(),()=>mn+(De(h,"name")??"")+gn,"name"),o()}),F(v=>{var C=!!m(),B=De(h,"name"),K=Math.min(i(),0),E=Math.max(s(),2),q=m()?"Temporarily disabled token":"Click to temporarily disable token";return C!==v.e&&w.classList.toggle("tmp",v.e=C),B!==v.t&&he(k,"title",v.t=B),K!==v.a&&he(H,"min",v.a=K),E!==v.o&&he(H,"max",v.o=E),q!==v.i&&he(V,"title",v.i=q),v},{e:void 0,t:void 0,a:void 0,o:void 0,i:void 0}),F(()=>k.value=De(h,"name")),F(()=>H.value=De(h,"weight")),F(()=>V.checked=!m()),w})()};return(()=>{var h=pr(),d=h.firstChild,f=d.firstChild,m=f.nextSibling,w=m.nextSibling,$=w.nextSibling,b=d.nextSibling;return d.addEventListener("wheel",u),f.$$click=()=>{l(_=>_-.05)},m.$$click=()=>{l(_=>mr(_,1,.05))},w.$$click=c,$.$$click=()=>{l(_=>_+.05)},L(b,Ae(ki,{each:t,children:p})),h})()};yt(["click","dblclick","mousedown","input"]);var vr=S("<div class=settingsPopup><div class=close>❌</div><div class=header>Settings</div><div class=modalContent><div class=mapeSettings>"),yr=S("<input type=text>"),_r=S("<input type=color>"),$r=S("<input type=number>"),wr=S("<input type=checkbox>"),br=S('<div class=mapeSetting><label class=name></label><div class=reset title="Reset to default value">♻️</div><label class=value>');const Hi={nodeAlignOffsetY:{name:"Offset Y pixel amount",value:{type:"number",value:50}},nodeOrganizeSpacingInputY:{name:"Node organize input Y spacing",value:{type:"number",value:15}},nodeOrganizeSpacingOutputY:{name:"Node organize output Y spacing",value:{type:"number",value:34}},nodeOrganizeSpacingInputX:{name:"Node organize input X spacing",value:{type:"number",value:200}},nodeOrganizeSpacingOutputX:{name:"Node organize output X spacing",value:{type:"number",value:60}},alwaysPromptVariableName:{name:"Prompt for variable name",value:{type:"bool",value:!1}},collapseNodesOnOrganize:{name:"Collapse GET/SET when organizing node",value:{type:"bool",value:!0}},resizeNodeWidthOnAlignment:{name:"Resize node on left alignment",value:{type:"bool",value:!0}},showAllConnectionsOnFocus:{name:"Show connections for all nodes when focusing variable",value:{type:"bool",value:!0}},organizeSideNodes:{name:"Organize variables when dragging/selecting parent node",value:{type:"bool",value:!0}},replaceSearch:{name:"Hijack Comfy node search to allow fuzzy search (Might break)",value:{type:"bool",value:!0}},showConnectionOnNodeHover:{name:"Show connections when hovering a node",value:{type:"bool",value:!1}},showAllConnectionsOnNodeHover:{name:"Show all connections when hovering a node",value:{type:"bool",value:!1}},animateSelectedNode:{name:"Animate connections of the selected node",value:{type:"bool",value:!1}},animateAllNodes:{name:"Animate connections of all nodes",value:{type:"bool",value:!1}},selectedNodeConnectionOpacity:{name:"Opacity % of selected node connections",value:{type:"number",value:100}},nodeConnectionOpacity:{name:"Opacity % of node connections",value:{type:"number",value:10}},dblClickToRename:{name:"Double click regular node to set title",value:{type:"bool",value:!0}},setIcon:{name:"Set title icon",value:{type:"string",value:"💾 "}},setBackgroundColor:{name:"Set title background color",value:{type:"color",value:"#212121"}},getIcon:{name:"Get title icon",value:{type:"string",value:""}},getBackgroundColor:{name:"Get title background",value:{type:"color",value:"#212121"}},dblClickToRenameGroup:{name:"Double click groups to set title",value:{type:"bool",value:!0}},profileNodes:{name:"Show node runtime duration",value:{type:"bool",value:!0}},ignorePromptForExplodeHeal:{name:"Ignore prompt when splitting/healing links",value:{type:"bool",value:!1}}},[vn,bt]=xt(JSON.parse(JSON.stringify(Hi))),Ko=localStorage.mape_helpers_settings;if(Ko)try{const e=JSON.parse(Ko);for(const[t,n]of Object.entries(e))bt(t,"value","value",n)}catch{console.error("Failed to parse settings")}const te=e=>vn[e].value.value,kr=e=>{const t=()=>{localStorage.mape_helpers_settings=JSON.stringify(Object.fromEntries(Object.entries(vn).map(([n,o])=>[n,o.value.value])))};return Le(()=>{JSON.stringify(vn),t()}),(()=>{var n=vr(),o=n.firstChild,i=o.nextSibling,s=i.nextSibling,r=s.firstChild;return Eo(o,"click",e.close,!0),L(r,()=>Object.entries(vn).map(([l,{name:a,value:u}])=>(()=>{var c=br(),p=c.firstChild,h=p.nextSibling,d=h.nextSibling;return he(p,"for",l),L(p,a),h.$$click=()=>{bt(l,"value","value",Hi[l].value.value)},L(d,Ae(xi,{get children(){return[Ae(dt,{get when(){return u.type==="string"},get children(){var f=yr();return f.$$input=m=>{bt(l,"value","value",m.currentTarget.value)},he(f,"id",l),F(()=>f.value=u.value),f}}),Ae(dt,{get when(){return u.type==="color"},get children(){var f=_r();return f.$$input=m=>{bt(l,"value","value",m.currentTarget.value)},he(f,"id",l),F(()=>f.value=u.value),f}}),Ae(dt,{get when(){return u.type==="number"},get children(){var f=$r();return f.$$input=m=>{bt(l,"value","value",parseFloat(m.currentTarget.value))},he(f,"id",l),F(()=>f.value=u.value),f}}),Ae(dt,{get when(){return u.type==="bool"},get children(){var f=wr();return f.addEventListener("change",m=>{bt(l,"value","value",m.currentTarget.checked)}),he(f,"id",l),F(()=>f.checked=u.value),f}})]}})),c})())),n})()};yt(["click","input"]);const Cn=e=>e.toLowerCase().replace(/_./g,t=>t.replace("_","").toUpperCase()),_t=()=>graph.links??[],Ne=(e,t=_t())=>t[e],Y=(e,t=0)=>{var n;if(e){if(e.widgets&&e.widgets[t])return e.widgets[t].value;if(e.widgets_values)return(n=e.widgets_values)==null?void 0:n[t]}},Gt=e=>{graph.add(e)},Te=(e,t,n=0)=>{e.widgets_values||(e.widgets_values=[]),e.widgets_values[n]=t,e.widgets[n].value=t},At=e=>{graph.remove(e)},zi=(e,t=0)=>{var r,l;if(e.type!=="Reroute")return[e,t];const n=e,o=(l=(r=n.inputs)==null?void 0:r[0])==null?void 0:l.link;if(!o)return[n,t];const i=Ne(o);if(!i)return[n,t];const s=ae(i.origin_id);return s?(setTimeout(()=>{At(n)}),zi(s,i.origin_slot)):[n,t]},Di=e=>{var r,l;if(e.type!=="Reroute")return e;const t=e,n=(r=t.outputs[0])==null?void 0:r.links;if(!n)return t;const o=n[0];if(!o)return t;const i=Ne(o);if(!i)return t;const s=ae(i.target_id);return s?(((l=t.outputs[0].links)==null?void 0:l.length)===1&&setTimeout(()=>{At(t)}),Di(s)):t},Fi=(e,t=!1)=>{var m,w,$,b,_,k,x,j,H,z;const{type:n}=e;if(n==="*")return;let{origin_id:o,target_id:i,origin_slot:s,target_slot:r}=e,l=ae(o),a=ae(i);if(!l||!a)return!1;if(l.type==="Reroute"){let R=0;[l,R]=zi(l),o=l==null?void 0:l.id,s=R,(typeof s>"u"||s===-1)&&(s=0)}if(a.type==="Reroute"&&(a=Di(a),i=a==null?void 0:a.id,r=a==null?void 0:a.inputs.findIndex(R=>R.type===n),(typeof r>"u"||r===-1)&&(r=0)),typeof o>"u"||typeof i>"u"||!l||!a||t&&(se(l)||se(a)))return!1;let u=Cn(((m=a.getInputInfo(r))==null?void 0:m.name)??n.toLowerCase());u||(u=Cn((($=(w=l==null?void 0:l.outputs)==null?void 0:w[s])==null?void 0:$.name)??((_=(b=l==null?void 0:l.outputs)==null?void 0:b[s])==null?void 0:_.type.toString())??`newVariable_from_${o}_to_${i}`));let c=!1,p=!1;if(se(l))u=Y(l),p=!0;else{const R=(x=(k=l.outputs)==null?void 0:k[s])==null?void 0:x.links;if(R)for(const V of R){const v=ae(((j=Ne(V))==null?void 0:j.target_id)??-1);v&&se(v)&&Ie(v)&&(u=Y(v),p=!0)}if(!p){for(const V of nn()){const v=Y(V);if(!(u===v&&Ie(V)))continue;const B=(H=V.inputs[0])==null?void 0:H.link;((z=Ne(B))==null?void 0:z.origin_id)===l.id?p=!0:c=!0}c&&(u+=`_from_${o}_to_${i}`)}}let h;if(!p){h=LiteGraph.createNode("mape Variable");const R=l.getConnectionPos(!1,s);h.pos=[R[0]+20,R[1]],h.inputs[0].name=n,h.inputs[0].type=n,h.inputs[0].widget=a.inputs[r].widget,Te(h,u),Gt(h),h.flags.collapsed=!0;let V=[];l.widgets?V=Object.values(l.widgets).map(v=>v.value):l.widgets_values&&(V=nt(l.widgets_values)),l.connect(s,h,0),l.widgets_values=V,l.type==="PrimitiveNode"&&setTimeout(()=>{if(l){l.connect(s,h,0);for(const[v,C]of V.entries())Te(l,C,v);h==null||h.setSize(h.computeSize())}})}const d=LiteGraph.createNode("mape Variable"),f=a.getConnectionPos(!0,r);d.pos=[f[0]-150,f[1]],d.outputs[0].name=n,d.outputs[0].type=n,d.outputs[0].widget=a.inputs[r].widget,Gt(d),Te(d,u),d.flags.collapsed=!0,d==null||d.setSize(d.computeSize()),d.connect(0,a,r),!(t||!c||te("alwaysPromptVariableName"))&&setTimeout(()=>{window.setPrompt("Variable name",graph.list_of_graphcanvas[0].last_mouse_position,R=>{Te(d,R),h&&Te(h,R)},u)},100)},Jt=(e="valueUpdated")=>{window.dispatchEvent(new CustomEvent("mapeTweak",{detail:{message:e}}))},ut=((e="valueUpdated")=>{let t,n=0;const o=250;return()=>{Date.now()-n>o&&(n=Date.now(),Jt(e)),clearTimeout(t),t=setTimeout(()=>{n=Date.now(),Jt(e)},o)}})();function xr(e,t){t&&(e.save(),e.fillStyle="#000",e.fillText(t,6,-LiteGraph.NODE_TITLE_HEIGHT-2+1),e.fillStyle="#fff",e.fillText(t,5,-LiteGraph.NODE_TITLE_HEIGHT-2),e.restore())}const Wo=e=>e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),Vo="eexxaacctt",Yo=(e,t)=>t==0?"":t==1?`${e}??`:t==1/0?`${e}*?`:`${e}{0,${t}}?`;function Sr(){const e={interSplit:"[^A-Za-z\\d']+",intraSplit:"[a-z][A-Z]",intraBound:"[A-Za-z]\\d|\\d[A-Za-z]|[a-z][A-Z]",interChars:".",interIns:1/0,intraChars:"[a-z\\d']",intraIns:0,intraContr:"'[a-z]{1,2}\\b"},{intraIns:t,intraContr:n,intraSplit:o,interSplit:i,intraBound:s,intraChars:r}=e,l='".+?"',a=new RegExp(l,"gi"),u=new RegExp(`(?:\\s+|^)-(?:${r}+|${l})`,"gi"),c=!!o,p=new RegExp(o,"g"),h=new RegExp(i,"g"),d=new RegExp(`^${i}|${i}$`,"g"),f=new RegExp(n,"gi"),m=_=>{const k=[];_=_.replace(a,j=>(k.push(j),Vo)),_=_.replace(d,"").toLocaleLowerCase(),c&&(_=_.replace(p,j=>`${j[0]} ${j[1]}`));let x=0;return _.split(h).filter(j=>j!="").map(j=>j===Vo?k[x++]:j)},w=_=>{let k=m(_);if(k.length==0)return[void 0];const x=Array(k.length).fill("");k=k.map((R,V)=>R.replace(f,v=>(x[V]=v,"")));const j=Yo(r,t);let H=k.map((R,V)=>R[0]==='"'?Wo(R.slice(1,-1)):R.split("").join(j)+x[V]);const z=Yo(e.interChars,e.interIns);return H=H.join(z),[new RegExp(H,"i")]},$=(_,k,x)=>{const[j]=w(k);if(!j)return[];const H=[];if(x!=null)for(let z=0;z<x.length;z++){const R=x[z];j.test(_[R])&&H.push(R)}else for(let z=0;z<_.length;z++)j.test(_[z])&&H.push(z.toString());return H};return(_,k)=>{let x,H=null,z=[];k=k.replace(u,V=>{let v=V.trim().slice(1);return v[0]==='"'&&(v=Wo(v.slice(1,-1))),""});const R=m(k);if(R.length==0)return[];if(R.length>1){const V=R.slice().sort((C,B)=>B.length-C.length);for(let C=0;C<V.length;C++){if((x==null?void 0:x.length)==0)return[];x=$(_,V[C],x)}if(R.length>2)return x;H=Ar(R).map(C=>C.join(" ")),z.length=0;const v=new Set;for(let C=0;C<H.length;C++)if(v.size<(x==null?void 0:x.length)){const B=x==null?void 0:x.filter(E=>!v.has(E)),K=$(_,H[C],B);for(let E=0;E<K.length;E++)v.add(K[E]);z.push(K)}else z.push([])}return H==null&&(H=[k],z=[(x==null?void 0:x.length)>0?x:$(_,k)]),z.flat()}}function Ar(e){e=e.slice();const t=e.length,n=[e.slice()],o=new Array(t).fill(0);let i=1,s,r;for(;i<t;)o[i]<i?(s=i%2&&o[i],r=e[i],e[i]=e[s],e[s]=r,++o[i],i=1,n.push(e.slice())):(o[i]=0,++i);return n}const Er=Sr();function Cr(e,t){return Er([t],e).length>0}const Or=e=>{const t=Y(e);return Ai().find(n=>Y(n)===t)},yn=(e,t)=>{const n=He().filter(se);return(t==="get"?n.filter(pt):n.filter(Ie)).filter(i=>Y(i)===e)},Co=()=>{const e=Object.fromEntries(Ze().map(o=>[o.id,!0])),t=Object.keys(e).length,n=Object.keys(Object.fromEntries(Ai().map(o=>[Y(o),!0])));for(const o of n){const i=yn(o,"set")[0];if(!i)continue;const s=i.inputs[0].link;if(!s)continue;const{origin_id:r,origin_slot:l,target_id:a}=Ne(s),u=ae(r);if(!u)continue;let c=!1;const p=yn(o,"get");for(const h of p){let d=!1;for(const f of h.outputs)if(f.links)for(const m of f.links){const{target_id:w,target_slot:$,origin_id:b}=Ne(m),_=ae(w);try{(t===0||e[b]||e[w]||e[r]||e[a])&&(u.connect(l,_,$),d=!0,c=!0)}catch(k){console.error(k)}}d&&At(h)}if(c){const h=yn(o,"get");(t===0||h.length===0)&&At(i)}}if(t===0)for(const o of nn())At(o)};function Pr(e){return .5-.5*Math.cos(Math.PI*e)}function Jo(e,t,n){return n=Pr(n),e+n*(t-e)}const Oo=([e,t],n)=>{const o=n.ds,i=document.body.clientWidth,s=document.body.clientHeight,r=o.scale,l=-e+i*.5/r,a=-t+s*.5/r,u=250,c=Date.now()+u,p=o.offset[0],h=o.offset[1],d=()=>{const f=c-Date.now();if(Date.now()<c)requestAnimationFrame(d);else{o.offset[0]=l,o.offset[1]=a,n.setDirty(!0,!0);return}const m=1-f/u;o.offset[0]=Jo(p,l,m),o.offset[1]=Jo(h,a,m),n.setDirty(!0,!0)};requestAnimationFrame(d)},Pt=e=>{var r;const t=(r=e.graph)==null?void 0:r.list_of_graphcanvas[0],[n,o]=e.pos,[i,s]=e.size;Oo([n+i/2,o+s/2],t),t==null||t.selectNode(e)},On=(e,t=!1)=>{var r,l,a;if(e.length===0)return;const n=te("nodeOrganizeSpacingInputX"),o=te("nodeOrganizeSpacingOutputX");if(e.filter(u=>!se(u)).length===0)return;for(const u of e){let c=0,p=0;const h=te("nodeOrganizeSpacingInputY"),d=te("nodeOrganizeSpacingOutputY"),f=[];if(u.graph){for(const m of u.inputs??[]){const w=m.link;if(!w)continue;const{origin_id:$,target_slot:b}=Ne(w),_=ae($);if(!_||_.type!==Ye)continue;if(_.outputs&&_.outputs[0]&&_.outputs[0].links&&_.outputs[0].links.length>1)return;const k=u.getConnectionPos(!0,b);_.pos=[k[0]-n,k[1]+15+c*h],c+=1,f.push(_),_.flags.collapsed=te("collapseNodesOnOrganize")}for(const m of u.outputs??[])if(m.links&&u.graph)for(const w of m.links){const{target_id:$}=Ne(w),b=ae($);if(!b){console.error("Failed",u.id,">",$);continue}if(b.type!==Ye)continue;const _=(l=(r=b.outputs)==null?void 0:r[0])==null?void 0:l.links;if(_&&_.length>1)return;const k=u.getConnectionPos(!1,0);b.pos=[k[0]+o,k[1]+15+p*d],p+=1,f.push(b),b.flags.collapsed=te("collapseNodesOnOrganize")}if(t&&e.length===1){const m=[u,...f];u.graph.list_of_graphcanvas[0].selectNodes(m)}}}const i=e[0];if(!i)return;((a=i.graph)==null?void 0:a.list_of_graphcanvas[0]).setDirty(!0,!0),ut()},jr=e=>e?e.mode===0?!0:e.mode!==2:!1,Bt=(e,t=He(),n=_t(),o,i="",s)=>{var u,c,p,h,d,f,m,w;if(!e)return;const r=ae(e.origin_id,t),l=i||((c=(u=r==null?void 0:r.outputs)==null?void 0:u[e.origin_slot])==null?void 0:c.name);if(!r)return;if(se(r)){const $=Y(r);for(const b of t.filter(se).filter(Ie))if(Y(b)===$){const k=b.inputs[0];if(k.link)return Bt(n[k.link],t,n,o,l)}throw new Error("Failed to resolve virtual link")}if(r.mode===4){if(!r.inputs)return;const b=r.inputs.map(k=>n[k.link]).filter(k=>(k==null?void 0:k.type)===o).sort((k,x)=>{var z,R,V,v;const j=(R=(z=ae(k.target_id,t))==null?void 0:z.outputs[k.target_slot])==null?void 0:R.name,H=(v=(V=ae(x.target_id,t))==null?void 0:V.outputs[x.target_slot])==null?void 0:v.name;return j===l?-1:H===l?1:k.type===o?-1:x.type===o?1:0})[0];if(b&&b.type===o)return Bt(b,t,n,o,l);const _=(p=r.inputs[0])==null?void 0:p.link;return _?Bt(n[_],t,n,o,l):void 0}if(r.type==="Reroute"){const $=(h=r.inputs[0])==null?void 0:h.link;return $?Bt(n[$],t,n,o,l):void 0}if(!s&&r.outputs){const $=r.outputs.filter(b=>(b==null?void 0:b.type)===o);if($.length===1&&$[0]){const b=(f=(d=$==null?void 0:$[0])==null?void 0:d.links)==null?void 0:f[0];if(b){const _=Ne(b,n);if(_)return{originId:_.origin_id,originIndex:_.origin_slot}}}else{const b=$.sort((_,k)=>{const x=_==null?void 0:_.name,j=k==null?void 0:k.name;return x===l?-1:j===l?1:_.type===o?-1:k.type===o?1:0});if(b[0]){const _=(w=(m=b==null?void 0:b[0])==null?void 0:m.links)==null?void 0:w[0];if(_){const k=Ne(_,n);if(k)return{originId:k.origin_id,originIndex:k.origin_slot}}}}}if(e.type===o)return{originId:e.origin_id,originIndex:e.origin_slot}},Xo=(e=He(),t=_t())=>{const n={},o={};for(const a of e.filter(se).filter(Ie)){const u=Y(a),c=a.inputs[0];if(c.link){const p=Ne(c.link,t);if(p){const h=Bt(p,e,t,p.type,void 0,!0);h?o[u]=h:o[u]={originId:p.origin_id,originIndex:p.origin_slot}}}}for(const a of e.filter(se).filter(pt)){const u=Y(a);n[a.id]=u}const i={},r=e.filter(jr).filter(se),l=r.filter(Ie);for(const a of l){i[a.id]=[];const u=Y(a);for(const c of r){const p=Y(c);u===p&&a.id!==c.id&&i[a.id].push(c.id)}}return{nodeSet:o,nodeGet:n,internalLinks:i}};function yo(e,t,n=[]){const o=[];if(typeof e!=typeof t)return o.push(`Type mismatch at ${n.join(".")}: ${typeof e} !== ${typeof t}`),o.push(`Type mismatch at ${n.join(".")}: ${JSON.stringify(e)} !== ${JSON.stringify(t)}`),o;if(e instanceof Array&&t instanceof Array)if(e.length!==t.length)o.push(`Array length mismatch at ${n.join(".")}: ${e.length} !== ${t.length}`);else for(const[i,s]of e.entries()){const r=[...n,i.toString()];o.push(...yo(s,t[i],r))}else if(e instanceof Object&&t instanceof Object){const i=Object.keys(e),s=Object.keys(t),r=new Set([...i,...s]);for(const l of r){const a=[...n,l];l in e?l in t?o.push(...yo(e[l],t[l],a)):o.push(`Key missing in object2 at ${a.join(".")}`):o.push(`Key missing in object1 at ${a.join(".")}`)}}else e!==t&&o.push(`Value mismatch at ${n.join(".")}: ${e} !== ${t}`);return o}const _o=e=>{const t=ae(e);t&&Pt(t)},Ir=()=>Object.values(graph.list_of_graphcanvas[0].selected_nodes),Po=()=>{const e=Object.fromEntries(Ir().map(n=>[n.id,!0])),t=Object.keys(e).length;Object.values(_t()).filter(Boolean).sort((n,o)=>n.origin_id-o.origin_id).map(n=>{(t===0||e[n.target_id]||e[n.origin_id])&&Fi(n,!0)}),On(He())},Nr=(e,t)=>{window.run_mape_tests=async n=>{if(!localStorage.mape_internal_test)return;app.graph.list_of_graphcanvas[0].setZoom(.5),e.addEventListener("executing",d=>{_o(parseFloat(d.detail))});const o=document.querySelector("#comfy-view-queue-button");(o==null?void 0:o.innerText)==="View Queue"&&(o==null||o.click());const i=async d=>{const f={client_id:e.clientId,prompt:d.output,extra_data:{extra_pnginfo:{workflow:d.workflow}},number:Math.floor(Math.random()*1e4)},m=await e.fetchApi("/prompt",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(f)});if(m.status!==200)throw{response:await m.json()};return await m.json()},s=()=>new Promise(d=>{const f=()=>{!!document.querySelector(".comfy-list-items button")?setTimeout(f,50):d(!0)};setTimeout(f,50)}),l=await(await fetch("http://127.0.0.1:5823/")).json(),a=[],u=async()=>{app.loadGraphData(l.reset[0].workflow),await p(50),h(),await s(),await p(50)},c=d=>new Promise(async f=>{console.log(`${d.file}: Running`),app.loadGraphData(d.workflow),await p(50);const{originalPrompt:m}=await t(),w=await i(m);await s(),await p(50),await u(),app.loadGraphData(d.workflow),await p(50),console.log(`${d.file}: Splitting all connections`),Po(),await p(50);const{prompt:$}=await t();await p(50);const b=await i($);await s(),await p(50),console.log(`${d.file}: Joining all connections`),app.graph.list_of_graphcanvas[0].selectNode(),Co();const{originalPrompt:_}=await t(),k=await i(_);await s(),await p(50);for(const x of[w,b,k]){const j=Object.values(x.node_errors);if(j.length>0)throw console.error(j),new Error("Invalid response")}if(JSON.stringify(m.output)!==JSON.stringify($.output)||JSON.stringify(m.output)!==JSON.stringify(_.output)){console.log({preJson:w,postJson:b,originalPrompt:m,prompt:$}),console.log("Original",m.output),console.log("Converted",$.output);for(const x of yo(m.output,$.output))console.error(x);throw new Error("MISMATCH")}console.log(`${d.file}: Finished with matching outcome`),f(!0)}),p=d=>new Promise(f=>{setTimeout(f,d)}),h=()=>document.querySelector(".comfy-queue-btn").click();for(const d of l.regular)a.push({file:d.file,cb:()=>c(d)});(async()=>{await u();for(const d of a)(!n||n&&d.file.match(new RegExp(n,"i")))&&await d.cb();console.log("Finished tests...")})()}},Wn=(e,t)=>{var s,r,l;const n=(s=app.canvas)==null?void 0:s.default_connection_color_byType,o=(r=e.inputs)==null?void 0:r[0],i=(l=e.outputs)==null?void 0:l[0];o&&(o.name=t,o.type=t,o.color_on=n[t]),i&&(i.name=t,i.type=t,i.color_on=n[t])},qo=e=>{const t=(n,o=!1,i=s=>{})=>{if(!e.graph)return;const s=Object.values(_t()).filter(Boolean).find(l=>l.id===n);if(!s)return;if(o){const l=ae(s.origin_id);if(!l)return;const a=l.outputs[s.origin_slot].type.toString();Wn(e,a),i(a);return}if(!s){Wn(e,Ns);return}const r=s.type;Wn(e,r),i(r)};setTimeout(()=>{var n,o,i,s,r,l;if(Ie(e)){const a=(o=(n=e.inputs)==null?void 0:n[0])==null?void 0:o.link;if(!a)return;t(a,!0,u=>{const c=Y(e);localStorage[`mape_tweak_${c}`]&&(localStorage[`mape_tweak_${c}`]=u)})}else if(pt(e)){const a=(r=(s=(i=e.outputs)==null?void 0:i[0])==null?void 0:s.links)==null?void 0:r[0];a&&t(a)}if(Ie(e)){const a=Y(e);(l=e.widgets)!=null&&l[1]||e.addWidget("toggle","tweak",!!localStorage[`mape_tweak_${a}`],u=>{var h,d;const c=(d=(h=e.inputs)==null?void 0:h[0])==null?void 0:d.type,p=Y(e);u?localStorage[`mape_tweak_${p}`]=c:delete localStorage[`mape_tweak_${p}`],ut()}),e.setProperty("tweak",!!localStorage[`mape_tweak_${a}`])}})},Vn="",Tr=async()=>{const{app:e}=await Et(()=>import(`${Vn}/scripts/app.js`),__vite__mapDeps([]));let t;e.registerExtension({name:"cg.customnodes.mape_helpers_boostrap",async init(){const d=e.graph.onConfigure;e.graph.onConfigure=function(...f){[t]=f,d.apply(this,f)}}});const{api:n}=await Et(()=>import(`${Vn}/scripts/api.js`),__vite__mapDeps([])),{setWidgetConfig:o}=await Et(()=>import(`${Vn}/extensions/core/widgetInputs.js`),__vite__mapDeps([]));let i;async function s(){const d=nt(await i.apply(e)),f=nt(await i.apply(e)),{nodeGet:m,nodeSet:w}=Xo(f.workflow.nodes,Object.fromEntries(f.workflow.links.map(([b,_,k,x,j,H])=>[b,{id:b,origin_id:_,origin_slot:k,target_id:x,target_slot:j,type:H}])));f.output=Object.fromEntries(Object.entries(f.output).filter(([b,_])=>_.class_type!==Ye).map(([b,_])=>(_.inputs=Object.fromEntries(Object.entries(_.inputs).map(([k,x])=>{if(Array.isArray(x)){const[j,H]=x,z=m[j],R=w[z];if(!z||!R)return[k,x];const V=ae(R.originId);if(!V)return[k,x];if(V.type==="PrimitiveNode")return[k,Y(V)];if(V.updateLink){const v=V.updateLink({origin_id:R.originId,origin_slot:R.originIndex});if(v)return[k,[v.origin_id,v.origin_slot]]}return[k,[R.originId.toString(),R.originIndex]]}else return[k,x]})),[b,_])));const $=new RegExp(`${mn}.*?${gn}`,"g");return f.output=Object.fromEntries(Object.entries(f.output).map(([b,_])=>(_.inputs=Object.fromEntries(Object.entries(_.inputs).map(([k,x])=>Array.isArray(x)?[k,x]:typeof x=="string"?[k,x.replaceAll($,"").replace(/\(:\d+\.?\d+?\)/g,"")]:[k,x])),[b,_])).filter(Boolean)),localStorage.debugOutput&&console.info(JSON.stringify(f,null,"  ")),{prompt:f,originalPrompt:d}}let r=!1,l=!1,a;const u=LGraphCanvas.prototype.showLinkMenu,c=function(d,f){return f.shiftKey?(Fi(d),!1):(u.apply(this,[d,f]),!1)},p=d=>{setTimeout(()=>{for(const f of d.nodes){if(f.type!=="PrimitiveNode")continue;const m=ae(f.id);if(m)for(const[w,$]of(f.widgets_values??[]).entries())m.widgets&&m.widgets[w]&&Te(m,$,w)}e.graph.setDirtyCanvas(!0,!0),ut()})},h={name:"cg.customnodes.mape_helpers",async beforeRegisterNodeDef(d,f){for(const w of["onAdded","onConnectInput","onConnectionsChange","onConnectOutput","onRemoved","onSelected","onDeselected","onPropertyChanged","onWidgetChanged","onMouseMove"]){const $=d.prototype[w];d.prototype[w]=function(...b){ut(),$==null||$.apply(this,b)}}if(f.display_name!==Ye){const w=d.prototype.onDblClick;d.prototype.onDblClick=function(...b){w==null||w.apply(this,b);const _=b[1],[,k]=_;if(!te("dblClickToRename")||k>0)return;const x=prompt("Name",this.title);x&&(this.title=x)};const $=d.prototype.onDrawForeground;d.prototype.onDrawForeground=function(...b){if(te("profileNodes")){const[_]=b;xr(_,this.executionDuration||"")}return $==null?void 0:$.apply(this,b)};return}typeof window.graph>"u"&&(window.graph=e.graph),typeof window.app>"u"&&(window.app=e);const m=d.prototype.onConnectionsChange;d.prototype.onConnectionsChange=function(...w){const[$]=w,b=this;if(($===2?"output":"input")==="output"){if(Ie(b)){b.disconnectOutput(0);return}}else if(pt(b)){b.disconnectInput(0);return}se(b)&&$==1&&qo(b),m==null||m.apply(b,w)},d.prototype.getTitle=function(){const w=this,$=Ie(w),b=te($?"setIcon":"getIcon");d.title_color=te($?"setBackgroundColor":"getBackgroundColor");const _=Y(w);return _?`${b}${_}`:w.title},d.prototype.onSelected=function(){r=!0},d.prototype.onMouseEnter=function(){a=this,l=!0},d.prototype.onMouseLeave=function(){a=void 0,l=!1},d.prototype.onDeselected=()=>{r=!1},d.prototype.onRemoved=()=>{r=!1},d.prototype.onDblClick=function(){const w=this;w.flags.collapsed=!w.flags.collapsed}},async nodeCreated(d){const f=d;if(f.IS_MAPE_VARIABLE=se(d),!f.IS_MAPE_VARIABLE)return;d.onGraphConfigured=()=>{};const m=d.configure;d.configure=function(...w){m.apply(this,w);const $={FLOAT:{min:Number.MIN_SAFE_INTEGER,max:Number.MAX_SAFE_INTEGER,step:.1,round:.01},INT:{min:Number.MIN_SAFE_INTEGER,max:Number.MAX_SAFE_INTEGER},STRING:{default:""}};d.inputs=nt(w[0].inputs).map(b=>(o(b,[b.type,$[b.type]]),b)),qo(d)}},async setup(){var V;i=e.graphToPrompt,t&&p(t);const d=e.graph.onConfigure;e.graph.onConfigure=function(...v){p(v[0]),d.apply(this,v)},te("replaceSearch")&&(String.prototype.__indexOf=String.prototype.indexOf,String.prototype.indexOf=function(v,C){var K;const B=this;return(K=new Error().stack)!=null&&K.match(/refreshHelper/)?Cr(v,B)?1:-1:this.__indexOf(v,C)}),document.addEventListener("keydown",v=>{v.key==="z"&&v.ctrlKey&&v.preventDefault()});let f=!0;e.graphToPrompt=async function(){return f&&nn().length>0?(await s()).prompt:i.apply(e)};for(const v of["status","reconnecting","reconnected","executing","executed","execution_start","execution_error","b_preview","progress"])n.addEventListener(v,ut);const m=new Map;let w=0;for(const v of["executing"])n.addEventListener(v,C=>{var q;const B=((q=C==null?void 0:C.detail)==null?void 0:q.node)??(C==null?void 0:C.detail),K=ae(B);K&&(K.executionDuration="");const E=m.get(w);if(m.delete(w),w&&E){const J=Date.now()-E,W=ae(w);W&&(W.executionDuration=`${(J/1e3).toFixed(2)}s`)}w=B,m.set(B,Date.now())});let $;n.addEventListener("progress",v=>{clearTimeout($);const{value:C,max:B,node:K}=v.detail,E=ae(K);C&&B&&K&&(document.title=`${E&&E.title?`${E.title}: `:""}${C}/${B} (${(C/B*100).toFixed(0)}%)`,C===B&&(document.title="Completed!",$=setTimeout(()=>{document.title="ComfyUI"},2e3))),ut()});const b=e.ui.dialog.show;window.mapeErrors=[],e.ui.dialog.show=function(...v){setTimeout(()=>{if(e.lastNodeErrors){for(const[C,B]of Object.entries(e.lastNodeErrors)){const K=ae(parseFloat(C));for(const E of B.errors)window.mapeErrors.push({text:E.message,type:E.details,node:K})}ut(),window.showWarnings(!0)}}),b.apply(this,v)};const _=document.getElementById("comfy-save-button");if(_){const v=_.onclick;_.onclick=function(C){f=!1,v(C),f=!0}}const k=document.getElementById("comfy-dev-save-api-button");if(k){const v=k.onclick;k.onclick=function(C){f=!1,v(C),f=!0}}const x=LGraphCanvas.prototype.drawFrontCanvas;LGraphCanvas.prototype.drawFrontCanvas=function(...v){var J,W;if(x.apply(this,v),!r&&!l)return;let C=Ts();if(!C&&a&&te("showAllConnectionsOnNodeHover")&&(C=a),!C&&a&&te("showConnectionOnNodeHover")&&(pt(a)?C=Or(a):C=a),!C||!e.canvas)return;const B=!r&&l&&!te("showAllConnectionsOnNodeHover")&&te("showConnectionOnNodeHover"),K=this.ctx,{nodeSet:E,internalLinks:q}=Xo();for(const U of He().filter(M=>se(M))){const M=U;if(B&&U.id!==C.id||(U.id,M.id,pt(U)))continue;const Q=q[M.id];if(!Q)continue;const Z=window.innerWidth,de=window.innerHeight;for(const ke of Q){const Ee=ae(ke);if(!Ee){console.error("failed",M.id,ke);continue}const T=Y(C),oe=Y(Ee);let g=!0;const y=(W=(J=Ee.outputs)==null?void 0:J[0])==null?void 0:W.links;if(y)for(const Me of y){const ze=Ne(Me);if(ze){const lt=ae(ze.target_id);lt&&lt.mode!==4&&(g=!1)}}if(g||!te("showAllConnectionsOnFocus")&&T!==oe)continue;let A=M,O=0;if(E[oe]&&E[oe].originId!==M.id){const Me=ae(E[oe].originId);Me&&(A=Me,O=E[oe].originIndex)}const I=!1,N=!0,P=A.getConnectionPos(I,O),G=Ee.getConnectionPos(N,0),ee=e.canvas.ds.scale,ce=e.canvas.ds.offset;P[0]=P[0]*ee+ce[0]*ee,P[1]=P[1]*ee+ce[1]*ee,G[0]=G[0]*ee+ce[0]*ee,G[1]=G[1]*ee+ce[1]*ee;const X=G[0]-P[0],re=G[1]-P[1],ie=LiteGraph.LEFT,xe=Math.abs(re)>Math.abs(X)?re>0?LiteGraph.DOWN:LiteGraph.UP:X<0?LiteGraph.LEFT:LiteGraph.RIGHT,Ce=P[0]>0&&P[1]>0&&P[0]<Z&&P[1]<de,D=G[0]>0&&G[1]>0&&G[0]<Z&&G[1]<de;if(!Ce&&!D)continue;K.save(),K.shadowColor="#000",K.shadowBlur=15,K.lineCap="round";const pe=T===oe,Se=te("animateAllNodes")||pe&&te("animateSelectedNode")||!1;e.canvas.renderLink(K,P,G,void 0,!0,Se,pe?`rgba(255,244,53,${te("selectedNodeConnectionOpacity")/100})`:`rgba(255,255,255,${te("nodeConnectionOpacity")/100})`,xe,ie),K.restore()}}},LGraphCanvas.prototype.showLinkMenu=c;const j=LGraphCanvas.prototype.showConnectionMenu;LGraphCanvas.prototype.showConnectionMenu=function(...v){H||(this.use_original_menu=!0,j.apply(this,v),this.use_original_menu=!1)};let H=!1,z=!1;document.addEventListener("keydown",v=>{z=v.ctrlKey,H=v.shiftKey}),e.canvas._mousemove_callback=()=>{if(!te("organizeSideNodes"))return;const v=Ze();On(v)},document.addEventListener("keyup",v=>{var K;const C=document.activeElement;if(C.tagName==="INPUT"&&(C.type==="text"||C.type==="number")||C.tagName==="TEXTAREA")return;if(v.key==="A"&&v.shiftKey){document.querySelector(".comfy-queue-btn").click();return}if(v.key==="ArrowLeft"&&v.shiftKey){const E=Ze(),q=Math.min(...E.map(W=>W.pos[0])),J=Math.max(...E.map(W=>W.size[0]));for(const W of E)W.pos=[q,W.pos[1]],te("resizeNodeWidthOnAlignment")&&(W.size=[J,W.size[1]]);return}if(v.key==="ArrowDown"&&v.shiftKey){const E=Ze().filter(U=>!se(U)),q=Math.min(...E.map(U=>U.pos[1])),J=te("nodeAlignOffsetY");let W=0;for(const U of E.sort((M,Q)=>M.pos[1]-Q.pos[1])){U.pos=[U.pos[0],q+W];const M=U.size[1]+J;W+=M}return}if(v.key==="ArrowUp"&&v.shiftKey){const E=Ze(),q=Math.min(...E.map(J=>J.pos[1]));for(const J of E)J.pos=[J.pos[0],q];return}if(v.key==="O"&&v.shiftKey){const E=Ze();On(E,!0);return}const B=Ze()[0];if(B&&v.key==="S"&&v.shiftKey){Po();return}if(B&&v.key==="J"&&v.shiftKey){Co();return}if(!(!B||!B.type||B.type!==Ye)){if(v.key==="w"){const E=Y(B);setTimeout(()=>{var q,J,W;window.setPrompt("Variable name",((W=(J=(q=B.graph)==null?void 0:q.list_of_graphcanvas)==null?void 0:J[0])==null?void 0:W.last_mouse_position)??[document.body.clientWidth/2,document.body.clientHeight/2],U=>{if(U){localStorage[`mape_tweak_${E}`]&&(localStorage[`mape_tweak_${U}`]=localStorage[`mape_tweak_${E}`],delete localStorage[`mape_tweak_${E}`]),localStorage[`${tt}${E}`]&&(localStorage[`${tt}${U}`]=localStorage[`${tt}${E}`],delete localStorage[`${tt}${E}`]);for(const M of graph._nodes)Y(M)===E&&Te(M,U);Jt("rename")}},E)});return}if(v.key==="s"){const E=Y(B);for(const q of graph._nodes)Y(q)===E&&(K=q.inputs)!=null&&K[0].link&&Pt(q);return}if(v.key==="ArrowLeft"||v.key==="ArrowRight"){const E=v.key==="ArrowLeft"?-1:1,q=B,J=Y(q);let W=graph._nodes.filter(de=>Y(de)===J);const U=W.find(Ie);if(!U)return;W=W.sort((de,ke)=>{const Ee=Sn(U.pos[0],U.pos[1],de.pos[0],de.pos[1]),T=Sn(U.pos[0],U.pos[1],ke.pos[0],ke.pos[1]);return Ee-T});const Q=W.findIndex(de=>de.id===q.id)+E,Z=W.length;if(Q>Z-1||Q<0)return;Pt(W[Q]);return}if(v.key.match(/^\d+$/)){const E=parseFloat(v.key)-1,J=Y(B),U=graph._nodes.filter(M=>Y(M)===J)[E];U&&Pt(U);return}}}),document.body.addEventListener("keyup",()=>{z=!1,H=!1});let R=(V=e.canvas)==null?void 0:V.allow_searchbox;Object.defineProperty(e.canvas,"allow_searchbox",{get:function(){var B;const v=this.graph.getGroupOnPos(...this.canvas_mouse),C=this.connecting_node&&se(this.connecting_node);if(!H||C)return R;if(this.connecting_input){const K=Cn((B=this.connecting_input.name)==null?void 0:B.toLowerCase()),E=LiteGraph.createNode("mape Variable");E.pos=[this.canvas_mouse[0]+10,this.canvas_mouse[1]],Gt(E);const q=this.connecting_input.slot_index;return Te(E,K),E.connect(0,this.connecting_node,q),E.flags.collapsed=!0,E.setSize(E.computeSize()),setTimeout(()=>{var J,W;window.setPrompt("Variable name",((W=(J=graph.list_of_graphcanvas)==null?void 0:J[0])==null?void 0:W.last_mouse_position)??[document.body.clientWidth/2,document.body.clientHeight/2],U=>{Te(E,U)},K)}),!1}else if(this.connecting_output){const K=Cn(this.connecting_output.name??this.connecting_output.type),E=LiteGraph.createNode("mape Variable");E.pos=[this.canvas_mouse[0]+10,this.canvas_mouse[1]],Gt(E);const q=this.connecting_output.slot_index;if(Te(E,K),this.connecting_node.connect(q,E,0),E.flags.collapsed=!0,E.setSize(E.computeSize()),!z)return setTimeout(()=>{var W,U;window.setPrompt("Variable name",((U=(W=graph.list_of_graphcanvas)==null?void 0:W[0])==null?void 0:U.last_mouse_position)??[document.body.clientWidth/2,document.body.clientHeight/2],M=>{Te(E,M)},K)}),!1;const J=LiteGraph.createNode("mape Variable");return J.pos=[this.canvas_mouse[0]+10,this.canvas_mouse[1]+50],Gt(J),Te(J,K),J.flags.collapsed=!0,J.setSize(J.computeSize()),setTimeout(()=>{var W,U;window.setPrompt("Variable name",((U=(W=graph.list_of_graphcanvas)==null?void 0:W[0])==null?void 0:U.last_mouse_position)??[document.body.clientWidth/2,document.body.clientHeight/2],M=>{Te(E,M),Te(J,M)},K)}),!1}return v&&H&&te("dblClickToRenameGroup")?(H=!1,setTimeout(()=>{const K=prompt("Change group name",v.title);K&&(v.title=K,e.graph.setDirtyCanvas(!0,!0),Jt("rename"))},100),!1):!0},set:function(v){R=v}}),Nr(n,s)}};e.registerExtension(h)},Lr=Object.freeze(Object.defineProperty({__proto__:null,registerPlugin:Tr},Symbol.toStringTag,{value:"Module"})),Yn=typeof navigator<"u"?navigator.userAgent.toLowerCase().indexOf("firefox")>0:!1;function Jn(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent&&e.attachEvent("on".concat(t),n)}function Rt(e,t,n,o){e.removeEventListener?e.removeEventListener(t,n,o):e.deachEvent&&e.deachEvent("on".concat(t),n)}function Bi(e,t){const n=t.slice(0,t.length-1);for(let o=0;o<n.length;o++)n[o]=e[n[o].toLowerCase()];return n}function Ui(e){typeof e!="string"&&(e=""),e=e.replace(/\s/g,"");const t=e.split(",");let n=t.lastIndexOf("");for(;n>=0;)t[n-1]+=",",t.splice(n,1),n=t.lastIndexOf("");return t}function Mr(e,t){const n=e.length>=t.length?e:t,o=e.length>=t.length?t:e;let i=!0;for(let s=0;s<n.length;s++)o.indexOf(n[s])===-1&&(i=!1);return i}const Xt={backspace:8,"⌫":8,tab:9,clear:12,enter:13,"↩":13,return:13,esc:27,escape:27,space:32,left:37,up:38,right:39,down:40,del:46,delete:46,ins:45,insert:45,home:36,end:35,pageup:33,pagedown:34,capslock:20,num_0:96,num_1:97,num_2:98,num_3:99,num_4:100,num_5:101,num_6:102,num_7:103,num_8:104,num_9:105,num_multiply:106,num_add:107,num_enter:108,num_subtract:109,num_decimal:110,num_divide:111,"⇪":20,",":188,".":190,"/":191,"`":192,"-":Yn?173:189,"=":Yn?61:187,";":Yn?59:186,"'":222,"[":219,"]":221,"\\":220},Ue={"⇧":16,shift:16,"⌥":18,alt:18,option:18,"⌃":17,ctrl:17,control:17,"⌘":91,cmd:91,command:91},$o={16:"shiftKey",18:"altKey",17:"ctrlKey",91:"metaKey",shiftKey:16,ctrlKey:17,altKey:18,metaKey:91},Oe={16:!1,18:!1,17:!1,91:!1},ye={};for(let e=1;e<20;e++)Xt["f".concat(e)]=111+e;let ue=[],Kt=null,Gi="all";const Ge=new Map,on=e=>Xt[e.toLowerCase()]||Ue[e.toLowerCase()]||e.toUpperCase().charCodeAt(0),Rr=e=>Object.keys(Xt).find(t=>Xt[t]===e),Hr=e=>Object.keys(Ue).find(t=>Ue[t]===e);function Ki(e){Gi=e||"all"}function qt(){return Gi||"all"}function zr(){return ue.slice(0)}function Dr(){return ue.map(e=>Rr(e)||Hr(e)||String.fromCharCode(e))}function Fr(){const e=[];return Object.keys(ye).forEach(t=>{ye[t].forEach(n=>{let{key:o,scope:i,mods:s,shortcut:r}=n;e.push({scope:i,shortcut:r,mods:s,keys:o.split("+").map(l=>on(l))})})}),e}function Br(e){const t=e.target||e.srcElement,{tagName:n}=t;let o=!0;return(t.isContentEditable||(n==="INPUT"||n==="TEXTAREA"||n==="SELECT")&&!t.readOnly)&&(o=!1),o}function Ur(e){return typeof e=="string"&&(e=on(e)),ue.indexOf(e)!==-1}function Gr(e,t){let n,o;e||(e=qt());for(const i in ye)if(Object.prototype.hasOwnProperty.call(ye,i))for(n=ye[i],o=0;o<n.length;)n[o].scope===e?n.splice(o,1).forEach(r=>{let{element:l}=r;return jo(l)}):o++;qt()===e&&Ki(t||"all")}function Kr(e){let t=e.keyCode||e.which||e.charCode;const n=ue.indexOf(t);if(n>=0&&ue.splice(n,1),e.key&&e.key.toLowerCase()==="meta"&&ue.splice(0,ue.length),(t===93||t===224)&&(t=91),t in Oe){Oe[t]=!1;for(const o in Ue)Ue[o]===t&&(ge[o]=!1)}}function Wi(e){if(typeof e>"u")Object.keys(ye).forEach(i=>{Array.isArray(ye[i])&&ye[i].forEach(s=>un(s)),delete ye[i]}),jo(null);else if(Array.isArray(e))e.forEach(i=>{i.key&&un(i)});else if(typeof e=="object")e.key&&un(e);else if(typeof e=="string"){for(var t=arguments.length,n=new Array(t>1?t-1:0),o=1;o<t;o++)n[o-1]=arguments[o];let[i,s]=n;typeof i=="function"&&(s=i,i=""),un({key:e,scope:i,method:s,splitKey:"+"})}}const un=e=>{let{key:t,scope:n,method:o,splitKey:i="+"}=e;Ui(t).forEach(r=>{const l=r.split(i),a=l.length,u=l[a-1],c=u==="*"?"*":on(u);if(!ye[c])return;n||(n=qt());const p=a>1?Bi(Ue,l):[],h=[];ye[c]=ye[c].filter(d=>{const m=(o?d.method===o:!0)&&d.scope===n&&Mr(d.mods,p);return m&&h.push(d.element),!m}),h.forEach(d=>jo(d))})};function Zo(e,t,n,o){if(t.element!==o)return;let i;if(t.scope===n||t.scope==="all"){i=t.mods.length>0;for(const s in Oe)Object.prototype.hasOwnProperty.call(Oe,s)&&(!Oe[s]&&t.mods.indexOf(+s)>-1||Oe[s]&&t.mods.indexOf(+s)===-1)&&(i=!1);(t.mods.length===0&&!Oe[16]&&!Oe[18]&&!Oe[17]&&!Oe[91]||i||t.shortcut==="*")&&(t.keys=[],t.keys=t.keys.concat(ue),t.method(e,t)===!1&&(e.preventDefault?e.preventDefault():e.returnValue=!1,e.stopPropagation&&e.stopPropagation(),e.cancelBubble&&(e.cancelBubble=!0)))}}function Qo(e,t){const n=ye["*"];let o=e.keyCode||e.which||e.charCode;if(!ge.filter.call(this,e))return;if((o===93||o===224)&&(o=91),ue.indexOf(o)===-1&&o!==229&&ue.push(o),["ctrlKey","altKey","shiftKey","metaKey"].forEach(l=>{const a=$o[l];e[l]&&ue.indexOf(a)===-1?ue.push(a):!e[l]&&ue.indexOf(a)>-1?ue.splice(ue.indexOf(a),1):l==="metaKey"&&e[l]&&ue.length===3&&(e.ctrlKey||e.shiftKey||e.altKey||(ue=ue.slice(ue.indexOf(a))))}),o in Oe){Oe[o]=!0;for(const l in Ue)Ue[l]===o&&(ge[l]=!0);if(!n)return}for(const l in Oe)Object.prototype.hasOwnProperty.call(Oe,l)&&(Oe[l]=e[$o[l]]);e.getModifierState&&!(e.altKey&&!e.ctrlKey)&&e.getModifierState("AltGraph")&&(ue.indexOf(17)===-1&&ue.push(17),ue.indexOf(18)===-1&&ue.push(18),Oe[17]=!0,Oe[18]=!0);const i=qt();if(n)for(let l=0;l<n.length;l++)n[l].scope===i&&(e.type==="keydown"&&n[l].keydown||e.type==="keyup"&&n[l].keyup)&&Zo(e,n[l],i,t);if(!(o in ye))return;const s=ye[o],r=s.length;for(let l=0;l<r;l++)if((e.type==="keydown"&&s[l].keydown||e.type==="keyup"&&s[l].keyup)&&s[l].key){const a=s[l],{splitKey:u}=a,c=a.key.split(u),p=[];for(let h=0;h<c.length;h++)p.push(on(c[h]));p.sort().join("")===ue.sort().join("")&&Zo(e,a,i,t)}}function ge(e,t,n){ue=[];const o=Ui(e);let i=[],s="all",r=document,l=0,a=!1,u=!0,c="+",p=!1,h=!1;for(n===void 0&&typeof t=="function"&&(n=t),Object.prototype.toString.call(t)==="[object Object]"&&(t.scope&&(s=t.scope),t.element&&(r=t.element),t.keyup&&(a=t.keyup),t.keydown!==void 0&&(u=t.keydown),t.capture!==void 0&&(p=t.capture),typeof t.splitKey=="string"&&(c=t.splitKey),t.single===!0&&(h=!0)),typeof t=="string"&&(s=t),h&&Wi(e,s);l<o.length;l++)e=o[l].split(c),i=[],e.length>1&&(i=Bi(Ue,e)),e=e[e.length-1],e=e==="*"?"*":on(e),e in ye||(ye[e]=[]),ye[e].push({keyup:a,keydown:u,scope:s,mods:i,shortcut:o[l],method:n,key:o[l],splitKey:c,element:r});if(typeof r<"u"&&window){if(!Ge.has(r)){const d=function(){let m=arguments.length>0&&arguments[0]!==void 0?arguments[0]:window.event;return Qo(m,r)},f=function(){let m=arguments.length>0&&arguments[0]!==void 0?arguments[0]:window.event;Qo(m,r),Kr(m)};Ge.set(r,{keydownListener:d,keyupListenr:f,capture:p}),Jn(r,"keydown",d,p),Jn(r,"keyup",f,p)}if(!Kt){const d=()=>{ue=[]};Kt={listener:d,capture:p},Jn(window,"focus",d,p)}}}function Wr(e){let t=arguments.length>1&&arguments[1]!==void 0?arguments[1]:"all";Object.keys(ye).forEach(n=>{ye[n].filter(i=>i.scope===t&&i.shortcut===e).forEach(i=>{i&&i.method&&i.method()})})}function jo(e){const t=Object.values(ye).flat();if(t.findIndex(o=>{let{element:i}=o;return i===e})<0){const{keydownListener:o,keyupListenr:i,capture:s}=Ge.get(e)||{};o&&i&&(Rt(e,"keyup",i,s),Rt(e,"keydown",o,s),Ge.delete(e))}if((t.length<=0||Ge.size<=0)&&(Object.keys(Ge).forEach(i=>{const{keydownListener:s,keyupListenr:r,capture:l}=Ge.get(i)||{};s&&r&&(Rt(i,"keyup",r,l),Rt(i,"keydown",s,l),Ge.delete(i))}),Ge.clear(),Object.keys(ye).forEach(i=>delete ye[i]),Kt)){const{listener:i,capture:s}=Kt;Rt(window,"focus",i,s),Kt=null}}const Xn={getPressedKeyString:Dr,setScope:Ki,getScope:qt,deleteScope:Gr,getPressedKeyCodes:zr,getAllKeyCodes:Fr,isPressed:Ur,filter:Br,trigger:Wr,unbind:Wi,keyMap:Xt,modifier:Ue,modifierMap:$o};for(const e in Xn)Object.prototype.hasOwnProperty.call(Xn,e)&&(ge[e]=Xn[e]);if(typeof window<"u"){const e=window.hotkeys;ge.noConflict=t=>(t&&window.hotkeys===ge&&(window.hotkeys=e),ge),window.hotkeys=ge}const _n=window,Io=_n.ShadowRoot&&(_n.ShadyCSS===void 0||_n.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,No=Symbol(),ei=new WeakMap;let Vi=class{constructor(t,n,o){if(this._$cssResult$=!0,o!==No)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=n}get styleSheet(){let t=this.o;const n=this.t;if(Io&&t===void 0){const o=n!==void 0&&n.length===1;o&&(t=ei.get(n)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),o&&ei.set(n,t))}return t}toString(){return this.cssText}};const Vr=e=>new Vi(typeof e=="string"?e:e+"",void 0,No),zn=(e,...t)=>{const n=e.length===1?e[0]:t.reduce((o,i,s)=>o+(r=>{if(r._$cssResult$===!0)return r.cssText;if(typeof r=="number")return r;throw Error("Value passed to 'css' function must be a 'css' function result: "+r+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+e[s+1],e[0]);return new Vi(n,e,No)},Yr=(e,t)=>{Io?e.adoptedStyleSheets=t.map(n=>n instanceof CSSStyleSheet?n:n.styleSheet):t.forEach(n=>{const o=document.createElement("style"),i=_n.litNonce;i!==void 0&&o.setAttribute("nonce",i),o.textContent=n.cssText,e.appendChild(o)})},ti=Io?e=>e:e=>e instanceof CSSStyleSheet?(t=>{let n="";for(const o of t.cssRules)n+=o.cssText;return Vr(n)})(e):e;var qn;const Pn=window,ni=Pn.trustedTypes,Jr=ni?ni.emptyScript:"",oi=Pn.reactiveElementPolyfillSupport,wo={toAttribute(e,t){switch(t){case Boolean:e=e?Jr:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},Yi=(e,t)=>t!==e&&(t==t||e==e),Zn={attribute:!0,type:String,converter:wo,reflect:!1,hasChanged:Yi},bo="finalized";let kt=class extends HTMLElement{constructor(){super(),this._$Ei=new Map,this.isUpdatePending=!1,this.hasUpdated=!1,this._$El=null,this._$Eu()}static addInitializer(t){var n;this.finalize(),((n=this.h)!==null&&n!==void 0?n:this.h=[]).push(t)}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach((n,o)=>{const i=this._$Ep(o,n);i!==void 0&&(this._$Ev.set(i,o),t.push(i))}),t}static createProperty(t,n=Zn){if(n.state&&(n.attribute=!1),this.finalize(),this.elementProperties.set(t,n),!n.noAccessor&&!this.prototype.hasOwnProperty(t)){const o=typeof t=="symbol"?Symbol():"__"+t,i=this.getPropertyDescriptor(t,o,n);i!==void 0&&Object.defineProperty(this.prototype,t,i)}}static getPropertyDescriptor(t,n,o){return{get(){return this[n]},set(i){const s=this[t];this[n]=i,this.requestUpdate(t,s,o)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||Zn}static finalize(){if(this.hasOwnProperty(bo))return!1;this[bo]=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),t.h!==void 0&&(this.h=[...t.h]),this.elementProperties=new Map(t.elementProperties),this._$Ev=new Map,this.hasOwnProperty("properties")){const n=this.properties,o=[...Object.getOwnPropertyNames(n),...Object.getOwnPropertySymbols(n)];for(const i of o)this.createProperty(i,n[i])}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(t){const n=[];if(Array.isArray(t)){const o=new Set(t.flat(1/0).reverse());for(const i of o)n.unshift(ti(i))}else t!==void 0&&n.push(ti(t));return n}static _$Ep(t,n){const o=n.attribute;return o===!1?void 0:typeof o=="string"?o:typeof t=="string"?t.toLowerCase():void 0}_$Eu(){var t;this._$E_=new Promise(n=>this.enableUpdating=n),this._$AL=new Map,this._$Eg(),this.requestUpdate(),(t=this.constructor.h)===null||t===void 0||t.forEach(n=>n(this))}addController(t){var n,o;((n=this._$ES)!==null&&n!==void 0?n:this._$ES=[]).push(t),this.renderRoot!==void 0&&this.isConnected&&((o=t.hostConnected)===null||o===void 0||o.call(t))}removeController(t){var n;(n=this._$ES)===null||n===void 0||n.splice(this._$ES.indexOf(t)>>>0,1)}_$Eg(){this.constructor.elementProperties.forEach((t,n)=>{this.hasOwnProperty(n)&&(this._$Ei.set(n,this[n]),delete this[n])})}createRenderRoot(){var t;const n=(t=this.shadowRoot)!==null&&t!==void 0?t:this.attachShadow(this.constructor.shadowRootOptions);return Yr(n,this.constructor.elementStyles),n}connectedCallback(){var t;this.renderRoot===void 0&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(t=this._$ES)===null||t===void 0||t.forEach(n=>{var o;return(o=n.hostConnected)===null||o===void 0?void 0:o.call(n)})}enableUpdating(t){}disconnectedCallback(){var t;(t=this._$ES)===null||t===void 0||t.forEach(n=>{var o;return(o=n.hostDisconnected)===null||o===void 0?void 0:o.call(n)})}attributeChangedCallback(t,n,o){this._$AK(t,o)}_$EO(t,n,o=Zn){var i;const s=this.constructor._$Ep(t,o);if(s!==void 0&&o.reflect===!0){const r=(((i=o.converter)===null||i===void 0?void 0:i.toAttribute)!==void 0?o.converter:wo).toAttribute(n,o.type);this._$El=t,r==null?this.removeAttribute(s):this.setAttribute(s,r),this._$El=null}}_$AK(t,n){var o;const i=this.constructor,s=i._$Ev.get(t);if(s!==void 0&&this._$El!==s){const r=i.getPropertyOptions(s),l=typeof r.converter=="function"?{fromAttribute:r.converter}:((o=r.converter)===null||o===void 0?void 0:o.fromAttribute)!==void 0?r.converter:wo;this._$El=s,this[s]=l.fromAttribute(n,r.type),this._$El=null}}requestUpdate(t,n,o){let i=!0;t!==void 0&&(((o=o||this.constructor.getPropertyOptions(t)).hasChanged||Yi)(this[t],n)?(this._$AL.has(t)||this._$AL.set(t,n),o.reflect===!0&&this._$El!==t&&(this._$EC===void 0&&(this._$EC=new Map),this._$EC.set(t,o))):i=!1),!this.isUpdatePending&&i&&(this._$E_=this._$Ej())}async _$Ej(){this.isUpdatePending=!0;try{await this._$E_}catch(n){Promise.reject(n)}const t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this._$Ei&&(this._$Ei.forEach((i,s)=>this[s]=i),this._$Ei=void 0);let n=!1;const o=this._$AL;try{n=this.shouldUpdate(o),n?(this.willUpdate(o),(t=this._$ES)===null||t===void 0||t.forEach(i=>{var s;return(s=i.hostUpdate)===null||s===void 0?void 0:s.call(i)}),this.update(o)):this._$Ek()}catch(i){throw n=!1,this._$Ek(),i}n&&this._$AE(o)}willUpdate(t){}_$AE(t){var n;(n=this._$ES)===null||n===void 0||n.forEach(o=>{var i;return(i=o.hostUpdated)===null||i===void 0?void 0:i.call(o)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$Ek(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$E_}shouldUpdate(t){return!0}update(t){this._$EC!==void 0&&(this._$EC.forEach((n,o)=>this._$EO(o,this[o],n)),this._$EC=void 0),this._$Ek()}updated(t){}firstUpdated(t){}};kt[bo]=!0,kt.elementProperties=new Map,kt.elementStyles=[],kt.shadowRootOptions={mode:"open"},oi==null||oi({ReactiveElement:kt}),((qn=Pn.reactiveElementVersions)!==null&&qn!==void 0?qn:Pn.reactiveElementVersions=[]).push("1.6.3");var Qn;const jn=window,It=jn.trustedTypes,ii=It?It.createPolicy("lit-html",{createHTML:e=>e}):void 0,In="$lit$",We=`lit$${(Math.random()+"").slice(9)}$`,To="?"+We,Xr=`<${To}>`,mt=document,Zt=()=>mt.createComment(""),Qt=e=>e===null||typeof e!="object"&&typeof e!="function",Ji=Array.isArray,Xi=e=>Ji(e)||typeof(e==null?void 0:e[Symbol.iterator])=="function",eo=`[ 	
-\f\r]`,Ht=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,si=/-->/g,ri=/>/g,at=RegExp(`>|${eo}(?:([^\\s"'>=/]+)(${eo}*=${eo}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),li=/'/g,ai=/"/g,qi=/^(?:script|style|textarea|title)$/i,qr=e=>(t,...n)=>({_$litType$:e,strings:t,values:n}),Pe=qr(1),Re=Symbol.for("lit-noChange"),ve=Symbol.for("lit-nothing"),ci=new WeakMap,ft=mt.createTreeWalker(mt,129,null,!1);function Zi(e,t){if(!Array.isArray(e)||!e.hasOwnProperty("raw"))throw Error("invalid template strings array");return ii!==void 0?ii.createHTML(t):t}const Qi=(e,t)=>{const n=e.length-1,o=[];let i,s=t===2?"<svg>":"",r=Ht;for(let l=0;l<n;l++){const a=e[l];let u,c,p=-1,h=0;for(;h<a.length&&(r.lastIndex=h,c=r.exec(a),c!==null);)h=r.lastIndex,r===Ht?c[1]==="!--"?r=si:c[1]!==void 0?r=ri:c[2]!==void 0?(qi.test(c[2])&&(i=RegExp("</"+c[2],"g")),r=at):c[3]!==void 0&&(r=at):r===at?c[0]===">"?(r=i??Ht,p=-1):c[1]===void 0?p=-2:(p=r.lastIndex-c[2].length,u=c[1],r=c[3]===void 0?at:c[3]==='"'?ai:li):r===ai||r===li?r=at:r===si||r===ri?r=Ht:(r=at,i=void 0);const d=r===at&&e[l+1].startsWith("/>")?" ":"";s+=r===Ht?a+Xr:p>=0?(o.push(u),a.slice(0,p)+In+a.slice(p)+We+d):a+We+(p===-2?(o.push(void 0),l):d)}return[Zi(e,s+(e[n]||"<?>")+(t===2?"</svg>":"")),o]};class en{constructor({strings:t,_$litType$:n},o){let i;this.parts=[];let s=0,r=0;const l=t.length-1,a=this.parts,[u,c]=Qi(t,n);if(this.el=en.createElement(u,o),ft.currentNode=this.el.content,n===2){const p=this.el.content,h=p.firstChild;h.remove(),p.append(...h.childNodes)}for(;(i=ft.nextNode())!==null&&a.length<l;){if(i.nodeType===1){if(i.hasAttributes()){const p=[];for(const h of i.getAttributeNames())if(h.endsWith(In)||h.startsWith(We)){const d=c[r++];if(p.push(h),d!==void 0){const f=i.getAttribute(d.toLowerCase()+In).split(We),m=/([.?@])?(.*)/.exec(d);a.push({type:1,index:s,name:m[2],strings:f,ctor:m[1]==="."?ts:m[1]==="?"?ns:m[1]==="@"?os:sn})}else a.push({type:6,index:s})}for(const h of p)i.removeAttribute(h)}if(qi.test(i.tagName)){const p=i.textContent.split(We),h=p.length-1;if(h>0){i.textContent=It?It.emptyScript:"";for(let d=0;d<h;d++)i.append(p[d],Zt()),ft.nextNode(),a.push({type:2,index:++s});i.append(p[h],Zt())}}}else if(i.nodeType===8)if(i.data===To)a.push({type:2,index:s});else{let p=-1;for(;(p=i.data.indexOf(We,p+1))!==-1;)a.push({type:7,index:s}),p+=We.length-1}s++}}static createElement(t,n){const o=mt.createElement("template");return o.innerHTML=t,o}}function gt(e,t,n=e,o){var i,s,r,l;if(t===Re)return t;let a=o!==void 0?(i=n._$Co)===null||i===void 0?void 0:i[o]:n._$Cl;const u=Qt(t)?void 0:t._$litDirective$;return(a==null?void 0:a.constructor)!==u&&((s=a==null?void 0:a._$AO)===null||s===void 0||s.call(a,!1),u===void 0?a=void 0:(a=new u(e),a._$AT(e,n,o)),o!==void 0?((r=(l=n)._$Co)!==null&&r!==void 0?r:l._$Co=[])[o]=a:n._$Cl=a),a!==void 0&&(t=gt(e,a._$AS(e,t.values),a,o)),t}class es{constructor(t,n){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=n}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){var n;const{el:{content:o},parts:i}=this._$AD,s=((n=t==null?void 0:t.creationScope)!==null&&n!==void 0?n:mt).importNode(o,!0);ft.currentNode=s;let r=ft.nextNode(),l=0,a=0,u=i[0];for(;u!==void 0;){if(l===u.index){let c;u.type===2?c=new Lt(r,r.nextSibling,this,t):u.type===1?c=new u.ctor(r,u.name,u.strings,this,t):u.type===6&&(c=new is(r,this,t)),this._$AV.push(c),u=i[++a]}l!==(u==null?void 0:u.index)&&(r=ft.nextNode(),l++)}return ft.currentNode=mt,s}v(t){let n=0;for(const o of this._$AV)o!==void 0&&(o.strings!==void 0?(o._$AI(t,o,n),n+=o.strings.length-2):o._$AI(t[n])),n++}}class Lt{constructor(t,n,o,i){var s;this.type=2,this._$AH=ve,this._$AN=void 0,this._$AA=t,this._$AB=n,this._$AM=o,this.options=i,this._$Cp=(s=i==null?void 0:i.isConnected)===null||s===void 0||s}get _$AU(){var t,n;return(n=(t=this._$AM)===null||t===void 0?void 0:t._$AU)!==null&&n!==void 0?n:this._$Cp}get parentNode(){let t=this._$AA.parentNode;const n=this._$AM;return n!==void 0&&(t==null?void 0:t.nodeType)===11&&(t=n.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,n=this){t=gt(this,t,n),Qt(t)?t===ve||t==null||t===""?(this._$AH!==ve&&this._$AR(),this._$AH=ve):t!==this._$AH&&t!==Re&&this._(t):t._$litType$!==void 0?this.g(t):t.nodeType!==void 0?this.$(t):Xi(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==ve&&Qt(this._$AH)?this._$AA.nextSibling.data=t:this.$(mt.createTextNode(t)),this._$AH=t}g(t){var n;const{values:o,_$litType$:i}=t,s=typeof i=="number"?this._$AC(t):(i.el===void 0&&(i.el=en.createElement(Zi(i.h,i.h[0]),this.options)),i);if(((n=this._$AH)===null||n===void 0?void 0:n._$AD)===s)this._$AH.v(o);else{const r=new es(s,this),l=r.u(this.options);r.v(o),this.$(l),this._$AH=r}}_$AC(t){let n=ci.get(t.strings);return n===void 0&&ci.set(t.strings,n=new en(t)),n}T(t){Ji(this._$AH)||(this._$AH=[],this._$AR());const n=this._$AH;let o,i=0;for(const s of t)i===n.length?n.push(o=new Lt(this.k(Zt()),this.k(Zt()),this,this.options)):o=n[i],o._$AI(s),i++;i<n.length&&(this._$AR(o&&o._$AB.nextSibling,i),n.length=i)}_$AR(t=this._$AA.nextSibling,n){var o;for((o=this._$AP)===null||o===void 0||o.call(this,!1,!0,n);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i}}setConnected(t){var n;this._$AM===void 0&&(this._$Cp=t,(n=this._$AP)===null||n===void 0||n.call(this,t))}}class sn{constructor(t,n,o,i,s){this.type=1,this._$AH=ve,this._$AN=void 0,this.element=t,this.name=n,this._$AM=i,this.options=s,o.length>2||o[0]!==""||o[1]!==""?(this._$AH=Array(o.length-1).fill(new String),this.strings=o):this._$AH=ve}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,n=this,o,i){const s=this.strings;let r=!1;if(s===void 0)t=gt(this,t,n,0),r=!Qt(t)||t!==this._$AH&&t!==Re,r&&(this._$AH=t);else{const l=t;let a,u;for(t=s[0],a=0;a<s.length-1;a++)u=gt(this,l[o+a],n,a),u===Re&&(u=this._$AH[a]),r||(r=!Qt(u)||u!==this._$AH[a]),u===ve?t=ve:t!==ve&&(t+=(u??"")+s[a+1]),this._$AH[a]=u}r&&!i&&this.j(t)}j(t){t===ve?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class ts extends sn{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===ve?void 0:t}}const Zr=It?It.emptyScript:"";class ns extends sn{constructor(){super(...arguments),this.type=4}j(t){t&&t!==ve?this.element.setAttribute(this.name,Zr):this.element.removeAttribute(this.name)}}class os extends sn{constructor(t,n,o,i,s){super(t,n,o,i,s),this.type=5}_$AI(t,n=this){var o;if((t=(o=gt(this,t,n,0))!==null&&o!==void 0?o:ve)===Re)return;const i=this._$AH,s=t===ve&&i!==ve||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,r=t!==ve&&(i===ve||s);s&&this.element.removeEventListener(this.name,this,i),r&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var n,o;typeof this._$AH=="function"?this._$AH.call((o=(n=this.options)===null||n===void 0?void 0:n.host)!==null&&o!==void 0?o:this.element,t):this._$AH.handleEvent(t)}}class is{constructor(t,n,o){this.element=t,this.type=6,this._$AN=void 0,this._$AM=n,this.options=o}get _$AU(){return this._$AM._$AU}_$AI(t){gt(this,t)}}const Qr={O:In,P:We,A:To,C:1,M:Qi,L:es,R:Xi,D:gt,I:Lt,V:sn,H:ns,N:os,U:ts,F:is},ui=jn.litHtmlPolyfillSupport;ui==null||ui(en,Lt),((Qn=jn.litHtmlVersions)!==null&&Qn!==void 0?Qn:jn.litHtmlVersions=[]).push("2.8.0");const el=(e,t,n)=>{var o,i;const s=(o=n==null?void 0:n.renderBefore)!==null&&o!==void 0?o:t;let r=s._$litPart$;if(r===void 0){const l=(i=n==null?void 0:n.renderBefore)!==null&&i!==void 0?i:null;s._$litPart$=r=new Lt(t.insertBefore(Zt(),l),l,void 0,n??{})}return r._$AI(e),r};var to,no;let ot=class extends kt{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var t,n;const o=super.createRenderRoot();return(t=(n=this.renderOptions).renderBefore)!==null&&t!==void 0||(n.renderBefore=o.firstChild),o}update(t){const n=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=el(n,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),(t=this._$Do)===null||t===void 0||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),(t=this._$Do)===null||t===void 0||t.setConnected(!1)}render(){return Re}};ot.finalized=!0,ot._$litElement$=!0,(to=globalThis.litElementHydrateSupport)===null||to===void 0||to.call(globalThis,{LitElement:ot});const di=globalThis.litElementPolyfillSupport;di==null||di({LitElement:ot});((no=globalThis.litElementVersions)!==null&&no!==void 0?no:globalThis.litElementVersions=[]).push("3.3.3");const Dn=e=>t=>typeof t=="function"?((n,o)=>(customElements.define(n,o),o))(e,t):((n,o)=>{const{kind:i,elements:s}=o;return{kind:i,elements:s,finisher(r){customElements.define(n,r)}}})(e,t);const tl=(e,t)=>t.kind==="method"&&t.descriptor&&!("value"in t.descriptor)?{...t,finisher(n){n.createProperty(t.key,e)}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:t.key,initializer(){typeof t.initializer=="function"&&(this[t.key]=t.initializer.call(this))},finisher(n){n.createProperty(t.key,e)}},nl=(e,t,n)=>{t.constructor.createProperty(n,e)};function be(e){return(t,n)=>n!==void 0?nl(e,t,n):tl(e,t)}function rt(e){return be({...e,state:!0})}var oo;((oo=window.HTMLSlotElement)===null||oo===void 0?void 0:oo.prototype.assignedElements)!=null;const Be={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},rn=e=>(...t)=>({_$litDirective$:e,values:t});class ln{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,n,o){this._$Ct=t,this._$AM=n,this._$Ci=o}_$AS(t,n){return this.update(t,n)}update(t,n){return this.render(...n)}}const{I:ol}=Qr,ss=e=>e.strings===void 0,fi=()=>document.createComment(""),zt=(e,t,n)=>{var o;const i=e._$AA.parentNode,s=t===void 0?e._$AB:t._$AA;if(n===void 0){const r=i.insertBefore(fi(),s),l=i.insertBefore(fi(),s);n=new ol(r,l,e,e.options)}else{const r=n._$AB.nextSibling,l=n._$AM,a=l!==e;if(a){let u;(o=n._$AQ)===null||o===void 0||o.call(n,e),n._$AM=e,n._$AP!==void 0&&(u=e._$AU)!==l._$AU&&n._$AP(u)}if(r!==s||a){let u=n._$AA;for(;u!==r;){const c=u.nextSibling;i.insertBefore(u,s),u=c}}}return n},ct=(e,t,n=e)=>(e._$AI(t,n),e),il={},rs=(e,t=il)=>e._$AH=t,sl=e=>e._$AH,io=e=>{var t;(t=e._$AP)===null||t===void 0||t.call(e,!1,!0);let n=e._$AA;const o=e._$AB.nextSibling;for(;n!==o;){const i=n.nextSibling;n.remove(),n=i}};const pi=(e,t,n)=>{const o=new Map;for(let i=t;i<=n;i++)o.set(e[i],i);return o},rl=rn(class extends ln{constructor(e){if(super(e),e.type!==Be.CHILD)throw Error("repeat() can only be used in text expressions")}ct(e,t,n){let o;n===void 0?n=t:t!==void 0&&(o=t);const i=[],s=[];let r=0;for(const l of e)i[r]=o?o(l,r):r,s[r]=n(l,r),r++;return{values:s,keys:i}}render(e,t,n){return this.ct(e,t,n).values}update(e,[t,n,o]){var i;const s=sl(e),{values:r,keys:l}=this.ct(t,n,o);if(!Array.isArray(s))return this.ut=l,r;const a=(i=this.ut)!==null&&i!==void 0?i:this.ut=[],u=[];let c,p,h=0,d=s.length-1,f=0,m=r.length-1;for(;h<=d&&f<=m;)if(s[h]===null)h++;else if(s[d]===null)d--;else if(a[h]===l[f])u[f]=ct(s[h],r[f]),h++,f++;else if(a[d]===l[m])u[m]=ct(s[d],r[m]),d--,m--;else if(a[h]===l[m])u[m]=ct(s[h],r[m]),zt(e,u[m+1],s[h]),h++,m--;else if(a[d]===l[f])u[f]=ct(s[d],r[f]),zt(e,s[h],s[d]),d--,f++;else if(c===void 0&&(c=pi(l,f,m),p=pi(a,h,d)),c.has(a[h]))if(c.has(a[d])){const w=p.get(l[f]),$=w!==void 0?s[w]:null;if($===null){const b=zt(e,s[h]);ct(b,r[f]),u[f]=b}else u[f]=ct($,r[f]),zt(e,s[h],$),s[w]=null;f++}else io(s[d]),d--;else io(s[h]),h++;for(;f<=m;){const w=zt(e,u[m+1]);ct(w,r[f]),u[f++]=w}for(;h<=d;){const w=s[h++];w!==null&&io(w)}return this.ut=l,rs(e,u),Re}});const ll=rn(class extends ln{constructor(e){if(super(e),e.type!==Be.PROPERTY&&e.type!==Be.ATTRIBUTE&&e.type!==Be.BOOLEAN_ATTRIBUTE)throw Error("The `live` directive is not allowed on child or event bindings");if(!ss(e))throw Error("`live` bindings can only contain a single expression")}render(e){return e}update(e,[t]){if(t===Re||t===ve)return t;const n=e.element,o=e.name;if(e.type===Be.PROPERTY){if(t===n[o])return Re}else if(e.type===Be.BOOLEAN_ATTRIBUTE){if(!!t===n.hasAttribute(o))return Re}else if(e.type===Be.ATTRIBUTE&&n.getAttribute(o)===t+"")return Re;return rs(e),t}});const Wt=(e,t)=>{var n,o;const i=e._$AN;if(i===void 0)return!1;for(const s of i)(o=(n=s)._$AO)===null||o===void 0||o.call(n,t,!1),Wt(s,t);return!0},Nn=e=>{let t,n;do{if((t=e._$AM)===void 0)break;n=t._$AN,n.delete(e),e=t}while((n==null?void 0:n.size)===0)},ls=e=>{for(let t;t=e._$AM;e=t){let n=t._$AN;if(n===void 0)t._$AN=n=new Set;else if(n.has(e))break;n.add(e),ul(t)}};function al(e){this._$AN!==void 0?(Nn(this),this._$AM=e,ls(this)):this._$AM=e}function cl(e,t=!1,n=0){const o=this._$AH,i=this._$AN;if(i!==void 0&&i.size!==0)if(t)if(Array.isArray(o))for(let s=n;s<o.length;s++)Wt(o[s],!1),Nn(o[s]);else o!=null&&(Wt(o,!1),Nn(o));else Wt(this,e)}const ul=e=>{var t,n,o,i;e.type==Be.CHILD&&((t=(o=e)._$AP)!==null&&t!==void 0||(o._$AP=cl),(n=(i=e)._$AQ)!==null&&n!==void 0||(i._$AQ=al))};class dl extends ln{constructor(){super(...arguments),this._$AN=void 0}_$AT(t,n,o){super._$AT(t,n,o),ls(this),this.isConnected=t._$AU}_$AO(t,n=!0){var o,i;t!==this.isConnected&&(this.isConnected=t,t?(o=this.reconnected)===null||o===void 0||o.call(this):(i=this.disconnected)===null||i===void 0||i.call(this)),n&&(Wt(this,t),Nn(this))}setValue(t){if(ss(this._$Ct))this._$Ct._$AI(t,this);else{const n=[...this._$Ct._$AH];n[this._$Ci]=t,this._$Ct._$AI(n,this,0)}}disconnected(){}reconnected(){}}const as=()=>new fl;let fl=class{};const so=new WeakMap,cs=rn(class extends dl{render(e){return ve}update(e,[t]){var n;const o=t!==this.G;return o&&this.G!==void 0&&this.ot(void 0),(o||this.rt!==this.lt)&&(this.G=t,this.dt=(n=e.options)===null||n===void 0?void 0:n.host,this.ot(this.lt=e.element)),ve}ot(e){var t;if(typeof this.G=="function"){const n=(t=this.dt)!==null&&t!==void 0?t:globalThis;let o=so.get(n);o===void 0&&(o=new WeakMap,so.set(n,o)),o.get(this.G)!==void 0&&this.G.call(this.dt,void 0),o.set(this.G,e),e!==void 0&&this.G.call(this.dt,e)}else this.G.value=e}get rt(){var e,t,n;return typeof this.G=="function"?(t=so.get((e=this.dt)!==null&&e!==void 0?e:globalThis))===null||t===void 0?void 0:t.get(this.G):(n=this.G)===null||n===void 0?void 0:n.value}disconnected(){this.rt===this.lt&&this.ot(void 0)}reconnected(){this.ot(this.lt)}});const ko=rn(class extends ln{constructor(e){var t;if(super(e),e.type!==Be.ATTRIBUTE||e.name!=="class"||((t=e.strings)===null||t===void 0?void 0:t.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(e){return" "+Object.keys(e).filter(t=>e[t]).join(" ")+" "}update(e,[t]){var n,o;if(this.it===void 0){this.it=new Set,e.strings!==void 0&&(this.nt=new Set(e.strings.join(" ").split(/\s/).filter(s=>s!=="")));for(const s in t)t[s]&&!(!((n=this.nt)===null||n===void 0)&&n.has(s))&&this.it.add(s);return this.render(t)}const i=e.element.classList;this.it.forEach(s=>{s in t||(i.remove(s),this.it.delete(s))});for(const s in t){const r=!!t[s];r===this.it.has(s)||!((o=this.nt)===null||o===void 0)&&o.has(s)||(r?(i.add(s),this.it.add(s)):(i.remove(s),this.it.delete(s)))}return Re}});var an=function(e,t,n,o){var i=arguments.length,s=i<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,n):o,r;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(e,t,n,o);else for(var l=e.length-1;l>=0;l--)(r=e[l])&&(s=(i<3?r(s):i>3?r(t,n,s):r(t,n))||s);return i>3&&s&&Object.defineProperty(t,n,s),s};let vt=class extends ot{constructor(){super(...arguments),this.placeholder="",this.hideBreadcrumbs=!1,this.breadcrumbHome="Home",this.breadcrumbs=[],this._inputRef=as()}render(){let t="";if(!this.hideBreadcrumbs){const n=[];for(const o of this.breadcrumbs)n.push(Pe`<button tabindex="-1" @click="${()=>this.selectParent(o)}" class="breadcrumb">${o}</button>`);t=Pe`<div class="breadcrumb-list"><button tabindex="-1" @click="${()=>this.selectParent()}" class="breadcrumb">${this.breadcrumbHome}</button> ${n}</div>`}return Pe`${t}<div part="ninja-input-wrapper" class="search-wrapper"><input part="ninja-input" type="text" id="search" spellcheck="false" autocomplete="off" @input="${this._handleInput}" ${cs(this._inputRef)} placeholder="${this.placeholder}" class="search"></div>`}setSearch(t){this._inputRef.value&&(this._inputRef.value.value=t)}focusSearch(){requestAnimationFrame(()=>this._inputRef.value.focus())}_handleInput(t){const n=t.target;this.dispatchEvent(new CustomEvent("change",{detail:{search:n.value},bubbles:!1,composed:!1}))}selectParent(t){this.dispatchEvent(new CustomEvent("setParent",{detail:{parent:t},bubbles:!0,composed:!0}))}firstUpdated(){this.focusSearch()}_close(){this.dispatchEvent(new CustomEvent("close",{bubbles:!0,composed:!0}))}};vt.styles=zn`:host{flex:1;position:relative}.search{padding:1.25em;flex-grow:1;flex-shrink:0;margin:0;border:none;appearance:none;font-size:1.125em;background:0 0;caret-color:var(--ninja-accent-color);color:var(--ninja-text-color);outline:0;font-family:var(--ninja-font-family)}.search::placeholder{color:var(--ninja-placeholder-color)}.breadcrumb-list{padding:1em 4em 0 1em;display:flex;flex-direction:row;align-items:stretch;justify-content:flex-start;flex:initial}.breadcrumb{background:var(--ninja-secondary-background-color);text-align:center;line-height:1.2em;border-radius:var(--ninja-key-border-radius);border:0;cursor:pointer;padding:.1em .5em;color:var(--ninja-secondary-text-color);margin-right:.5em;outline:0;font-family:var(--ninja-font-family)}.search-wrapper{display:flex;border-bottom:var(--ninja-separate-border)}`;an([be()],vt.prototype,"placeholder",void 0);an([be({type:Boolean})],vt.prototype,"hideBreadcrumbs",void 0);an([be()],vt.prototype,"breadcrumbHome",void 0);an([be({type:Array})],vt.prototype,"breadcrumbs",void 0);vt=an([Dn("ninja-header")],vt);class xo extends ln{constructor(t){if(super(t),this.et=ve,t.type!==Be.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(t){if(t===ve||t==null)return this.ft=void 0,this.et=t;if(t===Re)return t;if(typeof t!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(t===this.et)return this.ft;this.et=t;const n=[t];return n.raw=n,this.ft={_$litType$:this.constructor.resultType,strings:n,values:[]}}}xo.directiveName="unsafeHTML",xo.resultType=1;const pl=rn(xo);function*hl(e,t){const n=typeof t=="function";if(e!==void 0){let o=-1;for(const i of e)o>-1&&(yield n?t(o):t),o++,yield i}}function ml(e,t,n,o){var i=arguments.length,s=i<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,n):o,r;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(e,t,n,o);else for(var l=e.length-1;l>=0;l--)(r=e[l])&&(s=(i<3?r(s):i>3?r(t,n,s):r(t,n))||s);return i>3&&s&&Object.defineProperty(t,n,s),s}const gl=zn`:host{font-family:var(--mdc-icon-font, "Material Icons");font-weight:400;font-style:normal;font-size:var(--mdc-icon-size,24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}`;let So=class extends ot{render(){return Pe`<span><slot></slot></span>`}};So.styles=[gl];So=ml([Dn("mwc-icon")],So);var Fn=function(e,t,n,o){var i=arguments.length,s=i<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,n):o,r;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(e,t,n,o);else for(var l=e.length-1;l>=0;l--)(r=e[l])&&(s=(i<3?r(s):i>3?r(t,n,s):r(t,n))||s);return i>3&&s&&Object.defineProperty(t,n,s),s};let Nt=class extends ot{constructor(){super(),this.selected=!1,this.hotKeysJoinedView=!0,this.addEventListener("click",this.click)}ensureInView(){requestAnimationFrame(()=>this.scrollIntoView({block:"nearest"}))}click(){this.dispatchEvent(new CustomEvent("actionsSelected",{detail:this.action,bubbles:!0,composed:!0}))}updated(t){t.has("selected")&&this.selected&&this.ensureInView()}render(){let t;this.action.mdIcon?t=Pe`<mwc-icon part="ninja-icon" class="ninja-icon">${this.action.mdIcon}</mwc-icon>`:this.action.icon&&(t=pl(this.action.icon||""));let n;this.action.hotkey&&(this.hotKeysJoinedView?n=this.action.hotkey.split(",").map(i=>{const s=i.split("+"),r=Pe`${hl(s.map(l=>Pe`<kbd>${l}</kbd>`),"+")}`;return Pe`<div class="ninja-hotkey ninja-hotkeys">${r}</div>`}):n=this.action.hotkey.split(",").map(i=>{const r=i.split("+").map(l=>Pe`<kbd class="ninja-hotkey">${l}</kbd>`);return Pe`<kbd class="ninja-hotkeys">${r}</kbd>`}));const o={selected:this.selected,"ninja-action":!0};return Pe`<div class="ninja-action" part="ninja-action ${this.selected?"ninja-selected":""}" class="${ko(o)}">${t}<div class="ninja-title">${this.action.title}</div>${n}</div>`}};Nt.styles=zn`:host{display:flex;width:100%}.ninja-action{padding:.75em 1em;display:flex;border-left:2px solid transparent;align-items:center;justify-content:start;outline:0;transition:color 0s ease 0s;width:100%}.ninja-action.selected{cursor:pointer;color:var(--ninja-selected-text-color);background-color:var(--ninja-selected-background);border-left:2px solid var(--ninja-accent-color);outline:0}.ninja-action.selected .ninja-icon{color:var(--ninja-selected-text-color)}.ninja-icon{font-size:var(--ninja-icon-size);max-width:var(--ninja-icon-size);max-height:var(--ninja-icon-size);margin-right:1em;color:var(--ninja-icon-color);margin-right:1em;position:relative}.ninja-title{flex-shrink:.01;margin-right:.5em;flex-grow:1;font-size:.8125em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ninja-hotkeys{flex-shrink:0;width:min-content;display:flex}.ninja-hotkeys kbd{font-family:inherit}.ninja-hotkey{background:var(--ninja-secondary-background-color);padding:.06em .25em;border-radius:var(--ninja-key-border-radius);text-transform:capitalize;color:var(--ninja-secondary-text-color);font-size:.75em;font-family:inherit}.ninja-hotkey+.ninja-hotkey{margin-left:.5em}.ninja-hotkeys+.ninja-hotkeys{margin-left:1em}`;Fn([be({type:Object})],Nt.prototype,"action",void 0);Fn([be({type:Boolean})],Nt.prototype,"selected",void 0);Fn([be({type:Boolean})],Nt.prototype,"hotKeysJoinedView",void 0);Nt=Fn([Dn("ninja-action")],Nt);const vl=Pe`<div class="modal-footer" slot="footer"><span class="help"><svg version="1.0" class="ninja-examplekey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1280"><path d="M1013 376c0 73.4-.4 113.3-1.1 120.2a159.9 159.9 0 0 1-90.2 127.3c-20 9.6-36.7 14-59.2 15.5-7.1.5-121.9.9-255 1h-242l95.5-95.5 95.5-95.5-38.3-38.2-38.2-38.3-160 160c-88 88-160 160.4-160 161 0 .6 72 73 160 161l160 160 38.2-38.3 38.3-38.2-95.5-95.5-95.5-95.5h251.1c252.9 0 259.8-.1 281.4-3.6 72.1-11.8 136.9-54.1 178.5-116.4 8.6-12.9 22.6-40.5 28-55.4 4.4-12 10.7-36.1 13.1-50.6 1.6-9.6 1.8-21 2.1-132.8l.4-122.2H1013v110z"/></svg> to select </span><span class="help"><svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg> to navigate </span><span class="help"><span class="ninja-examplekey esc">esc</span> to close </span><span class="help"><svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey backspace" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z" clip-rule="evenodd"/></svg> move to parent</span></div>`,yl=zn`:host{--ninja-width:640px;--ninja-backdrop-filter:none;--ninja-overflow-background:rgba(255, 255, 255, 0.5);--ninja-text-color:rgb(60, 65, 73);--ninja-font-size:16px;--ninja-top:20%;--ninja-key-border-radius:0.25em;--ninja-accent-color:rgb(110, 94, 210);--ninja-secondary-background-color:rgb(239, 241, 244);--ninja-secondary-text-color:rgb(107, 111, 118);--ninja-selected-background:rgb(248, 249, 251);--ninja-icon-color:var(--ninja-secondary-text-color);--ninja-icon-size:1.2em;--ninja-separate-border:1px solid var(--ninja-secondary-background-color);--ninja-modal-background:#fff;--ninja-modal-shadow:rgb(0 0 0 / 50%) 0px 16px 70px;--ninja-actions-height:300px;--ninja-group-text-color:rgb(144, 149, 157);--ninja-footer-background:rgba(242, 242, 242, 0.4);--ninja-placeholder-color:#8e8e8e;font-size:var(--ninja-font-size);--ninja-z-index:1}:host(.dark){--ninja-backdrop-filter:none;--ninja-overflow-background:rgba(0, 0, 0, 0.7);--ninja-text-color:#7d7d7d;--ninja-modal-background:rgba(17, 17, 17, 0.85);--ninja-accent-color:rgb(110, 94, 210);--ninja-secondary-background-color:rgba(51, 51, 51, 0.44);--ninja-secondary-text-color:#888;--ninja-selected-text-color:#eaeaea;--ninja-selected-background:rgba(51, 51, 51, 0.44);--ninja-icon-color:var(--ninja-secondary-text-color);--ninja-separate-border:1px solid var(--ninja-secondary-background-color);--ninja-modal-shadow:0 16px 70px rgba(0, 0, 0, 0.2);--ninja-group-text-color:rgb(144, 149, 157);--ninja-footer-background:rgba(30, 30, 30, 85%)}.modal{display:none;position:fixed;z-index:var(--ninja-z-index);left:0;top:0;width:100%;height:100%;overflow:auto;background:var(--ninja-overflow-background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-backdrop-filter:var(--ninja-backdrop-filter);backdrop-filter:var(--ninja-backdrop-filter);text-align:left;color:var(--ninja-text-color);font-family:var(--ninja-font-family)}.modal.visible{display:block}.modal-content{position:relative;top:var(--ninja-top);margin:auto;padding:0;display:flex;flex-direction:column;flex-shrink:1;-webkit-box-flex:1;flex-grow:1;min-width:0;will-change:transform;background:var(--ninja-modal-background);border-radius:.5em;box-shadow:var(--ninja-modal-shadow);max-width:var(--ninja-width);overflow:hidden}.bump{animation:zoom-in-zoom-out .2s ease}@keyframes zoom-in-zoom-out{0%{transform:scale(.99)}50%{transform:scale(1.01,1.01)}100%{transform:scale(1,1)}}.ninja-github{color:var(--ninja-keys-text-color);font-weight:400;text-decoration:none}.actions-list{max-height:var(--ninja-actions-height);overflow:auto;scroll-behavior:smooth;position:relative;margin:0;padding:.5em 0;list-style:none;scroll-behavior:smooth}.group-header{height:1.375em;line-height:1.375em;padding-left:1.25em;padding-top:.5em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:.75em;line-height:1em;color:var(--ninja-group-text-color);margin:1px 0}.modal-footer{background:var(--ninja-footer-background);padding:.5em 1em;display:flex;border-top:var(--ninja-separate-border);color:var(--ninja-secondary-text-color)}.modal-footer .help{display:flex;margin-right:1em;align-items:center;font-size:.75em}.ninja-examplekey{background:var(--ninja-secondary-background-color);padding:.06em .25em;border-radius:var(--ninja-key-border-radius);color:var(--ninja-secondary-text-color);width:1em;height:1em;margin-right:.5em;font-size:1.25em;fill:currentColor}.ninja-examplekey.esc{width:auto;height:auto;font-size:1.1em}.ninja-examplekey.backspace{opacity:.7}`;var we=function(e,t,n,o){var i=arguments.length,s=i<3?t:o===null?o=Object.getOwnPropertyDescriptor(t,n):o,r;if(typeof Reflect=="object"&&typeof Reflect.decorate=="function")s=Reflect.decorate(e,t,n,o);else for(var l=e.length-1;l>=0;l--)(r=e[l])&&(s=(i<3?r(s):i>3?r(t,n,s):r(t,n))||s);return i>3&&s&&Object.defineProperty(t,n,s),s};let _e=class extends ot{constructor(){super(...arguments),this.placeholder="Type a command or search...",this.disableHotkeys=!1,this.hideBreadcrumbs=!1,this.openHotkey="cmd+k,ctrl+k",this.navigationUpHotkey="up,shift+tab",this.navigationDownHotkey="down,tab",this.closeHotkey="esc",this.goBackHotkey="backspace",this.selectHotkey="enter",this.hotKeysJoinedView=!1,this.noAutoLoadMdIcons=!1,this.data=[],this.visible=!1,this._bump=!0,this._actionMatches=[],this._search="",this._flatData=[],this._headerRef=as()}open(t={}){this._bump=!0,this.visible=!0,this._headerRef.value.focusSearch(),this._actionMatches.length>0&&(this._selected=this._actionMatches[0]),this.setParent(t.parent)}close(){this._bump=!1,this.visible=!1}setParent(t){t?this._currentRoot=t:this._currentRoot=void 0,this._selected=void 0,this._search="",this._headerRef.value.setSearch("")}get breadcrumbs(){var t;const n=[];let o=(t=this._selected)===null||t===void 0?void 0:t.parent;if(o)for(n.push(o);o;){const i=this._flatData.find(s=>s.id===o);i!=null&&i.parent&&n.push(i.parent),o=i?i.parent:void 0}return n.reverse()}connectedCallback(){super.connectedCallback(),this.noAutoLoadMdIcons||document.fonts.load("24px Material Icons","apps").then(()=>{}),this._registerInternalHotkeys()}disconnectedCallback(){super.disconnectedCallback(),this._unregisterInternalHotkeys()}_flattern(t,n){let o=[];return t||(t=[]),t.map(i=>{const s=i.children&&i.children.some(l=>typeof l=="string"),r={...i,parent:i.parent||n};return s||(r.children&&r.children.length&&(n=i.id,o=[...o,...r.children]),r.children=r.children?r.children.map(l=>l.id):[]),r}).concat(o.length?this._flattern(o,n):o)}update(t){t.has("data")&&!this.disableHotkeys&&(this._flatData=this._flattern(this.data),this._flatData.filter(n=>!!n.hotkey).forEach(n=>{ge(n.hotkey,o=>{o.preventDefault(),n.handler&&n.handler(n)})})),super.update(t)}_registerInternalHotkeys(){this.openHotkey&&ge(this.openHotkey,t=>{t.preventDefault(),this.visible?this.close():this.open()}),this.selectHotkey&&ge(this.selectHotkey,t=>{this.visible&&(t.preventDefault(),this._actionSelected(this._actionMatches[this._selectedIndex]))}),this.goBackHotkey&&ge(this.goBackHotkey,t=>{this.visible&&(this._search||(t.preventDefault(),this._goBack()))}),this.navigationDownHotkey&&ge(this.navigationDownHotkey,t=>{this.visible&&(t.preventDefault(),this._selectedIndex>=this._actionMatches.length-1?this._selected=this._actionMatches[0]:this._selected=this._actionMatches[this._selectedIndex+1])}),this.navigationUpHotkey&&ge(this.navigationUpHotkey,t=>{this.visible&&(t.preventDefault(),this._selectedIndex===0?this._selected=this._actionMatches[this._actionMatches.length-1]:this._selected=this._actionMatches[this._selectedIndex-1])}),this.closeHotkey&&ge(this.closeHotkey,()=>{this.visible&&this.close()})}_unregisterInternalHotkeys(){this.openHotkey&&ge.unbind(this.openHotkey),this.selectHotkey&&ge.unbind(this.selectHotkey),this.goBackHotkey&&ge.unbind(this.goBackHotkey),this.navigationDownHotkey&&ge.unbind(this.navigationDownHotkey),this.navigationUpHotkey&&ge.unbind(this.navigationUpHotkey),this.closeHotkey&&ge.unbind(this.closeHotkey)}_actionFocused(t,n){this._selected=t,n.target.ensureInView()}_onTransitionEnd(){this._bump=!1}_goBack(){const t=this.breadcrumbs.length>1?this.breadcrumbs[this.breadcrumbs.length-2]:void 0;this.setParent(t)}render(){const t={bump:this._bump,"modal-content":!0},n={visible:this.visible,modal:!0},i=this._flatData.filter(l=>{var a;const u=new RegExp(this._search,"gi"),c=l.title.match(u)||((a=l.keywords)===null||a===void 0?void 0:a.match(u));return(!this._currentRoot&&this._search||l.parent===this._currentRoot)&&c}).reduce((l,a)=>l.set(a.section,[...l.get(a.section)||[],a]),new Map);this._actionMatches=[...i.values()].flat(),this._actionMatches.length>0&&this._selectedIndex===-1&&(this._selected=this._actionMatches[0]),this._actionMatches.length===0&&(this._selected=void 0);const s=l=>Pe`${rl(l,a=>a.id,a=>{var u;return Pe`<ninja-action exportparts="ninja-action,ninja-selected,ninja-icon" .selected="${ll(a.id===((u=this._selected)===null||u===void 0?void 0:u.id))}" .hotKeysJoinedView="${this.hotKeysJoinedView}" @mouseover="${c=>this._actionFocused(a,c)}" @actionsSelected="${c=>this._actionSelected(c.detail)}" .action="${a}"></ninja-action>`})}`,r=[];return i.forEach((l,a)=>{const u=a?Pe`<div class="group-header">${a}</div>`:void 0;r.push(Pe`${u}${s(l)}`)}),Pe`<div @click="${this._overlayClick}" class="${ko(n)}"><div class="${ko(t)}" @animationend="${this._onTransitionEnd}"><ninja-header exportparts="ninja-input,ninja-input-wrapper" ${cs(this._headerRef)} .placeholder="${this.placeholder}" .hideBreadcrumbs="${this.hideBreadcrumbs}" .breadcrumbs="${this.breadcrumbs}" @change="${this._handleInput}" @setParent="${l=>this.setParent(l.detail.parent)}" @close="${this.close}"></ninja-header><div class="modal-body"><div class="actions-list" part="actions-list">${r}</div></div><slot name="footer">${vl}</slot></div></div>`}get _selectedIndex(){return this._selected?this._actionMatches.indexOf(this._selected):-1}_actionSelected(t){var n;if(this.dispatchEvent(new CustomEvent("selected",{detail:{search:this._search,action:t},bubbles:!0,composed:!0})),!!t){if(t.children&&((n=t.children)===null||n===void 0?void 0:n.length)>0&&(this._currentRoot=t.id,this._search=""),this._headerRef.value.setSearch(""),this._headerRef.value.focusSearch(),t.handler){const o=t.handler(t);o!=null&&o.keepOpen||this.close()}this._bump=!0}}async _handleInput(t){this._search=t.detail.search,await this.updateComplete,this.dispatchEvent(new CustomEvent("change",{detail:{search:this._search,actions:this._actionMatches},bubbles:!0,composed:!0}))}_overlayClick(t){var n;!((n=t.target)===null||n===void 0)&&n.classList.contains("modal")&&this.close()}};_e.styles=[yl];we([be({type:String})],_e.prototype,"placeholder",void 0);we([be({type:Boolean})],_e.prototype,"disableHotkeys",void 0);we([be({type:Boolean})],_e.prototype,"hideBreadcrumbs",void 0);we([be()],_e.prototype,"openHotkey",void 0);we([be()],_e.prototype,"navigationUpHotkey",void 0);we([be()],_e.prototype,"navigationDownHotkey",void 0);we([be()],_e.prototype,"closeHotkey",void 0);we([be()],_e.prototype,"goBackHotkey",void 0);we([be()],_e.prototype,"selectHotkey",void 0);we([be({type:Boolean})],_e.prototype,"hotKeysJoinedView",void 0);we([be({type:Boolean})],_e.prototype,"noAutoLoadMdIcons",void 0);we([be({type:Array,hasChanged(){return!0}})],_e.prototype,"data",void 0);we([rt()],_e.prototype,"visible",void 0);we([rt()],_e.prototype,"_bump",void 0);we([rt()],_e.prototype,"_actionMatches",void 0);we([rt()],_e.prototype,"_search",void 0);we([rt()],_e.prototype,"_currentRoot",void 0);we([rt()],_e.prototype,"_flatData",void 0);we([rt()],_e.prototype,"breadcrumbs",null);we([rt()],_e.prototype,"_selected",void 0);_e=we([Dn("ninja-keys")],_e);var _l=S("<ninja-keys>",!0,!1);const $l=e=>(()=>{var t=_l();return t._$owner=gs(),F(n=>{var o=e.hotkeys,i=e.placeholder,s=e.disableHotkeys,r=e.hideBreadcrumbs,l=e.openHotkey,a=e.navigationUpHotkey,u=e.navigationDownHotkey,c=e.closeHotkey,p=e.goBackHotkey,h=e.selectHotkey,d=e.hotKeysJoinedView,f=e.noAutoLoadMdIcons,m=e.isDark?"dark":"light";return o!==n.e&&(t.data=n.e=o),i!==n.t&&(t.placeholder=n.t=i),s!==n.a&&(t.disablehotkeys=n.a=s),r!==n.o&&(t.hidebreadcrumbs=n.o=r),l!==n.i&&(t.openhotkey=n.i=l),a!==n.n&&(t.navigationuphotkey=n.n=a),u!==n.s&&(t.navigationdownhotkey=n.s=u),c!==n.h&&(t.closehotkey=n.h=c),p!==n.r&&(t.gobackhotkey=n.r=p),h!==n.d&&(t.selecthotkey=n.d=h),d!==n.l&&(t.hotkeysjoinedview=n.l=d),f!==n.u&&(t.noautoloadmdicons=n.u=f),m!==n.c&&Cs(t,n.c=m),n},{e:void 0,t:void 0,a:void 0,o:void 0,i:void 0,n:void 0,s:void 0,h:void 0,r:void 0,d:void 0,l:void 0,u:void 0,c:void 0}),t})(),wl=$l;function bl(){let e;return Qe(()=>{e=document.querySelector("ninja-keys")}),{open:i=>{e==null||e.open(i?{parent:i}:void 0)},close:()=>{e==null||e.close()},setParent:i=>{e==null||e.setParent(i)}}}var kl=S("<p>Click <code>Shift</code> + <code>Left Mouse Button</code> to split a link into <code>💾Set</code> / <code>Get</code>."),xl=S("<p>Or <code>Shift + Drag</code> to create a <code>💾Set</code> / <code>Get</code> node."),Sl=S("<p>Split hotkey: <code>Shift</code> + <code>S</code> (only works when nodes are selected)."),Al=S("<p>Join hotkey: <code>Shift</code> + <code>J</code> (only works when nodes are selected)."),El=S("<p>Click <code>Convert links to set/get</code> button to split all links to<code>💾Set</code> / <code>Get</code> nodes."),Cl=S("<p>Select specific nodes and click <code>Convert links to set/get</code> button to split related links into<code>💾Set</code> / <code>Get</code> nodes."),Ol=S("<p>Click <code>Convert set/get to links</code> button to join all<code>💾Set</code> / <code>Get</code> nodes into links."),Pl=S("<p>Select specific nodes and click <code>Convert set/get to links</code> button to join related <code>💾Set</code> / <code>Get</code> nodes into links."),hi=S("<p>Select a <code>💾Set</code> node and enable tweak."),jl=S("<p>Make sure the <code>Get</code> node is assigned to a <code>Preview Image</code> or <code>Save Image</code> node."),Il=S("<p>Select a node and press <code>W</code> to rename all instances."),Nl=S("<p>Convert the text input into a separate node.<br>Assign that node to a <code>💾Set</code> node and enable tweak."),Tl=S("<p>You can use your scroll wheel to increase/decrease the weight for a token or all tokens."),Ll=S("<p>Click the pin icon to cause the prompt tweak window to float."),Ml=S("<p>The position in the graph will dictate it's position in the bar."),Rl=S("<p>You can use the scroll wheel to change numerical values."),Hl=S("<p>Click the 🚦 icon in the top bar to show available groups."),zl=S("<p>Click a group to toggle all nodes inside it."),Dl=S("<p>Press <code>Shift</code> + <code>P</code> to access command palette"),Fl=S("<p>Select a <code>Get</code> node and press <code>S</code> to jump to it's setter position."),Bl=S("<p>Select a <code>💾Set</code> or <code>Get</code> node and press <code>Arrow Left</code>/<code>Arrow Right</code> to jump to it's siblings."),Ul=S("<p>Enable the checkbox next to the token you want to temporarily disable."),Gl=S("<p><code>Double Click</code> the node title to rename it."),Kl=S("<p>Note that this doesn't work on some special nodes."),Wl=S("<p>This extension overrides the default ComfyUi search allowing you to be more flexible with your search."),Vl=S("<p>For example <code>lo mo onl</code> will match the <code>LoraLoaderModelOnly</code> node."),Yl=S("<p><code>Shift</code> + <code>Double Click</code> the group title to rename it."),Jl=S("<p>When an error is detected, you can open the Warning panel and navigate directly to the affected node."),Xl=S("<p>After a node completes execution, you can view its execution time."),ql=S("<p><code>Shift</code> + <code>Arrow Up</code> aligns nodes to the top."),Zl=S("<p><code>Shift</code> + <code>Arrow Left</code> aligns nodes to the left."),Ql=S("<p><code>Shift</code> + <code>Arrow Down</code> stacks the nodes with an even spacing downwards."),ea=S("<p>If you select a <code>💾Set</code> or <code>Get</code> node it will show all connections."),ta=S("<p>Optionally you can change settings so that it shows connections as you hover a node. <br>Either the specific link, or all."),na=S("<div class=helpPopup><div class=close>❌</div><div class=header>Get Started</div><div class=modalContent><div class=help><div class=info><div class=title></div><div class=text></div></div></div><ul class=menu>"),oa=S("<video class=video>"),ia=S("<li class=help>");const sa=e=>{const[t,n]=ne(0),o=[{name:"Assign Variables",text:[kl(),xl()],video:"https://comfyui.ma.pe/help/assign.mp4"},{name:"Split/Join Connections",text:[Sl(),Al(),El(),Cl(),Ol(),Pl()],video:"https://comfyui.ma.pe/help/splitJoin.mp4"},{name:"Add image to image preview window",text:[hi(),jl()],video:"https://comfyui.ma.pe/help/imagePreview.mp4"},{name:"Rename Variables",text:Il(),video:"https://comfyui.ma.pe/help/rename.mp4"},{name:"Make prompt tweakable",text:[Nl(),Tl()],video:"https://comfyui.ma.pe/help/prompt.mp4"},{name:"Floating prompt tweak window",text:Ll(),video:"https://comfyui.ma.pe/help/pinPromptTweak.mp4"},{name:"Add variables to top bar",text:[hi(),Ml(),Rl()],video:"https://comfyui.ma.pe/help/tweak.mp4"},{name:"Toggle entire groups",text:[Hl(),zl()],video:"https://comfyui.ma.pe/help/groupToggle.mp4"},{name:"Access command palette",text:Dl(),video:"https://comfyui.ma.pe/help/command.mp4"},{name:"Jump to Set node",text:Fl(),video:"https://comfyui.ma.pe/help/jump.mp4"},{name:"Jump to sibling nodes",text:Bl(),video:"https://comfyui.ma.pe/help/jumpSiblings.mp4"},{name:"Temporarily disable tokens",text:Ul(),video:"https://comfyui.ma.pe/help/tmpPrompt.mp4"},{name:"Rename Node",text:[Gl(),Kl()],video:"https://comfyui.ma.pe/help/renameNode.mp4"},{name:"Fuzzy Search",text:[Wl(),Vl()],video:"https://comfyui.ma.pe/help/fuzzySearch.mp4"},{name:"Rename Group",text:Yl(),video:"https://comfyui.ma.pe/help/renameGroup.mp4"},{name:"Warnings",text:Jl(),video:"https://comfyui.ma.pe/help/warnings.mp4"},{name:"Node runtime",text:Xl(),video:"https://comfyui.ma.pe/help/duration.mp4"},{name:"Organize nodes",text:[ql(),Zl(),Ql()],video:"https://comfyui.ma.pe/help/organize.mp4"},{name:"Show connections",text:[ea(),ta()],video:"https://comfyui.ma.pe/help/connections.mp4"}],i=()=>o[t()];return(()=>{var s=na(),r=s.firstChild,l=r.nextSibling,a=l.nextSibling,u=a.firstChild,c=u.firstChild,p=c.firstChild,h=p.nextSibling,d=u.nextSibling;return Eo(r,"click",e.close,!0),L(u,(()=>{var f=le(()=>!!i().video);return()=>f()?(()=>{var m=oa();return m.muted=!0,m.loop=!0,m.autoplay=!0,m.controls=!0,F(()=>he(m,"src",i().video)),m})():null})(),c),L(p,()=>i().name),L(h,()=>i().text),L(d,()=>o.map((f,m)=>(()=>{var w=ia();return w.$$click=()=>{n(m)},L(w,()=>f.name),F(()=>w.classList.toggle("active",m===t())),w})())),s})()};yt(["click"]);function ra(e,t){let n=t;for(;n!==null;){if(n===e)return!0;n=n.parentElement}return!1}function la(e){return e.filter((t,n,o)=>o.indexOf(t)===n)}var aa=S("<div class=mapeConfirmPrompt><div class=title></div><input type=text><div class=suggestions>"),ca=S("<div class=suggestion>");const ua=({title:e,position:t,callback:n,exit:o,fallback:i})=>{const[s,r]=ne(-1);let l,a;Qe(()=>{a.focus(),a.select()});const[u,c]=ne(""),[p]=ne(la(nn().map(m=>Y(m,0)))),h=m=>{ra(l,m.target)||o()},d=m=>{if(m.key==="ArrowUp"||m.key==="ArrowDown"){m.preventDefault(),m.key==="ArrowUp"&&r(s()-1),m.key==="ArrowDown"&&r(s()+1),s()<0&&r(0),s()>p().length-1&&r(p().length-1),a.select();return}if(m.key==="Enter"){s()!==-1&&c(p().filter(f)[s()]),n((u()||i)??"");return}if(m.key==="Escape"){o();return}r(-1)};Qe(()=>{document.body.addEventListener("click",h),document.body.addEventListener("keyup",d)}),Vt(()=>{document.body.removeEventListener("click",h),document.body.removeEventListener("keyup",d)});const f=m=>u().trim()===""?!0:m.match(new RegExp(u(),"i"));return(()=>{var m=aa(),w=m.firstChild,$=w.nextSibling,b=$.nextSibling,_=l;typeof _=="function"?Ct(_,m):l=m,L(w,e),$.$$keyup=x=>{x.key!=="Shift"&&c(x.currentTarget.value)};var k=a;return typeof k=="function"?Ct(k,$):a=$,he($,"placeholder",i),L(b,()=>p().filter(f).map((x,j)=>(()=>{var H=ca();return H.$$click=()=>{n(x)},L(H,x),F(()=>H.classList.toggle("selected",s()===j)),H})())),F(x=>{var j=`${t.x}px`,H=`${t.y}px`;return j!==x.e&&((x.e=j)!=null?m.style.setProperty("left",j):m.style.removeProperty("left")),H!==x.t&&((x.t=H)!=null?m.style.setProperty("top",H):m.style.removeProperty("top")),x},{e:void 0,t:void 0}),F(()=>$.value=u()),m})()};yt(["keyup","click"]);const ro=()=>{const e=document.activeElement;return e.tagName==="INPUT"&&(e.type==="text"||e.type==="number")||e.tagName==="TEXTAREA"},da=e=>{var s,r;const t=(r=(s=e.inputs)==null?void 0:s[0])==null?void 0:r.link;if(!e.graph||!t)return;const n=Ne(t);if(!n)return;const o=n.origin_id;return ae(o)},fa=e=>{var i,s,r,l,a;let t,n,o;for(const u of graph._nodes){if(u.type!==Ye||Y(u)!==e||!u.graph)continue;const c=(s=(i=u.inputs)==null?void 0:i[0])==null?void 0:s.link;if(!c)continue;const p=Ne(c);if(typeof p>"u")continue;const h=p.origin_id;if(typeof h>"u")continue;const d=p.origin_slot;if(typeof d>"u")continue;const f=u.graph.getNodeById(h);if(!f)continue;if(f.outputs[d]&&f.outputs[d].type==="IMAGE"){let w;for(const $ of He()){if(!se($)||Y($)!==e||Ie($))continue;const b=(l=(r=$.outputs)==null?void 0:r[0].links)==null?void 0:l[0];if(typeof b>"u")continue;const _=Ne(b);if(!_)continue;const k=_.target_id,x=u.graph.getNodeById(k);if(!x||!((a=x.type)!=null&&a.match(/(PreviewImage|SaveImage)/)))continue;const j=app.nodeOutputs[x.id];j&&j.images?w=nt(j.images):w=x.images}return n=f.id,t=w,o=u.id,[w,n,o]}if(typeof f>"u"||!f.widgets)continue;const m=f.widgets[d];typeof m>"u"||(n=f.id,o=u.id,t=m.value)}return[t,n,o]},pa=e=>{const t=fn().find(n=>n.title===e);t&&Oo([t.pos[0]+t.size[0]/2,t.pos[1]+t.size[1]/2],graph.list_of_graphcanvas[0])},ha=e=>{Oo([e.pos[0]+e.size[0]/2,e.pos[1]+e.size[1]/2],graph.list_of_graphcanvas[0])},Dt=e=>{for(const t of He())t.type!==Ye||!Ie(t)||Y(t)!==e||Pt(t)},ma=()=>{const e=nt(Object.values(_t()).filter(Boolean)),t={},n={};for(const o of He().filter(se)){const i=Y(o);if(o.inputs[0].link){const r=e.find(c=>{const{target_id:p}=c;return p===o.id});if(!r)continue;const{id:l,origin_id:a,origin_slot:u}=r;n[i]={id:l,originId:a,originSlot:u};continue}else{t[i]||(t[i]=[]);const r=e.find(c=>{const{origin_id:p}=c;return p===o.id});if(!r)continue;const{id:l,target_id:a,target_slot:u}=r;t[i].push({id:l,targetId:a,targetSlot:u})}}return{nodeSet:n,nodeGet:t}},ga=()=>{var u;let e=[];const t=[],n={},o={},i={},s=ma(),r=_t();for(const c of He().filter(p=>!se(p))){n[c.id]=c;let p=0;if(c.inputs)for(let h=0,d=c.inputs.length;h<d;h++)c.inputs[h]&&c.inputs[h].link!=null&&(p+=1);p==0?t.push(c):i[c.id]=p}let l=!1;for(;!l;){if(t.length==0){l=!0;break}const c=t.shift();if(e.push(c),delete n[c.id],!!c.outputs)for(let p=0;p<c.outputs.length;p++){const h=c.outputs[p],d=(u=h.links)==null?void 0:u.flatMap(m=>{const w=r[m],$=ae(w.target_id);if(!$)return m;if(se($)){const b=Y($);return s.nodeGet[b]?s.nodeGet[b].map(k=>k.id):m}return m});if(!(!h||!d||h==null||d==null||d.length==0))for(let m=0;m<d.length;m++){const w=d[m],$=r[w];if(!$||o[$.id])continue;const _=ae($.target_id);if(_==null){o[$.id]=!0;continue}o[$.id]=!0,i[_.id]-=1,i[_.id]===0&&t.push(_)}}}for(const c in n)e.push(n[c]);const a=e.length;for(let c=0;c<a;++c)e[c].order=c;e=e.sort((c,p)=>{const h=c.constructor.priority||c.priority||0,d=p.constructor.priority||p.priority||0;return h===d?c.order-p.order:h-d});for(let c=0;c<a;++c)e[c].order=c;return e},va=()=>{const e=ga();let t=50;for(const s of e)s.pos=[700,t],t+=10;const n=Math.min(...e.map(s=>s.pos[1])),o=te("nodeAlignOffsetY");let i=0;for(const s of e.sort((r,l)=>r.pos[1]-l.pos[1])){s.pos=[s.pos[0],n+i];const r=s.size[1]+o;i+=r}On(e,!1),app.graph.setDirtyCanvas(!0,!0)},mi=e=>{const[t,n,o]=e.split(".").map(parseFloat);return{major:t,minor:n,patch:o}},ya=(e,t)=>{const n=mi(e),o=mi(t);return o.major>n.major||o.major===n.major&&(o.minor>n.minor||o.minor===n.minor&&o.patch>n.patch)},_a=e=>{const t=document.createElement("style");return t.appendChild(document.createTextNode(e)),t},qe=(e,t)=>{var n,o,i;for(const s of graph._nodes){if(s.type!==Ye||Y(s)!==e||!s.inputs[0])continue;const r=(o=(n=s.inputs)==null?void 0:n[0])==null?void 0:o.link;if(r===null)continue;const l=Ne(r);if(typeof l>"u")continue;const a=l.origin_id;if(typeof a>"u")continue;const u=l.origin_slot;if(typeof u>"u"||!s.graph)continue;const c=s.graph.getNodeById(a);if(typeof c>"u")continue;const p=(i=c.widgets)==null?void 0:i[u];typeof p>"u"||(p.options&&p.options.setValue?typeof t=="function"?p.options.setValue(t(p.value)):p.options.setValue(t):typeof t=="function"?p.value=t(p.value):p.value=t,app.graph.setDirtyCanvas(!0,!0),Jt())}};var $a=S("<div class=warningsPopup><div class=close>❌</div><div class=header>Warnings</div><div class=modalContent><div class=mapeSettings>"),wa=S("<div class=mapeSetting><label class=name><small></small></label><button>Jump to node");const ba=e=>(()=>{var t=$a(),n=t.firstChild,o=n.nextSibling,i=o.nextSibling,s=i.firstChild;return Eo(n,"click",e.close,!0),L(s,()=>e.warnings.map(r=>(()=>{var l=wa(),a=l.firstChild,u=a.firstChild,c=a.nextSibling;return L(a,(()=>{var p=le(()=>!!se(r.node));return()=>{var h,d;return p()?Y(r.node):`${((h=r.node)==null?void 0:h.title)??((d=r.node)==null?void 0:d.type)}: ${r.type}`}})(),u),L(u,()=>r.text),c.$$click=()=>{Pt(r.node)},l})())),t})();yt(["click"]);var ka=S('<div class="tweak numberWrapper"><label></label><div class=value><input type=number step=1>'),xa=S('<div class="tweak numberWrapper"><label></label><div class=value><input type=number step=0.1>'),Sa=S('<div class="tweak stringContainer"><label class=interactable></label><div class=value>'),Aa=S("<div class=moveBar><div class=moveArea><div class=name></div></div><div class=toggleFloating>📌"),Ea=S("<textarea>"),Ca=S("<input type=text>"),Oa=S('<div class="tweak imageContainer"><label>'),Pa=S("<div class=thumbnails>"),ja=S("<img class=fullImage>"),Ia=S("<div class=thumb><img class=smallImage>"),Na=S("<div class=missing>"),Ta=S("<div class=value>"),La=S("<div class=missingImage>?"),Ma=S("<div class=image>"),Ra=S('<div class="tweak defaultContainer"><label>'),Ha=S('<div class=mapeRoot><div class=mapeBar><div class=logo title=https://twitter.com/mape></div><div class=tweaks></div><div class=options><div class=groupToggle title="Toggle groups"><span>🚦</span></div><div class="warnings interact"title="Organize workflow (Hold Shift-key to skip prompt)">✨</div><div class="warnings interact">💥</div><div class="warnings interact">🩹</div><div class="imagePreview interact"title="Open separate window for image previews">🖥️<small>🎨</small></div><div class="clear interact"title="Clear favourites">❌</div><div class="settings interact"title=Settings>⚙️</div><div class="help interact"title=Help>❔</div></div></div><div>'),za=S("<div class=tweakHighlight>"),Da=S('<div class="warnings blink interact"title="Show potentially broken nodes">⚠️'),Fa=S('<div class="warnings blink interact">🆕'),Ba=S("<div class=groups>"),Ua=S("<div class=group><span class=groupName>No groups in workflow"),Ga=S("<div class=group><span class=groupName></span><input type=checkbox>");const Ka=()=>{const[e,t]=ne([]),[n,o]=xt({}),[i,s]=xt({}),[r,l]=xt({}),a=()=>{const g=window.innerHeight-200,y=window.innerWidth-200;try{for(const A of Object.keys(localStorage))if(A.match(new RegExp(tt))){const O=localStorage[A],I=A.replace(tt,""),N=JSON.parse(O);N.position.x=Math.min(y,N.position.x),N.position.y=Math.min(g,N.position.y),l(I,N)}}catch{}};a(),Le(()=>{for(const[g,y]of Object.entries(r))localStorage[`${tt}${g}`]=JSON.stringify(y)});const[u,c]=ne([]),[p,h]=ne(!1),[d,f]=ne(!1),[m,w]=ne(!1),[$,b]=ne(""),[_,k]=ne(!!localStorage[Un]);Le(()=>{_()?(V(),localStorage[Un]="1"):delete localStorage[Un]});const[x,j]=xt([]),H=()=>{const g=[],y={},A=He().filter(se);for(const O of A.filter(Ie)){const I=Y(O);y[I]||(y[I]=0),y[I]+=1;const N=da(O);if(N&&se(N)){const P=Y(N);I===P&&g.push({node:O,text:"Can't point a set to a get of itself"})}}for(const O of A.filter(pt)){const I=Y(O);I&&typeof y[I]>"u"&&g.push({node:O,text:"Missing set node"})}for(const O of A.filter(Ie)){const I=Y(O);y[I]&&y[I]>1&&g.push({text:"Can't have multiple set nodes of the same name",node:O})}c([...window.mapeErrors??[],...g])};Le(()=>{u().length===0&&w(!1)});const z=setInterval(H,1e3);Vt(()=>{clearInterval(z)});const R=()=>{o(ho(Object.fromEntries(Object.entries(localStorage).filter(([g])=>g.startsWith(cn)).map(([g,y])=>{const A=g.replace(cn,""),[O,I,N]=fa(A),P=ae(N);if(!P)return null;const G=P!=null&&P.pos?[P==null?void 0:P.pos[0],P==null?void 0:P.pos[1]]:[Number.MIN_SAFE_INTEGER,Number.MIN_SAFE_INTEGER];return[A,{name:A,type:y,value:O,pos:G}]}).filter(Boolean)))),localStorage[Ut]=JSON.stringify(Object.fromEntries(Object.entries(n).filter(([,g])=>g.type==="IMAGE"))),V()},V=()=>{const g=fn();j(fn().sort(Ls(g,"id","pos")).map(y=>(y.recomputeInsideNodes(),y)).map(y=>({title:y.title,enabled:!!y._nodes.filter(A=>!se(A)).find(A=>A.mode!==4),group:y})))};Qe(R),Qe(async()=>{const y=(await(await fetch(`https://comfyui.ma.pe/VERSION?c=${Date.now()}`)).text()).trim();ya("0.4.2",y)&&b(`New version ${y} is available.`)}),window.addEventListener("mapeTweak",g=>{var y;R(),((y=g.detail)==null?void 0:y.message)==="rename"&&a()});const v=g=>{const y=(g??0).toString().length*6+35;return`${Math.max(55,y)}px`},C={INT:g=>(()=>{var y=ka(),A=y.firstChild,O=A.nextSibling,I=O.firstChild;return y.addEventListener("wheel",N=>{const P=N.deltaY>0?-1:1;qe(g.name,G=>G+P)}),y.$$click=N=>{if(N.shiftKey)return Dt(g.name)},L(A,()=>g.name),I.$$input=N=>{const P=parseInt(N.currentTarget.value,10);o(g.name,"value",P),qe(g.name,P)},F(()=>v(g.value)!=null?O.style.setProperty("width",v(g.value)):O.style.removeProperty("width")),F(()=>I.value=g.value),y})(),FLOAT:g=>{const y=A=>typeof A<"u"?parseFloat(parseFloat(A.toString()).toFixed(3)):0;return(()=>{var A=xa(),O=A.firstChild,I=O.nextSibling,N=I.firstChild;return A.addEventListener("wheel",P=>{const G=P.deltaY>0?-.1:.1;qe(g.name,g.value+G)}),A.$$click=P=>{if(P.shiftKey)return Dt(g.name)},L(O,()=>g.name),N.$$input=P=>{const G=parseFloat(P.currentTarget.value);o(g.name,"value",G),qe(g.name,G)},F(()=>v(y(g.value))!=null?I.style.setProperty("width",v(y(g.value))):I.style.removeProperty("width")),F(()=>N.value=y(g.value)),A})()},STRING:g=>{const[y,A]=ne(i[g.name]??!1),O=P=>{const G=P.currentTarget.value;o(g.name,"value",G),qe(g.name,G)};let I;Qe(()=>{});let N;return Le(()=>{if(!r[g.name]||!I)return;const P=()=>{clearTimeout(N),N=setTimeout(()=>{r[g.name]&&l(g.name,"height",I.offsetHeight)},100)};new MutationObserver(P).observe(I,{attributes:!0,attributeFilter:["style"]})}),(()=>{var P=Sa(),G=P.firstChild,ee=G.nextSibling;return G.$$click=ce=>{if(ce.shiftKey)return Dt(g.name);A(!y())},L(G,()=>g.name),L(ee,(()=>{var ce=le(()=>!!(y()||r[g.name]));return()=>ce()?[(()=>{var X=Aa(),re=X.firstChild,ie=re.firstChild,xe=re.nextSibling;return re.$$mousedown=Ce=>{const D={x:Ce.clientX,y:Ce.clientY},fe=nt(r[g.name].position),pe=Me=>{const ze={x:Me.clientX,y:Me.clientY},lt={x:ze.x-D.x,y:ze.y-D.y};l(g.name,"position",{x:fe.x+lt.x,y:fe.y+lt.y})},Se=()=>{document.removeEventListener("mousemove",pe),document.removeEventListener("mouseup",Se)};document.addEventListener("mousemove",pe),document.addEventListener("mouseup",Se)},L(ie,()=>g.name),xe.$$click=()=>{r[g.name]?(l(g.name,void 0),delete localStorage[`${tt}${g.name}`],A(!1)):l(g.name,{position:{x:10,y:40},height:60})},F(()=>he(xe,"title",r[g.name]?"Pin the window to top bar":"Unpin the window")),X})(),(()=>{var X=Ea();X.$$input=O;var re=I;return typeof re=="function"?Ct(re,X):I=X,F(ie=>Fo(X,r[g.name]?{height:`${r[g.name].height}px`}:{},ie)),F(()=>X.value=g.value),X})(),Ae(gr,{get prompt(){return g.value},update:X=>{qe(g.name,X)}})]:(()=>{var X=Ca();return X.$$input=O,X.addEventListener("focus",()=>{A(!0)}),F(()=>X.value=g.value),X})()})()),F(ce=>{var X=!!(y()||r[g.name]),re=!!r[g.name],ie=r[g.name]?{position:"fixed",top:`${r[g.name].position.y}px`,left:`${r[g.name].position.x}px`}:{};return X!==ce.e&&P.classList.toggle("focused",ce.e=X),re!==ce.t&&P.classList.toggle("floating",ce.t=re),ce.a=Fo(P,ie,ce.a),ce},{e:void 0,t:void 0,a:void 0}),P})()},IMAGE:g=>{const[y,A]=ne(!1),[O,I]=ne(0);Le(()=>{const ee=document.querySelector(".comfy-menu");ee&&(y()?ee.style.display="none":ee.style.display="block")});const N=()=>`mape_tweak_image_cache_${g.name}`;Le(()=>{g.value&&(sessionStorage[N()]=JSON.stringify(g.value))});const P=()=>`Connect "${g.name}" variable to a Preview Image node or Regenerate the image`,G=()=>g.value??(sessionStorage[N()]?JSON.parse(sessionStorage[N()]):void 0);return(()=>{var ee=Oa(),ce=ee.firstChild;return ee.$$click=X=>{if(X.shiftKey)return Dt(g.name);X.target.tagName==="IMG"||X.target.className==="thumbnails"||X.target.className==="thumb"||(A(!y()),y()||I(0))},L(ce,()=>g.name),L(ee,(()=>{var X=le(()=>!!y());return()=>X()?(()=>{var re=le(()=>!!G());return()=>re()?[(()=>{var ie=Pa();return L(ie,()=>(G()??[]).map((xe,Ce)=>(()=>{var D=Ia(),fe=D.firstChild;return D.$$click=()=>{I(Ce)},F(()=>he(fe,"src",et(xe))),D})())),ie})(),(()=>{var ie=ja();return F(()=>{var xe;return he(ie,"src",et((xe=G())==null?void 0:xe[O()]))}),ie})()]:(()=>{var ie=Na();return L(ie,P),ie})()})():(()=>{var re=Ta();return L(re,(()=>{var ie=le(()=>!!G());return()=>ie()?"":(()=>{var xe=La();return F(()=>he(xe,"title",P())),xe})()})(),null),L(re,()=>(G()??[]).map(ie=>{const xe=`url("${et(ie)}")`;return(()=>{var Ce=Ma();return xe!=null?Ce.style.setProperty("background-image",xe):Ce.style.removeProperty("background-image"),Ce})()}),null),re})()})(),null),F(X=>{var re=!!y(),ie=(G()??[]).length>1;return re!==X.e&&ee.classList.toggle("focused",X.e=re),ie!==X.t&&ee.classList.toggle("hasMultiple",X.t=ie),X},{e:void 0,t:void 0}),ee})()},DEFAULT:g=>(()=>{var y=Ra(),A=y.firstChild;return y.$$click=O=>{if(O.shiftKey)return Dt(g.name)},L(A,()=>g.name),F(()=>he(y,"title",JSON.stringify(g,null,"  "))),y})()},[B,K]=ne([]),{open:E}=bl();Qe(()=>{const g=document.querySelector("ninja-keys");g&&g.shadowRoot.appendChild(_a(`
+const scriptRel = "modulepreload";
+const assetsURL = function(dep) {
+  return "/extensions/ComfyUI-Mape-Helpers/tweak/" + dep;
+};
+const seen = {};
+const __vitePreload = function preload(baseModule, deps, importerUrl) {
+  let promise = Promise.resolve();
+  if (deps && deps.length > 0) {
+    const links = document.getElementsByTagName("link");
+    promise = Promise.all(deps.map((dep) => {
+      dep = assetsURL(dep);
+      if (dep in seen)
+        return;
+      seen[dep] = true;
+      const isCss = dep.endsWith(".css");
+      const cssSelector = isCss ? '[rel="stylesheet"]' : "";
+      const isBaseRelative = !!importerUrl;
+      if (isBaseRelative) {
+        for (let i2 = links.length - 1; i2 >= 0; i2--) {
+          const link2 = links[i2];
+          if (link2.href === dep && (!isCss || link2.rel === "stylesheet")) {
+            return;
+          }
+        }
+      } else if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
+        return;
+      }
+      const link = document.createElement("link");
+      link.rel = isCss ? "stylesheet" : scriptRel;
+      if (!isCss) {
+        link.as = "script";
+        link.crossOrigin = "";
+      }
+      link.href = dep;
+      document.head.appendChild(link);
+      if (isCss) {
+        return new Promise((res, rej) => {
+          link.addEventListener("load", res);
+          link.addEventListener("error", () => rej(new Error(`Unable to preload CSS for ${dep}`)));
+        });
+      }
+    }));
+  }
+  return promise.then(() => baseModule()).catch((err) => {
+    const e2 = new Event("vite:preloadError", { cancelable: true });
+    e2.payload = err;
+    window.dispatchEvent(e2);
+    if (!e2.defaultPrevented) {
+      throw err;
+    }
+  });
+};
+const equalFn = (a2, b) => a2 === b;
+const $PROXY = Symbol("solid-proxy");
+const $TRACK = Symbol("solid-track");
+const signalOptions = {
+  equals: equalFn
+};
+let runEffects = runQueue;
+const STALE = 1;
+const PENDING = 2;
+const UNOWNED = {
+  owned: null,
+  cleanups: null,
+  context: null,
+  owner: null
+};
+var Owner = null;
+let Transition = null;
+let ExternalSourceConfig = null;
+let Listener = null;
+let Updates = null;
+let Effects = null;
+let ExecCount = 0;
+function createRoot(fn, detachedOwner) {
+  const listener = Listener, owner = Owner, unowned = fn.length === 0, current = detachedOwner === void 0 ? owner : detachedOwner, root2 = unowned ? UNOWNED : {
+    owned: null,
+    cleanups: null,
+    context: current ? current.context : null,
+    owner: current
+  }, updateFn = unowned ? fn : () => fn(() => untrack(() => cleanNode(root2)));
+  Owner = root2;
+  Listener = null;
+  try {
+    return runUpdates(updateFn, true);
+  } finally {
+    Listener = listener;
+    Owner = owner;
+  }
+}
+function createSignal(value, options) {
+  options = options ? Object.assign({}, signalOptions, options) : signalOptions;
+  const s3 = {
+    value,
+    observers: null,
+    observerSlots: null,
+    comparator: options.equals || void 0
+  };
+  const setter = (value2) => {
+    if (typeof value2 === "function") {
+      value2 = value2(s3.value);
+    }
+    return writeSignal(s3, value2);
+  };
+  return [readSignal.bind(s3), setter];
+}
+function createRenderEffect(fn, value, options) {
+  const c2 = createComputation(fn, value, false, STALE);
+  updateComputation(c2);
+}
+function createEffect(fn, value, options) {
+  runEffects = runUserEffects;
+  const c2 = createComputation(fn, value, false, STALE), s3 = SuspenseContext && useContext(SuspenseContext);
+  if (s3)
+    c2.suspense = s3;
+  if (!options || !options.render)
+    c2.user = true;
+  Effects ? Effects.push(c2) : updateComputation(c2);
+}
+function createMemo(fn, value, options) {
+  options = options ? Object.assign({}, signalOptions, options) : signalOptions;
+  const c2 = createComputation(fn, value, true, 0);
+  c2.observers = null;
+  c2.observerSlots = null;
+  c2.comparator = options.equals || void 0;
+  updateComputation(c2);
+  return readSignal.bind(c2);
+}
+function batch(fn) {
+  return runUpdates(fn, false);
+}
+function untrack(fn) {
+  if (Listener === null)
+    return fn();
+  const listener = Listener;
+  Listener = null;
+  try {
+    if (ExternalSourceConfig)
+      ;
+    return fn();
+  } finally {
+    Listener = listener;
+  }
+}
+function onMount(fn) {
+  createEffect(() => untrack(fn));
+}
+function onCleanup(fn) {
+  if (Owner === null)
+    ;
+  else if (Owner.cleanups === null)
+    Owner.cleanups = [fn];
+  else
+    Owner.cleanups.push(fn);
+  return fn;
+}
+function getListener() {
+  return Listener;
+}
+function getOwner() {
+  return Owner;
+}
+function useContext(context) {
+  return Owner && Owner.context && Owner.context[context.id] !== void 0 ? Owner.context[context.id] : context.defaultValue;
+}
+function children(fn) {
+  const children2 = createMemo(fn);
+  const memo = createMemo(() => resolveChildren(children2()));
+  memo.toArray = () => {
+    const c2 = memo();
+    return Array.isArray(c2) ? c2 : c2 != null ? [c2] : [];
+  };
+  return memo;
+}
+let SuspenseContext;
+function readSignal() {
+  if (this.sources && this.state) {
+    if (this.state === STALE)
+      updateComputation(this);
+    else {
+      const updates = Updates;
+      Updates = null;
+      runUpdates(() => lookUpstream(this), false);
+      Updates = updates;
+    }
+  }
+  if (Listener) {
+    const sSlot = this.observers ? this.observers.length : 0;
+    if (!Listener.sources) {
+      Listener.sources = [this];
+      Listener.sourceSlots = [sSlot];
+    } else {
+      Listener.sources.push(this);
+      Listener.sourceSlots.push(sSlot);
+    }
+    if (!this.observers) {
+      this.observers = [Listener];
+      this.observerSlots = [Listener.sources.length - 1];
+    } else {
+      this.observers.push(Listener);
+      this.observerSlots.push(Listener.sources.length - 1);
+    }
+  }
+  return this.value;
+}
+function writeSignal(node, value, isComp) {
+  let current = node.value;
+  if (!node.comparator || !node.comparator(current, value)) {
+    node.value = value;
+    if (node.observers && node.observers.length) {
+      runUpdates(() => {
+        for (let i2 = 0; i2 < node.observers.length; i2 += 1) {
+          const o4 = node.observers[i2];
+          const TransitionRunning = Transition && Transition.running;
+          if (TransitionRunning && Transition.disposed.has(o4))
+            ;
+          if (TransitionRunning ? !o4.tState : !o4.state) {
+            if (o4.pure)
+              Updates.push(o4);
+            else
+              Effects.push(o4);
+            if (o4.observers)
+              markDownstream(o4);
+          }
+          if (!TransitionRunning)
+            o4.state = STALE;
+        }
+        if (Updates.length > 1e6) {
+          Updates = [];
+          if (false)
+            ;
+          throw new Error();
+        }
+      }, false);
+    }
+  }
+  return value;
+}
+function updateComputation(node) {
+  if (!node.fn)
+    return;
+  cleanNode(node);
+  const time = ExecCount;
+  runComputation(node, node.value, time);
+}
+function runComputation(node, value, time) {
+  let nextValue;
+  const owner = Owner, listener = Listener;
+  Listener = Owner = node;
+  try {
+    nextValue = node.fn(value);
+  } catch (err) {
+    if (node.pure) {
+      {
+        node.state = STALE;
+        node.owned && node.owned.forEach(cleanNode);
+        node.owned = null;
+      }
+    }
+    node.updatedAt = time + 1;
+    return handleError(err);
+  } finally {
+    Listener = listener;
+    Owner = owner;
+  }
+  if (!node.updatedAt || node.updatedAt <= time) {
+    if (node.updatedAt != null && "observers" in node) {
+      writeSignal(node, nextValue);
+    } else
+      node.value = nextValue;
+    node.updatedAt = time;
+  }
+}
+function createComputation(fn, init, pure, state = STALE, options) {
+  const c2 = {
+    fn,
+    state,
+    updatedAt: null,
+    owned: null,
+    sources: null,
+    sourceSlots: null,
+    cleanups: null,
+    value: init,
+    owner: Owner,
+    context: Owner ? Owner.context : null,
+    pure
+  };
+  if (Owner === null)
+    ;
+  else if (Owner !== UNOWNED) {
+    {
+      if (!Owner.owned)
+        Owner.owned = [c2];
+      else
+        Owner.owned.push(c2);
+    }
+  }
+  return c2;
+}
+function runTop(node) {
+  if (node.state === 0)
+    return;
+  if (node.state === PENDING)
+    return lookUpstream(node);
+  if (node.suspense && untrack(node.suspense.inFallback))
+    return node.suspense.effects.push(node);
+  const ancestors = [node];
+  while ((node = node.owner) && (!node.updatedAt || node.updatedAt < ExecCount)) {
+    if (node.state)
+      ancestors.push(node);
+  }
+  for (let i2 = ancestors.length - 1; i2 >= 0; i2--) {
+    node = ancestors[i2];
+    if (node.state === STALE) {
+      updateComputation(node);
+    } else if (node.state === PENDING) {
+      const updates = Updates;
+      Updates = null;
+      runUpdates(() => lookUpstream(node, ancestors[0]), false);
+      Updates = updates;
+    }
+  }
+}
+function runUpdates(fn, init) {
+  if (Updates)
+    return fn();
+  let wait = false;
+  if (!init)
+    Updates = [];
+  if (Effects)
+    wait = true;
+  else
+    Effects = [];
+  ExecCount++;
+  try {
+    const res = fn();
+    completeUpdates(wait);
+    return res;
+  } catch (err) {
+    if (!wait)
+      Effects = null;
+    Updates = null;
+    handleError(err);
+  }
+}
+function completeUpdates(wait) {
+  if (Updates) {
+    runQueue(Updates);
+    Updates = null;
+  }
+  if (wait)
+    return;
+  const e2 = Effects;
+  Effects = null;
+  if (e2.length)
+    runUpdates(() => runEffects(e2), false);
+}
+function runQueue(queue) {
+  for (let i2 = 0; i2 < queue.length; i2++)
+    runTop(queue[i2]);
+}
+function runUserEffects(queue) {
+  let i2, userLength = 0;
+  for (i2 = 0; i2 < queue.length; i2++) {
+    const e2 = queue[i2];
+    if (!e2.user)
+      runTop(e2);
+    else
+      queue[userLength++] = e2;
+  }
+  for (i2 = 0; i2 < userLength; i2++)
+    runTop(queue[i2]);
+}
+function lookUpstream(node, ignore) {
+  node.state = 0;
+  for (let i2 = 0; i2 < node.sources.length; i2 += 1) {
+    const source = node.sources[i2];
+    if (source.sources) {
+      const state = source.state;
+      if (state === STALE) {
+        if (source !== ignore && (!source.updatedAt || source.updatedAt < ExecCount))
+          runTop(source);
+      } else if (state === PENDING)
+        lookUpstream(source, ignore);
+    }
+  }
+}
+function markDownstream(node) {
+  for (let i2 = 0; i2 < node.observers.length; i2 += 1) {
+    const o4 = node.observers[i2];
+    if (!o4.state) {
+      o4.state = PENDING;
+      if (o4.pure)
+        Updates.push(o4);
+      else
+        Effects.push(o4);
+      o4.observers && markDownstream(o4);
+    }
+  }
+}
+function cleanNode(node) {
+  let i2;
+  if (node.sources) {
+    while (node.sources.length) {
+      const source = node.sources.pop(), index = node.sourceSlots.pop(), obs = source.observers;
+      if (obs && obs.length) {
+        const n2 = obs.pop(), s3 = source.observerSlots.pop();
+        if (index < obs.length) {
+          n2.sourceSlots[s3] = index;
+          obs[index] = n2;
+          source.observerSlots[index] = s3;
+        }
+      }
+    }
+  }
+  if (node.owned) {
+    for (i2 = node.owned.length - 1; i2 >= 0; i2--)
+      cleanNode(node.owned[i2]);
+    node.owned = null;
+  }
+  if (node.cleanups) {
+    for (i2 = node.cleanups.length - 1; i2 >= 0; i2--)
+      node.cleanups[i2]();
+    node.cleanups = null;
+  }
+  node.state = 0;
+}
+function castError(err) {
+  if (err instanceof Error)
+    return err;
+  return new Error(typeof err === "string" ? err : "Unknown error", {
+    cause: err
+  });
+}
+function handleError(err, owner = Owner) {
+  const error = castError(err);
+  throw error;
+}
+function resolveChildren(children2) {
+  if (typeof children2 === "function" && !children2.length)
+    return resolveChildren(children2());
+  if (Array.isArray(children2)) {
+    const results = [];
+    for (let i2 = 0; i2 < children2.length; i2++) {
+      const result = resolveChildren(children2[i2]);
+      Array.isArray(result) ? results.push.apply(results, result) : results.push(result);
+    }
+    return results;
+  }
+  return children2;
+}
+const FALLBACK = Symbol("fallback");
+function dispose(d2) {
+  for (let i2 = 0; i2 < d2.length; i2++)
+    d2[i2]();
+}
+function mapArray(list, mapFn, options = {}) {
+  let items = [], mapped = [], disposers = [], len = 0, indexes = mapFn.length > 1 ? [] : null;
+  onCleanup(() => dispose(disposers));
+  return () => {
+    let newItems = list() || [], i2, j2;
+    newItems[$TRACK];
+    return untrack(() => {
+      let newLen = newItems.length, newIndices, newIndicesNext, temp, tempdisposers, tempIndexes, start, end, newEnd, item;
+      if (newLen === 0) {
+        if (len !== 0) {
+          dispose(disposers);
+          disposers = [];
+          items = [];
+          mapped = [];
+          len = 0;
+          indexes && (indexes = []);
+        }
+        if (options.fallback) {
+          items = [FALLBACK];
+          mapped[0] = createRoot((disposer) => {
+            disposers[0] = disposer;
+            return options.fallback();
+          });
+          len = 1;
+        }
+      } else if (len === 0) {
+        mapped = new Array(newLen);
+        for (j2 = 0; j2 < newLen; j2++) {
+          items[j2] = newItems[j2];
+          mapped[j2] = createRoot(mapper);
+        }
+        len = newLen;
+      } else {
+        temp = new Array(newLen);
+        tempdisposers = new Array(newLen);
+        indexes && (tempIndexes = new Array(newLen));
+        for (start = 0, end = Math.min(len, newLen); start < end && items[start] === newItems[start]; start++)
+          ;
+        for (end = len - 1, newEnd = newLen - 1; end >= start && newEnd >= start && items[end] === newItems[newEnd]; end--, newEnd--) {
+          temp[newEnd] = mapped[end];
+          tempdisposers[newEnd] = disposers[end];
+          indexes && (tempIndexes[newEnd] = indexes[end]);
+        }
+        newIndices = /* @__PURE__ */ new Map();
+        newIndicesNext = new Array(newEnd + 1);
+        for (j2 = newEnd; j2 >= start; j2--) {
+          item = newItems[j2];
+          i2 = newIndices.get(item);
+          newIndicesNext[j2] = i2 === void 0 ? -1 : i2;
+          newIndices.set(item, j2);
+        }
+        for (i2 = start; i2 <= end; i2++) {
+          item = items[i2];
+          j2 = newIndices.get(item);
+          if (j2 !== void 0 && j2 !== -1) {
+            temp[j2] = mapped[i2];
+            tempdisposers[j2] = disposers[i2];
+            indexes && (tempIndexes[j2] = indexes[i2]);
+            j2 = newIndicesNext[j2];
+            newIndices.set(item, j2);
+          } else
+            disposers[i2]();
+        }
+        for (j2 = start; j2 < newLen; j2++) {
+          if (j2 in temp) {
+            mapped[j2] = temp[j2];
+            disposers[j2] = tempdisposers[j2];
+            if (indexes) {
+              indexes[j2] = tempIndexes[j2];
+              indexes[j2](j2);
+            }
+          } else
+            mapped[j2] = createRoot(mapper);
+        }
+        mapped = mapped.slice(0, len = newLen);
+        items = newItems.slice(0);
+      }
+      return mapped;
+    });
+    function mapper(disposer) {
+      disposers[j2] = disposer;
+      if (indexes) {
+        const [s3, set] = createSignal(j2);
+        indexes[j2] = set;
+        return mapFn(newItems[j2], s3);
+      }
+      return mapFn(newItems[j2]);
+    }
+  };
+}
+let hydrationEnabled = false;
+function createComponent(Comp, props) {
+  if (hydrationEnabled)
+    ;
+  return untrack(() => Comp(props || {}));
+}
+const narrowedError = (name) => `Stale read from <${name}>.`;
+function For(props) {
+  const fallback = "fallback" in props && {
+    fallback: () => props.fallback
+  };
+  return createMemo(mapArray(() => props.each, props.children, fallback || void 0));
+}
+function Switch(props) {
+  let keyed = false;
+  const equals = (a2, b) => (keyed ? a2[1] === b[1] : !a2[1] === !b[1]) && a2[2] === b[2];
+  const conditions = children(() => props.children), evalConditions = createMemo(() => {
+    let conds = conditions();
+    if (!Array.isArray(conds))
+      conds = [conds];
+    for (let i2 = 0; i2 < conds.length; i2++) {
+      const c2 = conds[i2].when;
+      if (c2) {
+        keyed = !!conds[i2].keyed;
+        return [i2, c2, conds[i2]];
+      }
+    }
+    return [-1];
+  }, void 0, {
+    equals
+  });
+  return createMemo(() => {
+    const [index, when, cond] = evalConditions();
+    if (index < 0)
+      return props.fallback;
+    const c2 = cond.children;
+    const fn = typeof c2 === "function" && c2.length > 0;
+    return fn ? untrack(() => c2(keyed ? when : () => {
+      if (untrack(evalConditions)[0] !== index)
+        throw narrowedError("Match");
+      return cond.when;
+    })) : c2;
+  }, void 0, void 0);
+}
+function Match(props) {
+  return props;
+}
+function reconcileArrays(parentNode, a2, b) {
+  let bLength = b.length, aEnd = a2.length, bEnd = bLength, aStart = 0, bStart = 0, after = a2[aEnd - 1].nextSibling, map = null;
+  while (aStart < aEnd || bStart < bEnd) {
+    if (a2[aStart] === b[bStart]) {
+      aStart++;
+      bStart++;
+      continue;
+    }
+    while (a2[aEnd - 1] === b[bEnd - 1]) {
+      aEnd--;
+      bEnd--;
+    }
+    if (aEnd === aStart) {
+      const node = bEnd < bLength ? bStart ? b[bStart - 1].nextSibling : b[bEnd - bStart] : after;
+      while (bStart < bEnd)
+        parentNode.insertBefore(b[bStart++], node);
+    } else if (bEnd === bStart) {
+      while (aStart < aEnd) {
+        if (!map || !map.has(a2[aStart]))
+          a2[aStart].remove();
+        aStart++;
+      }
+    } else if (a2[aStart] === b[bEnd - 1] && b[bStart] === a2[aEnd - 1]) {
+      const node = a2[--aEnd].nextSibling;
+      parentNode.insertBefore(b[bStart++], a2[aStart++].nextSibling);
+      parentNode.insertBefore(b[--bEnd], node);
+      a2[aEnd] = b[bEnd];
+    } else {
+      if (!map) {
+        map = /* @__PURE__ */ new Map();
+        let i2 = bStart;
+        while (i2 < bEnd)
+          map.set(b[i2], i2++);
+      }
+      const index = map.get(a2[aStart]);
+      if (index != null) {
+        if (bStart < index && index < bEnd) {
+          let i2 = aStart, sequence = 1, t2;
+          while (++i2 < aEnd && i2 < bEnd) {
+            if ((t2 = map.get(a2[i2])) == null || t2 !== index + sequence)
+              break;
+            sequence++;
+          }
+          if (sequence > index - bStart) {
+            const node = a2[aStart];
+            while (bStart < index)
+              parentNode.insertBefore(b[bStart++], node);
+          } else
+            parentNode.replaceChild(b[bStart++], a2[aStart++]);
+        } else
+          aStart++;
+      } else
+        a2[aStart++].remove();
+    }
+  }
+}
+const $$EVENTS = "_$DX_DELEGATE";
+function render(code2, element, init, options = {}) {
+  let disposer;
+  createRoot((dispose2) => {
+    disposer = dispose2;
+    element === document ? code2() : insert(element, code2(), element.firstChild ? null : void 0, init);
+  }, options.owner);
+  return () => {
+    disposer();
+    element.textContent = "";
+  };
+}
+function template(html, isCE, isSVG) {
+  let node;
+  const create = () => {
+    const t2 = document.createElement("template");
+    t2.innerHTML = html;
+    return isSVG ? t2.content.firstChild.firstChild : t2.content.firstChild;
+  };
+  const fn = isCE ? () => untrack(() => document.importNode(node || (node = create()), true)) : () => (node || (node = create())).cloneNode(true);
+  fn.cloneNode = fn;
+  return fn;
+}
+function delegateEvents(eventNames, document2 = window.document) {
+  const e2 = document2[$$EVENTS] || (document2[$$EVENTS] = /* @__PURE__ */ new Set());
+  for (let i2 = 0, l2 = eventNames.length; i2 < l2; i2++) {
+    const name = eventNames[i2];
+    if (!e2.has(name)) {
+      e2.add(name);
+      document2.addEventListener(name, eventHandler$1);
+    }
+  }
+}
+function setAttribute(node, name, value) {
+  if (value == null)
+    node.removeAttribute(name);
+  else
+    node.setAttribute(name, value);
+}
+function className(node, value) {
+  if (value == null)
+    node.removeAttribute("class");
+  else
+    node.className = value;
+}
+function addEventListener(node, name, handler, delegate) {
+  if (delegate) {
+    if (Array.isArray(handler)) {
+      node[`$$${name}`] = handler[0];
+      node[`$$${name}Data`] = handler[1];
+    } else
+      node[`$$${name}`] = handler;
+  } else if (Array.isArray(handler)) {
+    const handlerFn = handler[0];
+    node.addEventListener(name, handler[0] = (e2) => handlerFn.call(node, handler[1], e2));
+  } else
+    node.addEventListener(name, handler);
+}
+function style$1(node, value, prev) {
+  if (!value)
+    return prev ? setAttribute(node, "style") : value;
+  const nodeStyle = node.style;
+  if (typeof value === "string")
+    return nodeStyle.cssText = value;
+  typeof prev === "string" && (nodeStyle.cssText = prev = void 0);
+  prev || (prev = {});
+  value || (value = {});
+  let v2, s3;
+  for (s3 in prev) {
+    value[s3] == null && nodeStyle.removeProperty(s3);
+    delete prev[s3];
+  }
+  for (s3 in value) {
+    v2 = value[s3];
+    if (v2 !== prev[s3]) {
+      nodeStyle.setProperty(s3, v2);
+      prev[s3] = v2;
+    }
+  }
+  return prev;
+}
+function use(fn, element, arg) {
+  return untrack(() => fn(element, arg));
+}
+function insert(parent, accessor, marker, initial) {
+  if (marker !== void 0 && !initial)
+    initial = [];
+  if (typeof accessor !== "function")
+    return insertExpression(parent, accessor, initial, marker);
+  createRenderEffect((current) => insertExpression(parent, accessor(), current, marker), initial);
+}
+function eventHandler$1(e2) {
+  const key = `$$${e2.type}`;
+  let node = e2.composedPath && e2.composedPath()[0] || e2.target;
+  if (e2.target !== node) {
+    Object.defineProperty(e2, "target", {
+      configurable: true,
+      value: node
+    });
+  }
+  Object.defineProperty(e2, "currentTarget", {
+    configurable: true,
+    get() {
+      return node || document;
+    }
+  });
+  while (node) {
+    const handler = node[key];
+    if (handler && !node.disabled) {
+      const data = node[`${key}Data`];
+      data !== void 0 ? handler.call(node, data, e2) : handler.call(node, e2);
+      if (e2.cancelBubble)
+        return;
+    }
+    node = node._$host || node.parentNode || node.host;
+  }
+}
+function insertExpression(parent, value, current, marker, unwrapArray) {
+  while (typeof current === "function")
+    current = current();
+  if (value === current)
+    return current;
+  const t2 = typeof value, multi = marker !== void 0;
+  parent = multi && current[0] && current[0].parentNode || parent;
+  if (t2 === "string" || t2 === "number") {
+    if (t2 === "number")
+      value = value.toString();
+    if (multi) {
+      let node = current[0];
+      if (node && node.nodeType === 3) {
+        node.data !== value && (node.data = value);
+      } else
+        node = document.createTextNode(value);
+      current = cleanChildren(parent, current, marker, node);
+    } else {
+      if (current !== "" && typeof current === "string") {
+        current = parent.firstChild.data = value;
+      } else
+        current = parent.textContent = value;
+    }
+  } else if (value == null || t2 === "boolean") {
+    current = cleanChildren(parent, current, marker);
+  } else if (t2 === "function") {
+    createRenderEffect(() => {
+      let v2 = value();
+      while (typeof v2 === "function")
+        v2 = v2();
+      current = insertExpression(parent, v2, current, marker);
+    });
+    return () => current;
+  } else if (Array.isArray(value)) {
+    const array = [];
+    const currentArray = current && Array.isArray(current);
+    if (normalizeIncomingArray(array, value, current, unwrapArray)) {
+      createRenderEffect(() => current = insertExpression(parent, array, current, marker, true));
+      return () => current;
+    }
+    if (array.length === 0) {
+      current = cleanChildren(parent, current, marker);
+      if (multi)
+        return current;
+    } else if (currentArray) {
+      if (current.length === 0) {
+        appendNodes(parent, array, marker);
+      } else
+        reconcileArrays(parent, current, array);
+    } else {
+      current && cleanChildren(parent);
+      appendNodes(parent, array);
+    }
+    current = array;
+  } else if (value.nodeType) {
+    if (Array.isArray(current)) {
+      if (multi)
+        return current = cleanChildren(parent, current, marker, value);
+      cleanChildren(parent, current, null, value);
+    } else if (current == null || current === "" || !parent.firstChild) {
+      parent.appendChild(value);
+    } else
+      parent.replaceChild(value, parent.firstChild);
+    current = value;
+  } else
+    ;
+  return current;
+}
+function normalizeIncomingArray(normalized, array, current, unwrap2) {
+  let dynamic = false;
+  for (let i2 = 0, len = array.length; i2 < len; i2++) {
+    let item = array[i2], prev = current && current[i2], t2;
+    if (item == null || item === true || item === false)
+      ;
+    else if ((t2 = typeof item) === "object" && item.nodeType) {
+      normalized.push(item);
+    } else if (Array.isArray(item)) {
+      dynamic = normalizeIncomingArray(normalized, item, prev) || dynamic;
+    } else if (t2 === "function") {
+      if (unwrap2) {
+        while (typeof item === "function")
+          item = item();
+        dynamic = normalizeIncomingArray(normalized, Array.isArray(item) ? item : [item], Array.isArray(prev) ? prev : [prev]) || dynamic;
+      } else {
+        normalized.push(item);
+        dynamic = true;
+      }
+    } else {
+      const value = String(item);
+      if (prev && prev.nodeType === 3 && prev.data === value)
+        normalized.push(prev);
+      else
+        normalized.push(document.createTextNode(value));
+    }
+  }
+  return dynamic;
+}
+function appendNodes(parent, array, marker = null) {
+  for (let i2 = 0, len = array.length; i2 < len; i2++)
+    parent.insertBefore(array[i2], marker);
+}
+function cleanChildren(parent, current, marker, replacement) {
+  if (marker === void 0)
+    return parent.textContent = "";
+  const node = replacement || document.createTextNode("");
+  if (current.length) {
+    let inserted = false;
+    for (let i2 = current.length - 1; i2 >= 0; i2--) {
+      const el = current[i2];
+      if (node !== el) {
+        const isParent = el.parentNode === parent;
+        if (!inserted && !i2)
+          isParent ? parent.replaceChild(node, el) : parent.insertBefore(node, marker);
+        else
+          isParent && el.remove();
+      } else
+        inserted = true;
+    }
+  } else
+    parent.insertBefore(node, marker);
+  return [node];
+}
+const setupImagePreview = async () => {
+  const {
+    ImagePreviews: ImagePreviews2
+  } = await __vitePreload(() => Promise.resolve().then(() => imagePreviews), true ? void 0 : void 0);
+  const root2 = document.createElement(`div`);
+  document.body.appendChild(root2);
+  render(() => createComponent(ImagePreviews2, {}), root2);
+  return;
+};
+const setupMainApp = async () => {
+  const {
+    registerPlugin: registerPlugin2
+  } = await __vitePreload(() => Promise.resolve().then(() => plugin), true ? void 0 : void 0);
+  registerPlugin2();
+  (async function init() {
+    if (typeof app === `undefined`) {
+      setTimeout(init);
+      return;
+    }
+    const {
+      MapeTweak: MapeTweak2
+    } = await __vitePreload(() => Promise.resolve().then(() => bar), true ? void 0 : void 0);
+    const root2 = document.createElement(`div`);
+    document.body.appendChild(root2);
+    render(() => createComponent(MapeTweak2, {}), root2);
+  })();
+};
+if (window.standaloneImagePreview) {
+  setupImagePreview();
+} else {
+  setupMainApp();
+}
+function isMapeVariableNode(node_or_nodeType) {
+  let title = node_or_nodeType.type;
+  if (node_or_nodeType.IS_MAPE_VARIABLE) {
+    return true;
+  }
+  if (title === void 0) {
+    title = node_or_nodeType.comfyClass;
+  }
+  if (!title) {
+    return false;
+  }
+  return title.startsWith(TYPE);
+}
+const isNodeGetter = (node) => {
+  var _a, _b, _c;
+  return !!(isMapeVariableNode(node) && ((_c = (_b = (_a = node.outputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.links) == null ? void 0 : _c.length));
+};
+const isNodeSetter = (node) => {
+  var _a, _b;
+  return !!(isMapeVariableNode(node) && ((_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link));
+};
+const PREFIX = `mape_tweak_`;
+const PREFIX_IMAGEPREIVEW = `mape_imagepreview_`;
+const TWEAK_FLOATING = `mape_tweak_pos_`;
+const PREFIX_GROUP = `mape_group`;
+const TYPE = `mape Variable`;
+const MISSING_INPUT = `*`;
+const getNodes$1 = () => graph._nodes;
+const getNodeById = (id, nodes) => nodes ? nodes.find((node) => node.id === id) : graph.getNodeById(id);
+const getMapeNodes = (nodes = getNodes$1()) => nodes.filter(isMapeVariableNode);
+const getMapeSetNodes = (nodes = getNodes$1()) => getMapeNodes(nodes).filter(isNodeSetter);
+const getGroups = () => graph._groups;
+const getSelectedNode = () => {
+  var _a;
+  return (_a = getSelectedNodes$1()) == null ? void 0 : _a[0];
+};
+const getSelectedNodes$1 = () => Object.values(graph.list_of_graphcanvas[0].selected_nodes);
+function isDefined(value) {
+  return value !== void 0;
+}
+const comfyImageSrc = (image) => image ? `/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}&rand=${42}` : void 0;
+const calculateDistance = (x1, y1, x2, y2) => {
+  const deltaX = x2 - x1;
+  const deltaY = y2 - y1;
+  const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+  return distance;
+};
+const distanceSort = (tweaks) => {
+  const positions = Object.fromEntries(Object.values(tweaks).map((tweak) => [tweak.name, tweak.pos ?? [0, 0]]));
+  const minX = Math.min(...Object.values(positions).map(([x2, _y]) => x2));
+  const minY = Math.min(...Object.values(positions).map(([_x, y2]) => y2));
+  const distances = Object.fromEntries(Object.entries(positions).map(([key, [x2, y2]]) => {
+    return [key, calculateDistance(minX, minY, x2, y2)];
+  }));
+  return (a2, b) => {
+    return distances[a2.name] - distances[b.name];
+  };
+};
+const distanceSortGeneric = (items, idKey, posKey) => {
+  const positions = Object.fromEntries(items.map((item) => [item[idKey], item[posKey] ?? [0, 0]]));
+  const minX = Math.min(...Object.values(positions).map(([x2, _y]) => x2));
+  const minY = Math.min(...Object.values(positions).map(([_x, y2]) => y2));
+  const distances = Object.fromEntries(Object.entries(positions).map(([key, [x2, y2]]) => {
+    return [key, calculateDistance(minX, minY, x2, y2)];
+  }));
+  return (a2, b) => {
+    return distances[a2[idKey]] - distances[b[idKey]];
+  };
+};
+const getBestRatio = (size, count, vidRatio = 0.35) => {
+  let maxArea = 1;
+  let targetCols = 1;
+  let targetRows = 1;
+  let targetHeight = 1;
+  let targetWidth = 1;
+  let tWidth = 1;
+  let tHeight = 1;
+  const width = size[0];
+  const height = size[1];
+  const availableRatio = height / width;
+  for (let i2 = 1; i2 <= count; i2++) {
+    const cols = i2;
+    const rows = Math.ceil(count / cols);
+    if (rows / cols * vidRatio > availableRatio) {
+      tHeight = Math.floor(height / rows);
+      tWidth = Math.floor(tHeight / vidRatio);
+    } else {
+      tWidth = Math.floor(width / cols);
+      tHeight = Math.floor(tWidth * vidRatio);
+    }
+    const area = tWidth * tHeight * count;
+    if (maxArea === void 0 || area > maxArea) {
+      maxArea = area;
+      targetHeight = tHeight;
+      targetWidth = tWidth;
+      targetCols = cols;
+      targetRows = rows;
+    }
+  }
+  return {
+    targetCols,
+    targetRows,
+    targetHeight,
+    targetWidth
+  };
+};
+var _tmpl$$7 = /* @__PURE__ */ template(`<div class=imagePreviews>`), _tmpl$2$6 = /* @__PURE__ */ template(`<div class=imagePreviewTweaks><label>Image Previews</label><label>Display type`), _tmpl$3$4 = /* @__PURE__ */ template(`<img class=fullImage>`), _tmpl$4$3 = /* @__PURE__ */ template(`<div class=mosaicGrid><div class=inner>`), _tmpl$5$3 = /* @__PURE__ */ template(`<div class=flipbookFps><label for="">FPS</label><input type=number step=1 min=1 max=120><label for=flipflop title="Reverse at end of clip instead of restarting">Flip Flop</label><input id=flipflop type=checkbox>`), _tmpl$6$3 = /* @__PURE__ */ template(`<div class=content><div class=bigPreview><div class=zoom>x`), _tmpl$7$2 = /* @__PURE__ */ template(`<div class=button>`), _tmpl$8$2 = /* @__PURE__ */ template(`<div class=thumbnails>`), _tmpl$9$2 = /* @__PURE__ */ template(`<div class=thumb><img class=smallImage>`), _tmpl$10$2 = /* @__PURE__ */ template(`<div class=mosaicImage><img class=smallImage>`), _tmpl$11$2 = /* @__PURE__ */ template(`<div class=imagePreviewHelp><p>Shift + Click a link and enable tweak to have it show up in the images preview window.</p><video src=https://comfyui.ma.pe/help/imagePreview.mp4>`);
+const localStoragePreviewImagesKey = `mape_image_previews`;
+const IMAGE_PREVIEW_FPS = `${PREFIX_IMAGEPREIVEW}FPS`;
+const ImagePreviews = () => {
+  const [canvasZoom, setCanvasZoom] = createSignal(1);
+  const [canvasOffset, setCanvasOffset] = createSignal([0, 0]);
+  const [selectedImageIndex, setSelectedImageIndex] = createSignal(0);
+  const [selectedTweakId, setSelectedTweak] = createSignal(`images`);
+  const [imageSets, setImageSets] = createSignal({});
+  const [displayType, setDisplayType] = createSignal(localStorage.mapeImageDisplayType ?? `single`);
+  let flipbookTimeout;
+  createEffect(() => {
+    selectedTweakId();
+    setFlipbookIndex(0);
+  });
+  const [flipbookIndex, setFlipbookIndex] = createSignal(0);
+  const [flipbookFps, setFlipbookFps] = createSignal(localStorage[IMAGE_PREVIEW_FPS] ? JSON.parse(localStorage[IMAGE_PREVIEW_FPS]) : {});
+  const [flipflop, setFlipflop] = createSignal(localStorage.mape_tweak_flipflop ? true : false);
+  createEffect(() => {
+    localStorage[IMAGE_PREVIEW_FPS] = JSON.stringify(flipbookFps());
+  });
+  createEffect(() => {
+    if (flipflop()) {
+      localStorage.mape_tweak_flipflop = true;
+    } else {
+      delete localStorage.mape_tweak_flipflop;
+    }
+  });
+  let direction = 1;
+  const incrementFlipbook = () => {
+    clearTimeout(flipbookTimeout);
+    if (displayType() === `flipbook`) {
+      flipbookTimeout = setTimeout(incrementFlipbook, 1e3 / (flipbookFps()[selectedTweakId()] ?? 12));
+      if (!value() || !value().value) {
+        setFlipbookIndex(0);
+        return;
+      }
+      const count = value().value.length;
+      if (count === 1) {
+        setFlipbookIndex(0);
+        return;
+      }
+      if (flipflop()) {
+        const tmpIndex = flipbookIndex() + direction;
+        if (tmpIndex < 0 || tmpIndex >= count) {
+          direction = -direction;
+        }
+        const nextFlipbookIndex = flipbookIndex() + direction;
+        setFlipbookIndex(nextFlipbookIndex);
+      } else {
+        let nextFlipbookIndex = flipbookIndex() + 1;
+        if (nextFlipbookIndex >= count) {
+          nextFlipbookIndex = 0;
+        }
+        setFlipbookIndex(nextFlipbookIndex);
+      }
+    }
+  };
+  onCleanup(() => {
+    clearTimeout(flipbookTimeout);
+  });
+  createEffect(() => {
+    localStorage.mapeImageDisplayType = displayType();
+    setFlipbookIndex(0);
+    direction = 1;
+    if (displayType() === `flipbook`) {
+      setFlipbookIndex(0);
+      setTimeout(incrementFlipbook);
+    }
+  });
+  if (localStorage[localStoragePreviewImagesKey]) {
+    setImageSets(JSON.parse(localStorage[localStoragePreviewImagesKey]));
+  }
+  function handleStorageChange(event) {
+    const {
+      key,
+      newValue
+    } = event;
+    if (key === localStoragePreviewImagesKey && newValue) {
+      setImageSets(JSON.parse(newValue));
+      if (!value()) {
+        setSelectedTweak(Object.keys(imageSets())[0] ?? ``);
+      }
+      if (value() && value().value && value().value.length <= selectedImageIndex()) {
+        setSelectedImageIndex(0);
+      }
+    }
+  }
+  window.addEventListener(`storage`, handleStorageChange);
+  const value = () => imageSets()[selectedTweakId()];
+  const containerTransform = () => `scale(${scaledCanvasZoom()}) translate(calc(-50% + ${canvasOffset()[0]}px), calc(-50% + ${canvasOffset()[1]}px))`;
+  let imageZoomContainerRef;
+  const [containerSize, setContainerSize] = createSignal([100, 100]);
+  createEffect(() => {
+    displayType();
+    if (!imageZoomContainerRef) {
+      return;
+    }
+    setContainerSize([imageZoomContainerRef.clientWidth, imageZoomContainerRef.clientHeight]);
+  });
+  window.addEventListener(`resize`, () => {
+    if (!imageZoomContainerRef) {
+      return;
+    }
+    setContainerSize([imageZoomContainerRef.clientWidth, imageZoomContainerRef.clientHeight]);
+  });
+  const [aspectRatio, setAspectRatio] = createSignal(1);
+  const [imageSize, setImageSize] = createSignal([1, 1]);
+  createEffect(() => {
+    const image = getAllImages()[0];
+    if (!image) {
+      return;
+    }
+    const imageSrc = comfyImageSrc(image);
+    const img = new Image();
+    img.addEventListener(`load`, () => {
+      setAspectRatio(img.height / img.width);
+      setImageSize([img.width, img.height]);
+    });
+    img.src = imageSrc;
+  });
+  const maximizeImageSize = () => {
+    const pos = getBestRatio(containerSize(), getAllImages().length, aspectRatio());
+    const containerHeight = pos.targetHeight * pos.targetRows;
+    const containerWidth = pos.targetWidth * pos.targetCols;
+    const data = {
+      imageWidth: Math.min(imageSize()[0], pos.targetWidth),
+      imageHeight: Math.min(imageSize()[1], pos.targetHeight),
+      containerHeight,
+      containerWidth,
+      ratio: Math.min(1, Math.max(pos.targetWidth, pos.targetHeight) / Math.max(...imageSize()))
+    };
+    return data;
+  };
+  const reset = (all = false) => {
+    setSelectedImageIndex(0);
+    if (all) {
+      setCanvasOffset([0, 0]);
+      setCanvasZoom(1);
+    }
+  };
+  const getAllImages = () => (value() ?? {}).value ?? [];
+  const calculateNonLinearZoom = (zoomFactor) => {
+    const nonLinearFactor = 2.5;
+    return Math.pow(zoomFactor, nonLinearFactor);
+  };
+  const scaledCanvasZoom = () => calculateNonLinearZoom(canvasZoom());
+  return (() => {
+    var _el$ = _tmpl$$7();
+    insert(_el$, (() => {
+      var _c$ = createMemo(() => !!value());
+      return () => _c$() ? [(() => {
+        var _el$2 = _tmpl$2$6(), _el$3 = _el$2.firstChild, _el$4 = _el$3.nextSibling;
+        insert(_el$2, () => Object.values(imageSets()).sort(distanceSort(imageSets())).map((tweak) => {
+          return (() => {
+            var _el$18 = _tmpl$7$2();
+            _el$18.$$click = () => {
+              reset();
+              setSelectedImageIndex(0);
+              setSelectedTweak(tweak.name);
+            };
+            insert(_el$18, () => tweak.name);
+            createRenderEffect(() => _el$18.classList.toggle("active", !!(tweak.name === selectedTweakId())));
+            return _el$18;
+          })();
+        }), _el$4);
+        insert(_el$2, () => [{
+          id: `single`,
+          text: `Single image`
+        }, {
+          id: `mosaic`,
+          text: `Grid view`
+        }, {
+          id: `flipbook`,
+          text: `Flipbook`
+        }].map((button) => {
+          return (() => {
+            var _el$19 = _tmpl$7$2();
+            _el$19.$$click = () => {
+              reset();
+              setDisplayType(button.id);
+            };
+            insert(_el$19, () => button.text);
+            createRenderEffect(() => _el$19.classList.toggle("active", !!(displayType() === button.id)));
+            return _el$19;
+          })();
+        }), null);
+        return _el$2;
+      })(), (() => {
+        var _el$5 = _tmpl$6$3(), _el$6 = _el$5.firstChild, _el$16 = _el$6.firstChild, _el$17 = _el$16.firstChild;
+        insert(_el$5, (() => {
+          var _c$3 = createMemo(() => !!(displayType() === `single` && getAllImages().length > 1));
+          return () => _c$3() ? (() => {
+            var _el$20 = _tmpl$8$2();
+            insert(_el$20, () => getAllImages().map((image, i2) => {
+              return (() => {
+                var _el$21 = _tmpl$9$2(), _el$22 = _el$21.firstChild;
+                _el$21.$$click = () => {
+                  setSelectedImageIndex(i2);
+                };
+                createRenderEffect((_p$) => {
+                  var _v$8 = !!(i2 === selectedImageIndex()), _v$9 = comfyImageSrc(image);
+                  _v$8 !== _p$.e && _el$21.classList.toggle("active", _p$.e = _v$8);
+                  _v$9 !== _p$.t && setAttribute(_el$22, "src", _p$.t = _v$9);
+                  return _p$;
+                }, {
+                  e: void 0,
+                  t: void 0
+                });
+                return _el$21;
+              })();
+            }));
+            return _el$20;
+          })() : null;
+        })(), _el$6);
+        _el$6.addEventListener("wheel", (e2) => {
+          const rect = imageZoomContainerRef.getClientRects()[0];
+          const [mouseX, mouseY] = [e2.clientX, e2.clientY];
+          const {
+            x: canvasX,
+            y: canvasY,
+            width: canvasWidth,
+            height: canvasHeight
+          } = rect;
+          const cursorProcX = (mouseX - canvasX) / canvasWidth;
+          const cursorProcY = (mouseY - canvasY) / canvasHeight;
+          setCanvasZoom(Math.max(0.1, canvasZoom() - (e2.deltaY > 0 ? 0.075 : -0.075)));
+          (() => {
+            setCanvasOffset([0, 0]);
+            const rect2 = imageZoomContainerRef.getClientRects()[0];
+            const {
+              x: canvasAfterX,
+              y: canvasAfterY,
+              width: canvasAfterWidth,
+              height: canvasAfterHeight
+            } = rect2;
+            const cursorProcAfterX = (mouseX - canvasAfterX) / canvasAfterWidth;
+            const cursorProcAfterY = (mouseY - canvasAfterY) / canvasAfterHeight;
+            const procDeltaX = cursorProcAfterX - cursorProcX;
+            const procDeltaY = cursorProcAfterY - cursorProcY;
+            const xOffset = procDeltaX * canvasAfterWidth / scaledCanvasZoom();
+            const yOffset = procDeltaY * canvasAfterHeight / scaledCanvasZoom();
+            setCanvasOffset([canvasOffset()[0] + xOffset, canvasOffset()[1] + yOffset]);
+          })();
+        });
+        _el$6.$$mousedown = (e2) => {
+          const startX = e2.clientX;
+          const startY = e2.clientY;
+          const [initialX, initialY] = canvasOffset();
+          const handleMouseMove = (e3) => {
+            e3.preventDefault();
+            const currentX = e3.clientX;
+            const currentY = e3.clientY;
+            const deltaX = startX - currentX;
+            const deltaY = startY - currentY;
+            setCanvasOffset([initialX - deltaX / scaledCanvasZoom(), initialY - deltaY / scaledCanvasZoom()]);
+          };
+          const handleMouseUp = () => {
+            document.removeEventListener(`mousemove`, handleMouseMove);
+            document.removeEventListener(`mouseup`, handleMouseUp);
+          };
+          document.addEventListener(`mousemove`, handleMouseMove);
+          document.addEventListener(`mouseup`, handleMouseUp);
+        };
+        _el$6.$$dblclick = () => {
+          reset(true);
+        };
+        insert(_el$6, createComponent(Switch, {
+          get children() {
+            return [createComponent(Match, {
+              get when() {
+                return displayType() === `single`;
+              },
+              get children() {
+                var _el$7 = _tmpl$3$4();
+                var _ref$ = imageZoomContainerRef;
+                typeof _ref$ === "function" ? use(_ref$, _el$7) : imageZoomContainerRef = _el$7;
+                createRenderEffect((_p$) => {
+                  var _v$ = containerTransform(), _v$2 = comfyImageSrc((value().value ?? [])[selectedImageIndex()]);
+                  _v$ !== _p$.e && ((_p$.e = _v$) != null ? _el$7.style.setProperty("transform", _v$) : _el$7.style.removeProperty("transform"));
+                  _v$2 !== _p$.t && setAttribute(_el$7, "src", _p$.t = _v$2);
+                  return _p$;
+                }, {
+                  e: void 0,
+                  t: void 0
+                });
+                return _el$7;
+              }
+            }), createComponent(Match, {
+              get when() {
+                return displayType() === `mosaic`;
+              },
+              get children() {
+                var _el$8 = _tmpl$4$3(), _el$9 = _el$8.firstChild;
+                _el$8.$$dblclick = () => {
+                  reset(true);
+                };
+                var _ref$2 = imageZoomContainerRef;
+                typeof _ref$2 === "function" ? use(_ref$2, _el$8) : imageZoomContainerRef = _el$8;
+                insert(_el$9, () => getAllImages().map((image, i2) => {
+                  return (() => {
+                    var _el$23 = _tmpl$10$2(), _el$24 = _el$23.firstChild;
+                    _el$23.$$click = () => {
+                      setSelectedImageIndex(i2);
+                    };
+                    createRenderEffect((_p$) => {
+                      var _v$10 = `${maximizeImageSize().imageWidth}px`, _v$11 = `${maximizeImageSize().imageHeight}px`, _v$12 = comfyImageSrc(image);
+                      _v$10 !== _p$.e && ((_p$.e = _v$10) != null ? _el$23.style.setProperty("width", _v$10) : _el$23.style.removeProperty("width"));
+                      _v$11 !== _p$.t && ((_p$.t = _v$11) != null ? _el$23.style.setProperty("height", _v$11) : _el$23.style.removeProperty("height"));
+                      _v$12 !== _p$.a && setAttribute(_el$24, "src", _p$.a = _v$12);
+                      return _p$;
+                    }, {
+                      e: void 0,
+                      t: void 0,
+                      a: void 0
+                    });
+                    return _el$23;
+                  })();
+                }));
+                createRenderEffect((_p$) => {
+                  var _v$3 = containerTransform(), _v$4 = `${maximizeImageSize().containerWidth}px`, _v$5 = `${maximizeImageSize().containerHeight}px`;
+                  _v$3 !== _p$.e && ((_p$.e = _v$3) != null ? _el$8.style.setProperty("transform", _v$3) : _el$8.style.removeProperty("transform"));
+                  _v$4 !== _p$.t && ((_p$.t = _v$4) != null ? _el$9.style.setProperty("width", _v$4) : _el$9.style.removeProperty("width"));
+                  _v$5 !== _p$.a && ((_p$.a = _v$5) != null ? _el$9.style.setProperty("height", _v$5) : _el$9.style.removeProperty("height"));
+                  return _p$;
+                }, {
+                  e: void 0,
+                  t: void 0,
+                  a: void 0
+                });
+                return _el$8;
+              }
+            }), createComponent(Match, {
+              get when() {
+                return displayType() === `flipbook`;
+              },
+              get children() {
+                return [(() => {
+                  var _el$10 = _tmpl$5$3(), _el$11 = _el$10.firstChild, _el$12 = _el$11.nextSibling, _el$13 = _el$12.nextSibling, _el$14 = _el$13.nextSibling;
+                  _el$12.$$input = (e2) => {
+                    setFlipbookFps({
+                      ...flipbookFps(),
+                      [selectedTweakId()]: Math.max(1, parseInt(e2.currentTarget.value, 10))
+                    });
+                  };
+                  _el$14.addEventListener("change", () => {
+                    setFlipflop(!flipflop());
+                  });
+                  createRenderEffect(() => _el$12.value = flipbookFps()[selectedTweakId()] ?? 12);
+                  createRenderEffect(() => _el$14.checked = flipflop());
+                  return _el$10;
+                })(), (() => {
+                  var _el$15 = _tmpl$3$4();
+                  var _ref$3 = imageZoomContainerRef;
+                  typeof _ref$3 === "function" ? use(_ref$3, _el$15) : imageZoomContainerRef = _el$15;
+                  createRenderEffect((_p$) => {
+                    var _v$6 = containerTransform(), _v$7 = comfyImageSrc((value().value ?? [])[flipbookIndex()]);
+                    _v$6 !== _p$.e && ((_p$.e = _v$6) != null ? _el$15.style.setProperty("transform", _v$6) : _el$15.style.removeProperty("transform"));
+                    _v$7 !== _p$.t && setAttribute(_el$15, "src", _p$.t = _v$7);
+                    return _p$;
+                  }, {
+                    e: void 0,
+                    t: void 0
+                  });
+                  return _el$15;
+                })()];
+              }
+            })];
+          }
+        }), _el$16);
+        _el$16.$$click = () => {
+          reset(true);
+        };
+        insert(_el$16, (() => {
+          var _c$4 = createMemo(() => displayType() === `mosaic`);
+          return () => _c$4() ? parseFloat((maximizeImageSize().ratio * scaledCanvasZoom()).toFixed(2)) : parseFloat(scaledCanvasZoom().toFixed(2));
+        })(), _el$17);
+        return _el$5;
+      })()] : null;
+    })(), null);
+    insert(_el$, (() => {
+      var _c$2 = createMemo(() => !!!value());
+      return () => _c$2() ? (() => {
+        var _el$25 = _tmpl$11$2(), _el$26 = _el$25.firstChild, _el$27 = _el$26.nextSibling;
+        _el$27.muted = true;
+        _el$27.autoplay = true;
+        _el$27.loop = true;
+        return _el$25;
+      })() : null;
+    })(), null);
+    createRenderEffect(() => {
+      var _a, _b;
+      return _el$.classList.toggle("hasMultiple", !!(((_b = (_a = value()) == null ? void 0 : _a.value) == null ? void 0 : _b.length) > 0));
+    });
+    return _el$;
+  })();
+};
+delegateEvents(["dblclick", "mousedown", "input", "click"]);
+const imagePreviews = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  ImagePreviews,
+  localStoragePreviewImagesKey
+}, Symbol.toStringTag, { value: "Module" }));
+const $RAW = Symbol("store-raw"), $NODE = Symbol("store-node"), $HAS = Symbol("store-has"), $SELF = Symbol("store-self");
+function wrap$1(value) {
+  let p2 = value[$PROXY];
+  if (!p2) {
+    Object.defineProperty(value, $PROXY, {
+      value: p2 = new Proxy(value, proxyTraps$1)
+    });
+    if (!Array.isArray(value)) {
+      const keys = Object.keys(value), desc = Object.getOwnPropertyDescriptors(value);
+      for (let i2 = 0, l2 = keys.length; i2 < l2; i2++) {
+        const prop = keys[i2];
+        if (desc[prop].get) {
+          Object.defineProperty(value, prop, {
+            enumerable: desc[prop].enumerable,
+            get: desc[prop].get.bind(p2)
+          });
+        }
+      }
+    }
+  }
+  return p2;
+}
+function isWrappable(obj) {
+  let proto;
+  return obj != null && typeof obj === "object" && (obj[$PROXY] || !(proto = Object.getPrototypeOf(obj)) || proto === Object.prototype || Array.isArray(obj));
+}
+function unwrap(item, set = /* @__PURE__ */ new Set()) {
+  let result, unwrapped, v2, prop;
+  if (result = item != null && item[$RAW])
+    return result;
+  if (!isWrappable(item) || set.has(item))
+    return item;
+  if (Array.isArray(item)) {
+    if (Object.isFrozen(item))
+      item = item.slice(0);
+    else
+      set.add(item);
+    for (let i2 = 0, l2 = item.length; i2 < l2; i2++) {
+      v2 = item[i2];
+      if ((unwrapped = unwrap(v2, set)) !== v2)
+        item[i2] = unwrapped;
+    }
+  } else {
+    if (Object.isFrozen(item))
+      item = Object.assign({}, item);
+    else
+      set.add(item);
+    const keys = Object.keys(item), desc = Object.getOwnPropertyDescriptors(item);
+    for (let i2 = 0, l2 = keys.length; i2 < l2; i2++) {
+      prop = keys[i2];
+      if (desc[prop].get)
+        continue;
+      v2 = item[prop];
+      if ((unwrapped = unwrap(v2, set)) !== v2)
+        item[prop] = unwrapped;
+    }
+  }
+  return item;
+}
+function getNodes(target, symbol) {
+  let nodes = target[symbol];
+  if (!nodes)
+    Object.defineProperty(target, symbol, {
+      value: nodes = /* @__PURE__ */ Object.create(null)
+    });
+  return nodes;
+}
+function getNode(nodes, property, value) {
+  if (nodes[property])
+    return nodes[property];
+  const [s3, set] = createSignal(value, {
+    equals: false,
+    internal: true
+  });
+  s3.$ = set;
+  return nodes[property] = s3;
+}
+function proxyDescriptor$1(target, property) {
+  const desc = Reflect.getOwnPropertyDescriptor(target, property);
+  if (!desc || desc.get || !desc.configurable || property === $PROXY || property === $NODE)
+    return desc;
+  delete desc.value;
+  delete desc.writable;
+  desc.get = () => target[$PROXY][property];
+  return desc;
+}
+function trackSelf(target) {
+  getListener() && getNode(getNodes(target, $NODE), $SELF)();
+}
+function ownKeys(target) {
+  trackSelf(target);
+  return Reflect.ownKeys(target);
+}
+const proxyTraps$1 = {
+  get(target, property, receiver) {
+    if (property === $RAW)
+      return target;
+    if (property === $PROXY)
+      return receiver;
+    if (property === $TRACK) {
+      trackSelf(target);
+      return receiver;
+    }
+    const nodes = getNodes(target, $NODE);
+    const tracked = nodes[property];
+    let value = tracked ? tracked() : target[property];
+    if (property === $NODE || property === $HAS || property === "__proto__")
+      return value;
+    if (!tracked) {
+      const desc = Object.getOwnPropertyDescriptor(target, property);
+      if (getListener() && (typeof value !== "function" || target.hasOwnProperty(property)) && !(desc && desc.get))
+        value = getNode(nodes, property, value)();
+    }
+    return isWrappable(value) ? wrap$1(value) : value;
+  },
+  has(target, property) {
+    if (property === $RAW || property === $PROXY || property === $TRACK || property === $NODE || property === $HAS || property === "__proto__")
+      return true;
+    getListener() && getNode(getNodes(target, $HAS), property)();
+    return property in target;
+  },
+  set() {
+    return true;
+  },
+  deleteProperty() {
+    return true;
+  },
+  ownKeys,
+  getOwnPropertyDescriptor: proxyDescriptor$1
+};
+function setProperty(state, property, value, deleting = false) {
+  if (!deleting && state[property] === value)
+    return;
+  const prev = state[property], len = state.length;
+  if (value === void 0) {
+    delete state[property];
+    if (state[$HAS] && state[$HAS][property] && prev !== void 0)
+      state[$HAS][property].$();
+  } else {
+    state[property] = value;
+    if (state[$HAS] && state[$HAS][property] && prev === void 0)
+      state[$HAS][property].$();
+  }
+  let nodes = getNodes(state, $NODE), node;
+  if (node = getNode(nodes, property, prev))
+    node.$(() => value);
+  if (Array.isArray(state) && state.length !== len) {
+    for (let i2 = state.length; i2 < len; i2++)
+      (node = nodes[i2]) && node.$();
+    (node = getNode(nodes, "length", len)) && node.$(state.length);
+  }
+  (node = nodes[$SELF]) && node.$();
+}
+function mergeStoreNode(state, value) {
+  const keys = Object.keys(value);
+  for (let i2 = 0; i2 < keys.length; i2 += 1) {
+    const key = keys[i2];
+    setProperty(state, key, value[key]);
+  }
+}
+function updateArray(current, next) {
+  if (typeof next === "function")
+    next = next(current);
+  next = unwrap(next);
+  if (Array.isArray(next)) {
+    if (current === next)
+      return;
+    let i2 = 0, len = next.length;
+    for (; i2 < len; i2++) {
+      const value = next[i2];
+      if (current[i2] !== value)
+        setProperty(current, i2, value);
+    }
+    setProperty(current, "length", len);
+  } else
+    mergeStoreNode(current, next);
+}
+function updatePath(current, path, traversed = []) {
+  let part, prev = current;
+  if (path.length > 1) {
+    part = path.shift();
+    const partType = typeof part, isArray = Array.isArray(current);
+    if (Array.isArray(part)) {
+      for (let i2 = 0; i2 < part.length; i2++) {
+        updatePath(current, [part[i2]].concat(path), traversed);
+      }
+      return;
+    } else if (isArray && partType === "function") {
+      for (let i2 = 0; i2 < current.length; i2++) {
+        if (part(current[i2], i2))
+          updatePath(current, [i2].concat(path), traversed);
+      }
+      return;
+    } else if (isArray && partType === "object") {
+      const {
+        from = 0,
+        to = current.length - 1,
+        by = 1
+      } = part;
+      for (let i2 = from; i2 <= to; i2 += by) {
+        updatePath(current, [i2].concat(path), traversed);
+      }
+      return;
+    } else if (path.length > 1) {
+      updatePath(current[part], path, [part].concat(traversed));
+      return;
+    }
+    prev = current[part];
+    traversed = [part].concat(traversed);
+  }
+  let value = path[0];
+  if (typeof value === "function") {
+    value = value(prev, traversed);
+    if (value === prev)
+      return;
+  }
+  if (part === void 0 && value == void 0)
+    return;
+  value = unwrap(value);
+  if (part === void 0 || isWrappable(prev) && isWrappable(value) && !Array.isArray(value)) {
+    mergeStoreNode(prev, value);
+  } else
+    setProperty(current, part, value);
+}
+function createStore(...[store, options]) {
+  const unwrappedStore = unwrap(store || {});
+  const isArray = Array.isArray(unwrappedStore);
+  const wrappedStore = wrap$1(unwrappedStore);
+  function setStore(...args) {
+    batch(() => {
+      isArray && args.length === 1 ? updateArray(unwrappedStore, args[0]) : updatePath(unwrappedStore, args);
+    });
+  }
+  return [wrappedStore, setStore];
+}
+const $ROOT = Symbol("store-root");
+function applyState(target, parent, property, merge, key) {
+  const previous = parent[property];
+  if (target === previous)
+    return;
+  const isArray = Array.isArray(target);
+  if (property !== $ROOT && (!isWrappable(target) || !isWrappable(previous) || isArray !== Array.isArray(previous) || key && target[key] !== previous[key])) {
+    setProperty(parent, property, target);
+    return;
+  }
+  if (isArray) {
+    if (target.length && previous.length && (!merge || key && target[0] && target[0][key] != null)) {
+      let i2, j2, start, end, newEnd, item, newIndicesNext, keyVal;
+      for (start = 0, end = Math.min(previous.length, target.length); start < end && (previous[start] === target[start] || key && previous[start] && target[start] && previous[start][key] === target[start][key]); start++) {
+        applyState(target[start], previous, start, merge, key);
+      }
+      const temp = new Array(target.length), newIndices = /* @__PURE__ */ new Map();
+      for (end = previous.length - 1, newEnd = target.length - 1; end >= start && newEnd >= start && (previous[end] === target[newEnd] || key && previous[start] && target[start] && previous[end][key] === target[newEnd][key]); end--, newEnd--) {
+        temp[newEnd] = previous[end];
+      }
+      if (start > newEnd || start > end) {
+        for (j2 = start; j2 <= newEnd; j2++)
+          setProperty(previous, j2, target[j2]);
+        for (; j2 < target.length; j2++) {
+          setProperty(previous, j2, temp[j2]);
+          applyState(target[j2], previous, j2, merge, key);
+        }
+        if (previous.length > target.length)
+          setProperty(previous, "length", target.length);
+        return;
+      }
+      newIndicesNext = new Array(newEnd + 1);
+      for (j2 = newEnd; j2 >= start; j2--) {
+        item = target[j2];
+        keyVal = key && item ? item[key] : item;
+        i2 = newIndices.get(keyVal);
+        newIndicesNext[j2] = i2 === void 0 ? -1 : i2;
+        newIndices.set(keyVal, j2);
+      }
+      for (i2 = start; i2 <= end; i2++) {
+        item = previous[i2];
+        keyVal = key && item ? item[key] : item;
+        j2 = newIndices.get(keyVal);
+        if (j2 !== void 0 && j2 !== -1) {
+          temp[j2] = previous[i2];
+          j2 = newIndicesNext[j2];
+          newIndices.set(keyVal, j2);
+        }
+      }
+      for (j2 = start; j2 < target.length; j2++) {
+        if (j2 in temp) {
+          setProperty(previous, j2, temp[j2]);
+          applyState(target[j2], previous, j2, merge, key);
+        } else
+          setProperty(previous, j2, target[j2]);
+      }
+    } else {
+      for (let i2 = 0, len = target.length; i2 < len; i2++) {
+        applyState(target[i2], previous, i2, merge, key);
+      }
+    }
+    if (previous.length > target.length)
+      setProperty(previous, "length", target.length);
+    return;
+  }
+  const targetKeys = Object.keys(target);
+  for (let i2 = 0, len = targetKeys.length; i2 < len; i2++) {
+    applyState(target[targetKeys[i2]], previous, targetKeys[i2], merge, key);
+  }
+  const previousKeys = Object.keys(previous);
+  for (let i2 = 0, len = previousKeys.length; i2 < len; i2++) {
+    if (target[previousKeys[i2]] === void 0)
+      setProperty(previous, previousKeys[i2], void 0);
+  }
+}
+function reconcile(value, options = {}) {
+  const {
+    merge,
+    key = "id"
+  } = options, v2 = unwrap(value);
+  return (state) => {
+    if (!isWrappable(state) || !isWrappable(v2))
+      return v2;
+    const res = applyState(v2, {
+      [$ROOT]: state
+    }, $ROOT, merge, key);
+    return res === void 0 ? state : res;
+  };
+}
+var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
+var src = {};
+var ast = {};
+Object.defineProperty(ast, "__esModule", { value: true });
+var tokenizePrompt$1 = {};
+var __extends = commonjsGlobal && commonjsGlobal.__extends || /* @__PURE__ */ function() {
+  var extendStatics = function(d2, b) {
+    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, b2) {
+      d3.__proto__ = b2;
+    } || function(d3, b2) {
+      for (var p2 in b2)
+        if (Object.prototype.hasOwnProperty.call(b2, p2))
+          d3[p2] = b2[p2];
+    };
+    return extendStatics(d2, b);
+  };
+  return function(d2, b) {
+    if (typeof b !== "function" && b !== null)
+      throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d2, b);
+    function __() {
+      this.constructor = d2;
+    }
+    d2.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+Object.defineProperty(tokenizePrompt$1, "__esModule", { value: true });
+tokenizePrompt$1.TokenReader = tokenizePrompt$1.TokenError = tokenizePrompt$1.tokenizePrompt = void 0;
+function tokenizePrompt(input) {
+  var tokens = [];
+  var current = "";
+  var startPosition = 0;
+  var stopPosition = 0;
+  var escaping = false;
+  function submit() {
+    if (current !== "") {
+      tokens.push([current, startPosition]);
+      current = "";
+    }
+    startPosition = stopPosition;
+  }
+  function append(c3) {
+    current += c3;
+    stopPosition++;
+  }
+  function skip() {
+    stopPosition++;
+  }
+  for (var _i = 0, _a = input.replace(/，/g, ",").replace(/：/g, ":").replace(/（/g, "(").replace(/）/g, ")"); _i < _a.length; _i++) {
+    var c2 = _a[_i];
+    if (escaping) {
+      escaping = false;
+      append(c2);
+    } else {
+      switch (c2) {
+        case "\\": {
+          escaping = true;
+          append(c2);
+          break;
+        }
+        case "(":
+        case ")":
+        case "[":
+        case "]":
+        case "<":
+        case ">":
+        case ":":
+        case ",":
+        case "|": {
+          submit();
+          append(c2);
+          submit();
+          break;
+        }
+        case " ": {
+          skip();
+          submit();
+          break;
+        }
+        default: {
+          append(c2);
+        }
+      }
+    }
+  }
+  submit();
+  return tokens;
+}
+tokenizePrompt$1.tokenizePrompt = tokenizePrompt;
+var TokenError = (
+  /** @class */
+  function(_super) {
+    __extends(TokenError2, _super);
+    function TokenError2(message, token, position) {
+      var _this = _super.call(this, message) || this;
+      _this.token = token;
+      _this.position = position;
+      return _this;
+    }
+    return TokenError2;
+  }(Error)
+);
+tokenizePrompt$1.TokenError = TokenError;
+var TokenReader = (
+  /** @class */
+  function() {
+    function TokenReader2(tokens) {
+      this.tokens = tokens;
+      this.index = 0;
+    }
+    TokenReader2.prototype.position = function() {
+      if (this.index < this.tokens.length) {
+        return this.tokens[this.index][1];
+      } else {
+        return void 0;
+      }
+    };
+    TokenReader2.prototype.look = function() {
+      if (this.index < this.tokens.length) {
+        return this.tokens[this.index][0];
+      } else {
+        return void 0;
+      }
+    };
+    TokenReader2.prototype.lookMany = function(count) {
+      return this.tokens.slice(this.index, this.index + count).map(function(_a) {
+        var text = _a[0];
+        return text;
+      });
+    };
+    TokenReader2.prototype.next = function() {
+      if (this.index < this.tokens.length) {
+        this.index++;
+      }
+    };
+    TokenReader2.prototype.error = function(message) {
+      var token = this.look();
+      if (token === void 0) {
+        throw new TokenError("Error happened at the end of the input: ".concat(message));
+      } else {
+        var position = this.position();
+        throw new TokenError("Error happened at (".concat(token, ",").concat(position, "):").concat(message), token, position);
+      }
+    };
+    return TokenReader2;
+  }()
+);
+tokenizePrompt$1.TokenReader = TokenReader;
+var parsePrompt$1 = {};
+Object.defineProperty(parsePrompt$1, "__esModule", { value: true });
+parsePrompt$1.parsePrompt = void 0;
+var tokenizePrompt_1 = tokenizePrompt$1;
+function escapeToken(token) {
+  return token.replace(/\\(.)/g, "$1");
+}
+function parseTagPrompt(reader) {
+  var tokens = [];
+  parsing:
+    while (true) {
+      var look = reader.look();
+      switch (look) {
+        case "(":
+        case ")":
+        case "[":
+        case "]":
+        case "<":
+        case ">":
+        case ":":
+        case ",":
+        case "|":
+        case void 0: {
+          break parsing;
+        }
+        default: {
+          tokens.push(look);
+          reader.next();
+        }
+      }
+    }
+  if (tokens.length === 0) {
+    reader.error("Tag expected");
+  } else {
+    return {
+      kind: "tag",
+      name: tokens.map(escapeToken).join(" "),
+      tokens
+    };
+  }
+}
+function parsePositivePrompt(reader) {
+  reader.next();
+  var contents = parsePromptContents(reader, false);
+  while (true) {
+    var _a = reader.lookMany(2), colon = _a[0], number = _a[1];
+    if (colon !== ":") {
+      break;
+    }
+    if (!Number.isNaN(Number.parseFloat(number))) {
+      break;
+    }
+    reader.next();
+    contents.push.apply(contents, parsePromptContents(reader, false));
+  }
+  if (reader.look() === ":") {
+    reader.next();
+    var _b = parseWeight(reader), weight = _b[0], weightText = _b[1];
+    if (reader.look() === ",") {
+      reader.next();
+    }
+    if (reader.look() === ")" || reader.look() === "}" || reader.look() === void 0) {
+      reader.next();
+    }
+    return {
+      kind: "ew",
+      weight,
+      weightText,
+      contents
+    };
+  }
+  if (reader.look() === ")" || reader.look() === "}" || reader.look() === void 0) {
+    reader.next();
+  }
+  return {
+    kind: "pw",
+    contents
+  };
+}
+function parseNegativePrompt(reader) {
+  reader.next();
+  var contents = parsePromptContents(reader, false);
+  if (reader.look() === "]" || reader.look() === "}" || reader.look() === void 0) {
+    reader.next();
+  }
+  return {
+    kind: "nw",
+    contents
+  };
+}
+function parseContentToken(reader, name) {
+  var look = reader.look();
+  switch (look) {
+    case "(":
+    case ")":
+    case "[":
+    case "]":
+    case "<":
+    case ">":
+    case ":":
+    case ",":
+    case void 0: {
+      reader.error("".concat(name, " expected"));
+    }
+    default: {
+      return escapeToken(look);
+    }
+  }
+}
+function parseFilename(reader) {
+  var result = parseContentToken(reader, "Filename");
+  reader.next();
+  return result;
+}
+function parseNumber(reader, name) {
+  function isInt(s3) {
+    var int = Number.parseInt(s3);
+    return !Number.isNaN(int) && "".concat(int) === s3;
+  }
+  {
+    var _a = reader.lookMany(3), first = _a[0], second = _a[1], third = _a[2];
+    if (isInt(first) && second === "," && isInt(third)) {
+      reader.next();
+      reader.next();
+      reader.next();
+      return [Number.parseFloat("".concat(first, ".").concat(third)), "".concat(first).concat(second).concat(third)];
+    }
+  }
+  {
+    var _b = reader.lookMany(2), first = _b[0], second = _b[1];
+    if (first.endsWith(".") && isInt(first.substring(0, first.length - 1)) && isInt(second)) {
+      reader.next();
+      reader.next();
+      return [Number.parseFloat("".concat(first).concat(second)), "".concat(first, " ").concat(second)];
+    }
+  }
+  var numberText = parseContentToken(reader, name);
+  var number = Number.parseFloat(numberText);
+  if (Number.isNaN(number)) {
+    reader.error("Incorrect ".concat(name.toLowerCase(), " format: ").concat(numberText));
+  }
+  reader.next();
+  return [number, numberText];
+}
+function parseWeight(reader) {
+  return parseNumber(reader, "Weight");
+}
+function parseMultiplier(reader) {
+  return parseNumber(reader, "Multiplier");
+}
+function parseAnglePrompt(reader, kind) {
+  reader.next();
+  reader.next();
+  if (reader.look() !== ":") {
+    reader.error('":" expected');
+  }
+  reader.next();
+  var filename = parseFilename(reader);
+  if (reader.look() === ":") {
+    reader.next();
+    var _a = parseMultiplier(reader), multiplier = _a[0], multiplierText = _a[1];
+    if (reader.look() === ">") {
+      reader.next();
+      return {
+        kind,
+        filename,
+        multiplier,
+        multiplierText
+      };
+    }
+  }
+  if (reader.look() === ">") {
+    reader.next();
+    return {
+      kind,
+      filename
+    };
+  }
+  reader.next();
+  reader.error('">" expected');
+}
+function parsePromptContent(reader, topLevel) {
+  switch (reader.look()) {
+    case "(":
+      return parsePositivePrompt(reader);
+    case "[":
+      return parseNegativePrompt(reader);
+    case "<": {
+      var modelName = reader.lookMany(2)[1];
+      switch (modelName) {
+        case "lora":
+        case "hypernet":
+          return parseAnglePrompt(reader, modelName);
+        default: {
+          reader.next();
+          return void 0;
+        }
+      }
+      break;
+    }
+    case ",":
+      reader.error("Prompt expected");
+    default: {
+      var tagPrompt = parseTagPrompt(reader);
+      if (topLevel && reader.look() === ":" && !Number.isNaN(Number.parseFloat(reader.lookMany(2)[1]))) {
+        reader.next();
+        var _a = parseWeight(reader), weight = _a[0], weightText = _a[1];
+        return {
+          kind: "ew",
+          weight,
+          weightText,
+          contents: [tagPrompt]
+        };
+      } else {
+        return tagPrompt;
+      }
+    }
+  }
+}
+function parsePromptContents(reader, topLevel) {
+  var contents = [];
+  while (true) {
+    var look = reader.look();
+    switch (look) {
+      case ",": {
+        reader.next();
+        break;
+      }
+      case ":":
+      case ")":
+      case "]":
+      case ">":
+      case "|":
+      case void 0: {
+        return contents;
+      }
+      default: {
+        var content = parsePromptContent(reader, topLevel);
+        if (content !== void 0) {
+          contents.push(content);
+        }
+      }
+    }
+  }
+}
+function parsePrompt(input) {
+  var _a;
+  var reader = typeof input === "string" ? new tokenizePrompt_1.TokenReader((0, tokenizePrompt_1.tokenizePrompt)(input)) : input instanceof Array ? new tokenizePrompt_1.TokenReader(input) : input;
+  var prompts = [];
+  var newPrompt = false;
+  parsing:
+    while (true) {
+      newPrompt = false;
+      skipping:
+        while (true) {
+          switch (reader.look()) {
+            case "|": {
+              newPrompt = true;
+              reader.next();
+              break;
+            }
+            case ")":
+            case "]":
+            case ">":
+            case ":": {
+              reader.next();
+              continue parsing;
+            }
+            case void 0:
+              return prompts;
+            default:
+              break skipping;
+          }
+        }
+      var contents = parsePromptContents(reader, true);
+      if (newPrompt || prompts.length === 0) {
+        prompts.push({
+          kind: "prompt",
+          contents
+        });
+      } else {
+        (_a = prompts[prompts.length - 1].contents).push.apply(_a, contents);
+      }
+    }
+}
+parsePrompt$1.parsePrompt = parsePrompt;
+var printPrompt$1 = {};
+Object.defineProperty(printPrompt$1, "__esModule", { value: true });
+printPrompt$1.printPrompt = void 0;
+function printPromptContents(contents) {
+  var printed = "";
+  var lastPromptIsTag = false;
+  for (var _i = 0, contents_1 = contents; _i < contents_1.length; _i++) {
+    var content = contents_1[_i];
+    if (content.kind === "tag" && lastPromptIsTag) {
+      printed += ", ";
+    } else if (printed !== "") {
+      printed += " ";
+    }
+    switch (content.kind) {
+      case "pw": {
+        printed += "(".concat(printPromptContents(content.contents), ")");
+        break;
+      }
+      case "nw": {
+        printed += "[".concat(printPromptContents(content.contents), "]");
+        break;
+      }
+      case "ew": {
+        printed += "(".concat(printPromptContents(content.contents), ":").concat(content.weightText ? content.weightText : content.weight, ")");
+        break;
+      }
+      case "lora":
+      case "hypernet": {
+        printed += "<".concat(content.kind, ":").concat(content.filename, ":").concat(content.multiplierText ? content.multiplierText : content.multiplier, ">");
+        break;
+      }
+      default:
+        printed += content.name;
+    }
+    lastPromptIsTag = content.kind === "tag";
+  }
+  return printed;
+}
+function printPrompt(prompt2) {
+  return printPromptContents(prompt2.contents);
+}
+printPrompt$1.printPrompt = printPrompt;
+var evaluatePrompt$1 = {};
+Object.defineProperty(evaluatePrompt$1, "__esModule", { value: true });
+evaluatePrompt$1.evaluatePrompt = void 0;
+function evaluatePromptContents(contents, currentAttention, defaultAttention, evaluated) {
+  var _a, _b;
+  for (var _i = 0, contents_1 = contents; _i < contents_1.length; _i++) {
+    var content = contents_1[_i];
+    switch (content.kind) {
+      case "pw": {
+        evaluatePromptContents(content.contents, currentAttention * defaultAttention, defaultAttention, evaluated);
+        break;
+      }
+      case "nw": {
+        evaluatePromptContents(content.contents, currentAttention / defaultAttention, defaultAttention, evaluated);
+        break;
+      }
+      case "ew": {
+        evaluatePromptContents(content.contents, currentAttention * content.weight, defaultAttention, evaluated);
+        break;
+      }
+      case "lora": {
+        evaluated.loras.push({ filename: content.filename, multiplier: (_a = content.multiplier) !== null && _a !== void 0 ? _a : 1 });
+        break;
+      }
+      case "hypernet": {
+        evaluated.hypernets.push({ filename: content.filename, multiplier: (_b = content.multiplier) !== null && _b !== void 0 ? _b : 1 });
+        break;
+      }
+      default:
+        evaluated.tags.push({ tag: content.name, weight: currentAttention });
+    }
+  }
+}
+function evaluatePrompt(input, defaultAttention) {
+  if (defaultAttention === void 0) {
+    defaultAttention = 1.1;
+  }
+  var evaluated = {
+    tags: [],
+    loras: [],
+    hypernets: []
+  };
+  evaluatePromptContents(input.contents, 1, defaultAttention, evaluated);
+  return evaluated;
+}
+evaluatePrompt$1.evaluatePrompt = evaluatePrompt;
+(function(exports) {
+  var __createBinding = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o4, m2, k2, k22) {
+    if (k22 === void 0)
+      k22 = k2;
+    var desc = Object.getOwnPropertyDescriptor(m2, k2);
+    if (!desc || ("get" in desc ? !m2.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() {
+        return m2[k2];
+      } };
+    }
+    Object.defineProperty(o4, k22, desc);
+  } : function(o4, m2, k2, k22) {
+    if (k22 === void 0)
+      k22 = k2;
+    o4[k22] = m2[k2];
+  });
+  var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m2, exports2) {
+    for (var p2 in m2)
+      if (p2 !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p2))
+        __createBinding(exports2, m2, p2);
+  };
+  Object.defineProperty(exports, "__esModule", { value: true });
+  __exportStar(ast, exports);
+  __exportStar(tokenizePrompt$1, exports);
+  __exportStar(parsePrompt$1, exports);
+  __exportStar(printPrompt$1, exports);
+  __exportStar(evaluatePrompt$1, exports);
+})(src);
+const jsonClone = (data) => {
+  return JSON.parse(JSON.stringify(data));
+};
+var _tmpl$$6 = /* @__PURE__ */ template(`<div class=prompt><div class=arrows><div class="arrow down"title="Move down">▼</div></div><label><input></label><div class=weight title="Click scroll wheel button to reset to 1"></div><button class=less title="Use Scroll Wheel to quickly change value">- 0.05</button><input type=range step=0.05><button class=more title="Use Scroll Wheel to quickly change value">+ 0.05</button><button class=remove title="Remove token">X</button><input type=checkbox>`), _tmpl$2$5 = /* @__PURE__ */ template(`<div class="arrow up"title="Move up">▲`), _tmpl$3$3 = /* @__PURE__ */ template(`<div class=promptTweaker><div class=buttons><button title="Use Scroll Wheel to quickly change all values">- 0.05 All</button><button title="Move all values 5% towards 1">Compress 5%</button><button title="Converts weights so they all add up to 1">Normalize</button><button title="Use Scroll Wheel to quickly change all values">+ 0.05 All</button></div><div class=promptTweakerPrompts>`);
+const promptRemoveStart = `🔒`;
+const promptRemoveEnd = `🔏`;
+const convertParenthesisToExplicitWeights = (prompts) => {
+  const replaceType = (prompt2) => {
+    var _a, _b;
+    if (prompt2.kind === `pw`) {
+      prompt2 = {
+        kind: `ew`,
+        weight: 1.1,
+        weightText: `1.1`,
+        contents: (_a = prompt2.contents) == null ? void 0 : _a.map(replaceType)
+      };
+    }
+    if (prompt2.kind === `nw`) {
+      prompt2 = {
+        kind: `ew`,
+        weight: 0.9,
+        weightText: `0.9`,
+        contents: (_b = prompt2.contents) == null ? void 0 : _b.map(replaceType)
+      };
+    }
+    return prompt2;
+  };
+  return prompts.map((subPrompt) => {
+    subPrompt.contents = subPrompt.contents.flatMap((s3) => {
+      const merged = replaceType(s3);
+      const collapsed = collapsePromptWeights(merged);
+      return collapsed;
+    });
+    return subPrompt;
+  });
+};
+function collapsePromptWeights(data, weight = 1) {
+  if (data.contents && data.contents.length > 0) {
+    return data.contents.flatMap((c2) => {
+      return collapsePromptWeights(c2, weight * (data.weight ?? 1));
+    });
+  } else {
+    const truncatedWeight = truncatePromptValue(weight);
+    return {
+      kind: `ew`,
+      weight: truncatedWeight,
+      weightText: truncatedWeight.toString(),
+      contents: [data]
+    };
+  }
+}
+function lerp$1(a2, b, alpha) {
+  return a2 + alpha * (b - a2);
+}
+function findValueByKey(data, key) {
+  if (!data) {
+    return void 0;
+  }
+  if (typeof data[key] !== `undefined`) {
+    return data[key];
+  }
+  if (data.contents) {
+    for (const item of data.contents) {
+      const result = findValueByKey(item, key);
+      if (result !== void 0) {
+        return result;
+      }
+    }
+  }
+  return void 0;
+}
+const truncatePromptValue = (value) => parseFloat(value.toFixed(2));
+const PromptTweaker = (p2) => {
+  const [formattedPrompt, setFormattedPrompt] = createStore([]);
+  const update = () => {
+    p2.update([{
+      contents: formattedPrompt
+    }].map(src.printPrompt).join(`, `));
+  };
+  createEffect(() => {
+    const raw = src.parsePrompt(p2.prompt);
+    const parsed = convertParenthesisToExplicitWeights(raw);
+    setFormattedPrompt(parsed[0] ? reconcile(parsed[0].contents) : []);
+  });
+  const minPromptWeight = createMemo(() => Math.min(...formattedPrompt.map((p3) => p3.weight ?? 1)));
+  const maxPromptWeight = createMemo(() => Math.max(...formattedPrompt.map((p3) => p3.weight ?? 1)));
+  const movePrompt = (name, direction) => {
+    const from = formattedPrompt.findIndex((p3) => findValueByKey(p3, `name`) === name);
+    const to = from + direction;
+    if (to < 0) {
+      return;
+    }
+    const count = formattedPrompt.length;
+    if (to === count) {
+      return;
+    }
+    const cloneData = jsonClone(formattedPrompt);
+    const fromPrompt = cloneData[from];
+    const toPrompt = cloneData[to];
+    cloneData[to] = fromPrompt;
+    cloneData[from] = toPrompt;
+    setFormattedPrompt(reconcile(cloneData));
+    update();
+  };
+  const tweakPromptAll = (cb) => {
+    for (const [promptIndex, prompt2] of formattedPrompt.entries()) {
+      setFormattedPrompt(promptIndex, `weight`, truncatePromptValue(cb(prompt2.weight ?? -666)));
+      setFormattedPrompt(promptIndex, `weightText`, (prompt2.weight ?? -666).toString());
+    }
+    update();
+  };
+  const tweakPrompt = (promptName, cb, id = `weight`) => {
+    var _a;
+    const promptIndex = formattedPrompt.findIndex((p3) => findValueByKey(p3, `name`) === promptName);
+    if (id === `weight`) {
+      setFormattedPrompt(promptIndex, id, truncatePromptValue(cb(formattedPrompt[promptIndex][id])));
+      setFormattedPrompt(promptIndex, `weightText`, (_a = formattedPrompt[promptIndex].weight) == null ? void 0 : _a.toString());
+    } else if (id === `name`) {
+      setFormattedPrompt(promptIndex, `contents`, 0, id, cb(formattedPrompt[promptIndex][id]));
+    } else {
+      alert(`Implement ${id}`);
+    }
+    update();
+  };
+  const onWheelAll = (e2) => {
+    const amount = e2.deltaY < 0 ? 0.05 : -0.05;
+    tweakPromptAll((weight) => weight + amount);
+  };
+  const normalizeWeights = () => {
+    const totalWeight = formattedPrompt.reduce((p3, c2) => p3 + (c2.weight ?? 0), 0);
+    tweakPromptAll((weight) => parseFloat((weight / totalWeight).toFixed(3)));
+  };
+  const renderPromptLine = (prompt2, lookIndex) => {
+    const promptName = () => findValueByKey(prompt2, `name`) ?? ``;
+    const isDisabled = () => promptName().includes(promptRemoveStart) && promptName().includes(promptRemoveEnd);
+    return (() => {
+      var _el$ = _tmpl$$6(), _el$2 = _el$.firstChild, _el$3 = _el$2.firstChild, _el$4 = _el$2.nextSibling, _el$5 = _el$4.firstChild, _el$6 = _el$4.nextSibling, _el$7 = _el$6.nextSibling, _el$8 = _el$7.nextSibling, _el$9 = _el$8.nextSibling, _el$10 = _el$9.nextSibling, _el$11 = _el$10.nextSibling;
+      _el$.addEventListener("wheel", (e2) => {
+        const amount = e2.deltaY < 0 ? 0.05 : -0.05;
+        tweakPrompt(promptName(), (weight) => weight + amount);
+      });
+      insert(_el$2, (() => {
+        var _el$12 = _tmpl$2$5();
+        _el$12.$$click = () => {
+          movePrompt(promptName(), -1);
+        };
+        return _el$12;
+      })(), _el$3);
+      _el$3.$$click = () => {
+        movePrompt(promptName(), 1);
+      };
+      _el$5.addEventListener("change", (e2) => {
+        const value = e2.currentTarget.value;
+        tweakPrompt(promptName(), () => value, `name`);
+      });
+      _el$6.$$mousedown = (e2) => {
+        if (e2.which !== 2) {
+          return;
+        }
+        tweakPrompt(promptName(), () => 1);
+        update();
+      };
+      _el$6.$$dblclick = () => {
+        document.querySelector(`.comfy-queue-btn`).click();
+      };
+      insert(_el$6, () => (findValueByKey(prompt2, `weight`) ?? 1).toFixed(2));
+      _el$7.$$click = () => {
+        tweakPrompt(promptName(), (weight) => weight - 0.05);
+      };
+      _el$8.addEventListener("change", (e2) => {
+        tweakPrompt(promptName(), () => parseFloat(e2.currentTarget.value));
+      });
+      _el$8.$$input = (e2) => {
+        const value = formattedPrompt[lookIndex()].weight;
+        if (!value || value < 0 || value > 2) {
+          return;
+        }
+        tweakPrompt(promptName(), () => parseFloat(e2.currentTarget.value));
+      };
+      _el$9.$$click = () => {
+        tweakPrompt(promptName(), (weight) => weight + 0.05);
+      };
+      _el$10.$$click = () => {
+        setFormattedPrompt(formattedPrompt.filter((u3) => findValueByKey(u3, `name`) !== findValueByKey(prompt2, `name`)));
+        update();
+      };
+      _el$11.addEventListener("change", () => {
+        if (isDisabled()) {
+          tweakPrompt(promptName(), () => {
+            var _a;
+            return (_a = findValueByKey(prompt2, `name`)) == null ? void 0 : _a.replace(promptRemoveStart, ``).replace(promptRemoveEnd, ``);
+          }, `name`);
+        } else {
+          tweakPrompt(promptName(), () => promptRemoveStart + (findValueByKey(prompt2, `name`) ?? ``) + promptRemoveEnd, `name`);
+        }
+        update();
+      });
+      createRenderEffect((_p$) => {
+        var _v$ = !!isDisabled(), _v$2 = findValueByKey(prompt2, `name`), _v$3 = Math.min(minPromptWeight(), 0), _v$4 = Math.max(maxPromptWeight(), 2), _v$5 = isDisabled() ? `Temporarily disabled token` : `Click to temporarily disable token`;
+        _v$ !== _p$.e && _el$.classList.toggle("tmp", _p$.e = _v$);
+        _v$2 !== _p$.t && setAttribute(_el$5, "title", _p$.t = _v$2);
+        _v$3 !== _p$.a && setAttribute(_el$8, "min", _p$.a = _v$3);
+        _v$4 !== _p$.o && setAttribute(_el$8, "max", _p$.o = _v$4);
+        _v$5 !== _p$.i && setAttribute(_el$11, "title", _p$.i = _v$5);
+        return _p$;
+      }, {
+        e: void 0,
+        t: void 0,
+        a: void 0,
+        o: void 0,
+        i: void 0
+      });
+      createRenderEffect(() => _el$5.value = findValueByKey(prompt2, `name`));
+      createRenderEffect(() => _el$8.value = findValueByKey(prompt2, `weight`));
+      createRenderEffect(() => _el$11.checked = !isDisabled());
+      return _el$;
+    })();
+  };
+  return (() => {
+    var _el$13 = _tmpl$3$3(), _el$14 = _el$13.firstChild, _el$15 = _el$14.firstChild, _el$16 = _el$15.nextSibling, _el$17 = _el$16.nextSibling, _el$18 = _el$17.nextSibling, _el$19 = _el$14.nextSibling;
+    _el$14.addEventListener("wheel", onWheelAll);
+    _el$15.$$click = () => {
+      tweakPromptAll((weight) => weight - 0.05);
+    };
+    _el$16.$$click = () => {
+      tweakPromptAll((weight) => lerp$1(weight, 1, 0.05));
+    };
+    _el$17.$$click = normalizeWeights;
+    _el$18.$$click = () => {
+      tweakPromptAll((weight) => weight + 0.05);
+    };
+    insert(_el$19, createComponent(For, {
+      each: formattedPrompt,
+      children: renderPromptLine
+    }));
+    return _el$13;
+  })();
+};
+delegateEvents(["click", "dblclick", "mousedown", "input"]);
+var _tmpl$$5 = /* @__PURE__ */ template(`<div class=settingsPopup><div class=close>❌</div><div class=header>Settings</div><div class=modalContent><div class=mapeSettings>`), _tmpl$2$4 = /* @__PURE__ */ template(`<input type=text>`), _tmpl$3$2 = /* @__PURE__ */ template(`<input type=color>`), _tmpl$4$2 = /* @__PURE__ */ template(`<input type=number>`), _tmpl$5$2 = /* @__PURE__ */ template(`<input type=checkbox>`), _tmpl$6$2 = /* @__PURE__ */ template(`<div class=mapeSetting><label class=name></label><div class=reset title="Reset to default value">♻️</div><label class=value>`);
+const defaults = {
+  nodeAlignOffsetY: {
+    name: `Offset Y pixel amount`,
+    value: {
+      type: `number`,
+      value: 50
+    }
+  },
+  nodeOrganizeSpacingInputY: {
+    name: `Node organize input Y spacing`,
+    value: {
+      type: `number`,
+      value: 15
+    }
+  },
+  nodeOrganizeSpacingOutputY: {
+    name: `Node organize output Y spacing`,
+    value: {
+      type: `number`,
+      value: 34
+    }
+  },
+  nodeOrganizeSpacingInputX: {
+    name: `Node organize input X spacing`,
+    value: {
+      type: `number`,
+      value: 200
+    }
+  },
+  nodeOrganizeSpacingOutputX: {
+    name: `Node organize output X spacing`,
+    value: {
+      type: `number`,
+      value: 60
+    }
+  },
+  alwaysPromptVariableName: {
+    name: `Prompt for variable name`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  collapseNodesOnOrganize: {
+    name: `Collapse GET/SET when organizing node`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  resizeNodeWidthOnAlignment: {
+    name: `Resize node on left alignment`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  showAllConnectionsOnFocus: {
+    name: `Show connections for all nodes when focusing variable`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  organizeSideNodes: {
+    name: `Organize variables when dragging/selecting parent node`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  replaceSearch: {
+    name: `Hijack Comfy node search to allow fuzzy search (Might break)`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  showConnectionOnNodeHover: {
+    name: `Show connections when hovering a node`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  showAllConnectionsOnNodeHover: {
+    name: `Show all connections when hovering a node`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  animateSelectedNode: {
+    name: `Animate connections of the selected node`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  animateAllNodes: {
+    name: `Animate connections of all nodes`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  selectedNodeConnectionOpacity: {
+    name: `Opacity % of selected node connections`,
+    value: {
+      type: `number`,
+      value: 100
+    }
+  },
+  nodeConnectionOpacity: {
+    name: `Opacity % of node connections`,
+    value: {
+      type: `number`,
+      value: 10
+    }
+  },
+  dblClickToRename: {
+    name: `Double click regular node to set title`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  setIcon: {
+    name: `Set title icon`,
+    value: {
+      type: `string`,
+      value: `💾 `
+    }
+  },
+  setBackgroundColor: {
+    name: `Set title background color`,
+    value: {
+      type: `color`,
+      value: `#212121`
+    }
+  },
+  getIcon: {
+    name: `Get title icon`,
+    value: {
+      type: `string`,
+      value: ``
+    }
+  },
+  getBackgroundColor: {
+    name: `Get title background`,
+    value: {
+      type: `color`,
+      value: `#212121`
+    }
+  },
+  dblClickToRenameGroup: {
+    name: `Double click groups to set title`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  profileNodes: {
+    name: `Show node runtime duration`,
+    value: {
+      type: `bool`,
+      value: true
+    }
+  },
+  ignorePromptForExplodeHeal: {
+    name: `Ignore prompt when splitting/healing links`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  },
+  filterOutIncompatibleTypes: {
+    name: `Filter out incompatible types when shift dragging an input`,
+    value: {
+      type: `bool`,
+      value: false
+    }
+  }
+  // connection focused opacity
+  // connection focused color
+  // connection focused dashed
+  // connection unfocused opacity
+  // connection unfocused color
+  // connection unfocused dashed
+};
+const [settings, setSettings] = createStore(JSON.parse(JSON.stringify(defaults)));
+const rawSettings = localStorage[`mape_helpers_settings`];
+if (rawSettings) {
+  try {
+    const savedSettings = JSON.parse(rawSettings);
+    for (const [key, value] of Object.entries(savedSettings)) {
+      setSettings(key, `value`, `value`, value);
+    }
+  } catch {
+    console.error(`Failed to parse settings`);
+  }
+}
+const getSetting = (name) => {
+  return settings[name].value.value;
+};
+const Settings = (p2) => {
+  const saveToLocalStorage = () => {
+    localStorage[`mape_helpers_settings`] = JSON.stringify(Object.fromEntries(Object.entries(settings).map(([key, meta]) => [key, meta.value.value])));
+  };
+  createEffect(() => {
+    JSON.stringify(settings);
+    saveToLocalStorage();
+  });
+  return (() => {
+    var _el$ = _tmpl$$5(), _el$2 = _el$.firstChild, _el$3 = _el$2.nextSibling, _el$4 = _el$3.nextSibling, _el$5 = _el$4.firstChild;
+    addEventListener(_el$2, "click", p2.close, true);
+    insert(_el$5, () => Object.entries(settings).map(([id, {
+      name,
+      value
+    }]) => {
+      return (() => {
+        var _el$6 = _tmpl$6$2(), _el$7 = _el$6.firstChild, _el$8 = _el$7.nextSibling, _el$9 = _el$8.nextSibling;
+        setAttribute(_el$7, "for", id);
+        insert(_el$7, name);
+        _el$8.$$click = () => {
+          setSettings(id, `value`, `value`, defaults[id].value.value);
+        };
+        insert(_el$9, createComponent(Switch, {
+          get children() {
+            return [createComponent(Match, {
+              get when() {
+                return value.type === `string`;
+              },
+              get children() {
+                var _el$10 = _tmpl$2$4();
+                _el$10.$$input = (e2) => {
+                  setSettings(id, `value`, `value`, e2.currentTarget.value);
+                };
+                setAttribute(_el$10, "id", id);
+                createRenderEffect(() => _el$10.value = value.value);
+                return _el$10;
+              }
+            }), createComponent(Match, {
+              get when() {
+                return value.type === `color`;
+              },
+              get children() {
+                var _el$11 = _tmpl$3$2();
+                _el$11.$$input = (e2) => {
+                  setSettings(id, `value`, `value`, e2.currentTarget.value);
+                };
+                setAttribute(_el$11, "id", id);
+                createRenderEffect(() => _el$11.value = value.value);
+                return _el$11;
+              }
+            }), createComponent(Match, {
+              get when() {
+                return value.type === `number`;
+              },
+              get children() {
+                var _el$12 = _tmpl$4$2();
+                _el$12.$$input = (e2) => {
+                  setSettings(id, `value`, `value`, parseFloat(e2.currentTarget.value));
+                };
+                setAttribute(_el$12, "id", id);
+                createRenderEffect(() => _el$12.value = value.value);
+                return _el$12;
+              }
+            }), createComponent(Match, {
+              get when() {
+                return value.type === `bool`;
+              },
+              get children() {
+                var _el$13 = _tmpl$5$2();
+                _el$13.addEventListener("change", (e2) => {
+                  setSettings(id, `value`, `value`, e2.currentTarget.checked);
+                });
+                setAttribute(_el$13, "id", id);
+                createRenderEffect(() => _el$13.checked = value.value);
+                return _el$13;
+              }
+            })];
+          }
+        }));
+        return _el$6;
+      })();
+    }));
+    return _el$;
+  })();
+};
+delegateEvents(["click", "input"]);
+const formatVariables = (name) => {
+  return name.toLowerCase().replace(/_./g, (str) => str.replace(`_`, ``).toUpperCase());
+};
+const getLinks = () => graph.links ?? [];
+const getLinkById = (linkId, links = getLinks()) => links[linkId];
+const getWidgetValue = (node, slot = 0) => {
+  var _a;
+  if (!node) {
+    return void 0;
+  }
+  if (node.widgets && node.widgets[slot]) {
+    return node.widgets[slot].value;
+  }
+  if (node.widgets_values) {
+    return (_a = node.widgets_values) == null ? void 0 : _a[slot];
+  }
+  return void 0;
+};
+const graphAdd = (node) => {
+  graph.add(node);
+};
+const setWidgetValue = (node, value, slot = 0) => {
+  if (!node.widgets_values) {
+    node.widgets_values = [];
+  }
+  node.widgets_values[slot] = value;
+  node.widgets[slot].value = value;
+};
+const graphRemove = (node) => {
+  graph.remove(node);
+};
+const traverseInputReroute = (node, slot = 0) => {
+  var _a, _b;
+  if (node.type !== `Reroute`) {
+    return [node, slot];
+  }
+  const rerouteNode = node;
+  const linkId = (_b = (_a = rerouteNode.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link;
+  if (!linkId) {
+    return [rerouteNode, slot];
+  }
+  const originLink = getLinkById(linkId);
+  if (!originLink) {
+    return [rerouteNode, slot];
+  }
+  const nextNode = getNodeById(originLink.origin_id);
+  if (!nextNode) {
+    return [rerouteNode, slot];
+  }
+  setTimeout(() => {
+    graphRemove(rerouteNode);
+  });
+  return traverseInputReroute(nextNode, originLink.origin_slot);
+};
+const traverseOutputReroute = (node) => {
+  var _a, _b;
+  if (node.type !== `Reroute`) {
+    return node;
+  }
+  const rerouteNode = node;
+  const links = (_a = rerouteNode.outputs[0]) == null ? void 0 : _a.links;
+  if (!links) {
+    return rerouteNode;
+  }
+  const linkId = links[0];
+  if (!linkId) {
+    return rerouteNode;
+  }
+  const originLink = getLinkById(linkId);
+  if (!originLink) {
+    return rerouteNode;
+  }
+  const nextNode = getNodeById(originLink.target_id);
+  if (!nextNode) {
+    return rerouteNode;
+  }
+  if (((_b = rerouteNode.outputs[0].links) == null ? void 0 : _b.length) === 1) {
+    setTimeout(() => {
+      graphRemove(rerouteNode);
+    });
+  }
+  return traverseOutputReroute(nextNode);
+};
+const convertLinkToGetSet = (link, safe = false) => {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
+  const {
+    type
+  } = link;
+  if (type === `*`) {
+    return;
+  }
+  let {
+    origin_id,
+    target_id,
+    origin_slot,
+    target_slot
+  } = link;
+  let originNode = getNodeById(origin_id);
+  let targetNode = getNodeById(target_id);
+  if (!originNode || !targetNode) {
+    return false;
+  }
+  if (originNode.type === `Reroute`) {
+    let slot = 0;
+    [originNode, slot] = traverseInputReroute(originNode);
+    origin_id = originNode == null ? void 0 : originNode.id;
+    origin_slot = slot;
+    if (typeof origin_slot === `undefined` || origin_slot === -1) {
+      origin_slot = 0;
+    }
+  }
+  if (targetNode.type === `Reroute`) {
+    targetNode = traverseOutputReroute(targetNode);
+    target_id = targetNode == null ? void 0 : targetNode.id;
+    target_slot = targetNode == null ? void 0 : targetNode.inputs.findIndex((slot) => slot.type === type);
+    if (typeof target_slot === `undefined` || target_slot === -1) {
+      target_slot = 0;
+    }
+  }
+  if (typeof origin_id === `undefined` || typeof target_id === `undefined` || !originNode || !targetNode) {
+    return false;
+  }
+  if (safe && (isMapeVariableNode(originNode) || isMapeVariableNode(targetNode))) {
+    return false;
+  }
+  let valueType = formatVariables(((_a = targetNode.getInputInfo(target_slot)) == null ? void 0 : _a.name) ?? type.toLowerCase());
+  if (!valueType) {
+    valueType = formatVariables(((_c = (_b = originNode == null ? void 0 : originNode.outputs) == null ? void 0 : _b[origin_slot]) == null ? void 0 : _c.name) ?? ((_e = (_d = originNode == null ? void 0 : originNode.outputs) == null ? void 0 : _d[origin_slot]) == null ? void 0 : _e.type.toString()) ?? `newVariable_from_${origin_id}_to_${target_id}`);
+  }
+  let variableNameExists = false;
+  let setterAlreadyExists = false;
+  if (!isMapeVariableNode(originNode)) {
+    const outputLinks = (_g = (_f = originNode.outputs) == null ? void 0 : _f[origin_slot]) == null ? void 0 : _g.links;
+    if (outputLinks) {
+      for (const linkId of outputLinks) {
+        const toNode = getNodeById(((_h = getLinkById(linkId)) == null ? void 0 : _h.target_id) ?? -1);
+        if (toNode && isMapeVariableNode(toNode) && isNodeSetter(toNode)) {
+          valueType = getWidgetValue(toNode);
+          setterAlreadyExists = true;
+        }
+      }
+    }
+    if (!setterAlreadyExists) {
+      for (const node of getMapeNodes()) {
+        const value = getWidgetValue(node);
+        const duplicateSource = valueType === value && isNodeSetter(node);
+        if (!duplicateSource) {
+          continue;
+        }
+        const linkId = (_i = node.inputs[0]) == null ? void 0 : _i.link;
+        const sourceId = (_j = getLinkById(linkId)) == null ? void 0 : _j.origin_id;
+        if (sourceId === originNode.id) {
+          setterAlreadyExists = true;
+        } else {
+          variableNameExists = true;
+        }
+      }
+      if (variableNameExists) {
+        valueType += `_from_${origin_id}_to_${target_id}`;
+      }
+    }
+  } else {
+    valueType = getWidgetValue(originNode);
+    setterAlreadyExists = true;
+  }
+  let newSetNode;
+  if (!setterAlreadyExists) {
+    newSetNode = LiteGraph.createNode(`mape Variable`);
+    const targetSetPos = originNode.getConnectionPos(false, origin_slot);
+    newSetNode.pos = [targetSetPos[0] + 20, targetSetPos[1]];
+    newSetNode.inputs[0].name = type;
+    newSetNode.inputs[0].type = type;
+    newSetNode.inputs[0].widget = targetNode.inputs[target_slot].widget;
+    setWidgetValue(newSetNode, valueType);
+    graphAdd(newSetNode);
+    newSetNode.flags.collapsed = true;
+    let preValues = [];
+    if (originNode.widgets) {
+      preValues = Object.values(originNode.widgets).map((w2) => w2.value);
+    } else if (originNode.widgets_values) {
+      preValues = jsonClone(originNode.widgets_values);
+    }
+    originNode.connect(origin_slot, newSetNode, 0);
+    originNode.widgets_values = preValues;
+    if (originNode.type === `PrimitiveNode`) {
+      setTimeout(() => {
+        if (!originNode) {
+          return;
+        }
+        originNode.connect(origin_slot, newSetNode, 0);
+        for (const [i2, value] of preValues.entries()) {
+          setWidgetValue(originNode, value, i2);
+        }
+        newSetNode == null ? void 0 : newSetNode.setSize(newSetNode.computeSize());
+      });
+    }
+  }
+  const newGetNode = LiteGraph.createNode(`mape Variable`);
+  const targetGetPos = targetNode.getConnectionPos(true, target_slot);
+  newGetNode.pos = [targetGetPos[0] - 150, targetGetPos[1]];
+  newGetNode.outputs[0].name = type;
+  newGetNode.outputs[0].type = type;
+  newGetNode.outputs[0].widget = targetNode.inputs[target_slot].widget;
+  graphAdd(newGetNode);
+  setWidgetValue(newGetNode, valueType);
+  newGetNode.flags.collapsed = true;
+  newGetNode == null ? void 0 : newGetNode.setSize(newGetNode.computeSize());
+  newGetNode.connect(0, targetNode, target_slot);
+  if (safe || !variableNameExists || getSetting(`alwaysPromptVariableName`)) {
+    return;
+  }
+  setTimeout(() => {
+    window.setPrompt(`Variable name`, graph.list_of_graphcanvas[0].last_mouse_position, (value) => {
+      setWidgetValue(newGetNode, value);
+      if (newSetNode) {
+        setWidgetValue(newSetNode, value);
+      }
+    }, valueType);
+  }, 100);
+};
+const notifyUpdate = (type = `valueUpdated`) => {
+  window.dispatchEvent(new CustomEvent(`mapeTweak`, {
+    detail: {
+      message: type
+    }
+  }));
+};
+const debouceUpdate = /* @__PURE__ */ ((message = `valueUpdated`) => {
+  let updateTimeout;
+  let sinceTrigger = 0;
+  const triggerTime = 250;
+  return () => {
+    const delta = Date.now() - sinceTrigger;
+    if (delta > triggerTime) {
+      sinceTrigger = Date.now();
+      notifyUpdate(message);
+    }
+    clearTimeout(updateTimeout);
+    updateTimeout = setTimeout(() => {
+      sinceTrigger = Date.now();
+      notifyUpdate(message);
+    }, triggerTime);
+  };
+})();
+function drawProfileText(ctx, text) {
+  if (!text) {
+    return;
+  }
+  ctx.save();
+  ctx.fillStyle = `#000`;
+  ctx.fillText(text, 5 + 1, -LiteGraph.NODE_TITLE_HEIGHT - 2 + 1);
+  ctx.fillStyle = `#fff`;
+  ctx.fillText(text, 5, -LiteGraph.NODE_TITLE_HEIGHT - 2);
+  ctx.restore();
+}
+const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, `\\$&`);
+const EXACT_HERE = `eexxaacctt`;
+const lazyRepeat = (chars, limit) => limit == 0 ? `` : limit == 1 ? `${chars}??` : limit == Infinity ? `${chars}*?` : `${chars}{0,${limit}}?`;
+function uFuzzy() {
+  const opts = {
+    // term segmentation & punct/whitespace merging
+    interSplit: `[^A-Za-z\\d']+`,
+    intraSplit: `[a-z][A-Z]`,
+    // intra bounds that will be used to increase lft1/rgt1 info counters
+    intraBound: `[A-Za-z]\\d|\\d[A-Za-z]|[a-z][A-Z]`,
+    // allowance between terms
+    interChars: `.`,
+    interIns: Infinity,
+    // allowance between chars in terms
+    intraChars: `[a-z\\d']`,
+    // internally case-insensitive
+    intraIns: 0,
+    intraContr: `'[a-z]{1,2}\\b`
+  };
+  const {
+    intraIns,
+    intraContr,
+    intraSplit: _intraSplit,
+    interSplit: _interSplit,
+    intraBound: _intraBound,
+    intraChars
+  } = opts;
+  const quotedAny = `".+?"`;
+  const EXACTS_RE = new RegExp(quotedAny, `gi`);
+  const NEGS_RE = new RegExp(
+    `(?:\\s+|^)-(?:${intraChars}+|${quotedAny})`,
+    `gi`
+  );
+  const withIntraSplit = !!_intraSplit;
+  const intraSplit = new RegExp(_intraSplit, `g`);
+  const interSplit = new RegExp(_interSplit, `g`);
+  const trimRe = new RegExp(`^${_interSplit}|${_interSplit}$`, `g`);
+  const contrsRe = new RegExp(intraContr, `gi`);
+  const split = (needle) => {
+    const exacts = [];
+    needle = needle.replace(EXACTS_RE, (m2) => {
+      exacts.push(m2);
+      return EXACT_HERE;
+    });
+    needle = needle.replace(trimRe, ``).toLocaleLowerCase();
+    if (withIntraSplit)
+      needle = needle.replace(intraSplit, (m2) => `${m2[0]} ${m2[1]}`);
+    let j2 = 0;
+    return needle.split(interSplit).filter((t2) => t2 != ``).map((v2) => v2 === EXACT_HERE ? exacts[j2++] : v2);
+  };
+  const prepQuery = (needle) => {
+    let parts = split(needle);
+    if (parts.length == 0) {
+      return [void 0];
+    }
+    const contrs = Array(parts.length).fill(``);
+    parts = parts.map(
+      (p2, pi) => p2.replace(contrsRe, (m2) => {
+        contrs[pi] = m2;
+        return ``;
+      })
+    );
+    const intraInsTpl = lazyRepeat(intraChars, intraIns);
+    let reTpl = parts.map(
+      (p2, pi) => p2[0] === `"` ? escapeRegExp(p2.slice(1, -1)) : p2.split(``).join(intraInsTpl) + contrs[pi]
+    );
+    const interCharsTpl = lazyRepeat(opts.interChars, opts.interIns);
+    reTpl = reTpl.join(interCharsTpl);
+    return [new RegExp(reTpl, `i`)];
+  };
+  const filter2 = (haystack, needle, idxs) => {
+    const [query] = prepQuery(needle);
+    if (!query) {
+      return [];
+    }
+    const out = [];
+    if (idxs != null) {
+      for (let i2 = 0; i2 < idxs.length; i2++) {
+        const idx = idxs[i2];
+        query.test(haystack[idx]) && out.push(idx);
+      }
+    } else {
+      for (let i2 = 0; i2 < haystack.length; i2++)
+        query.test(haystack[i2]) && out.push(i2.toString());
+    }
+    return out;
+  };
+  const search = (haystack, needle) => {
+    let preFiltered = void 0;
+    const outOfOrder = 2;
+    let needles = null;
+    let matches = [];
+    needle = needle.replace(NEGS_RE, (m2) => {
+      let neg = m2.trim().slice(1);
+      if (neg[0] === `"`)
+        neg = escapeRegExp(neg.slice(1, -1));
+      return ``;
+    });
+    const terms = split(needle);
+    if (terms.length == 0) {
+      return [];
+    }
+    if (terms.length > 1) {
+      const terms2 = terms.slice().sort(
+        (a2, b) => b.length - a2.length
+      );
+      for (let ti = 0; ti < terms2.length; ti++) {
+        if ((preFiltered == null ? void 0 : preFiltered.length) == 0) {
+          return [];
+        }
+        preFiltered = filter2(haystack, terms2[ti], preFiltered);
+      }
+      if (terms.length > outOfOrder)
+        return preFiltered;
+      needles = permute(terms).map((perm) => perm.join(` `));
+      matches.length = 0;
+      const matchedIdxs = /* @__PURE__ */ new Set();
+      for (let ni = 0; ni < needles.length; ni++) {
+        if (matchedIdxs.size < (preFiltered == null ? void 0 : preFiltered.length)) {
+          const preFiltered2 = preFiltered == null ? void 0 : preFiltered.filter(
+            (idx) => !matchedIdxs.has(idx)
+          );
+          const matched = filter2(haystack, needles[ni], preFiltered2);
+          for (let j2 = 0; j2 < matched.length; j2++)
+            matchedIdxs.add(matched[j2]);
+          matches.push(matched);
+        } else {
+          matches.push([]);
+        }
+      }
+    }
+    if (needles == null) {
+      needles = [needle];
+      matches = [
+        (preFiltered == null ? void 0 : preFiltered.length) > 0 ? preFiltered : filter2(haystack, needle)
+      ];
+    }
+    return matches.flat();
+  };
+  return search;
+}
+function permute(arr) {
+  arr = arr.slice();
+  const length = arr.length;
+  const result = [arr.slice()];
+  const c2 = new Array(length).fill(0);
+  let i2 = 1;
+  let k2;
+  let p2;
+  while (i2 < length) {
+    if (c2[i2] < i2) {
+      k2 = i2 % 2 && c2[i2];
+      p2 = arr[i2];
+      arr[i2] = arr[k2];
+      arr[k2] = p2;
+      ++c2[i2];
+      i2 = 1;
+      result.push(arr.slice());
+    } else {
+      c2[i2] = 0;
+      ++i2;
+    }
+  }
+  return result;
+}
+const filter$1 = uFuzzy();
+function fuzzySearch(needle, haystack) {
+  return filter$1([haystack], needle).length > 0;
+}
+const getToSetNode = (node) => {
+  const type = getWidgetValue(node);
+  return getMapeSetNodes().find((n2) => getWidgetValue(n2) === type);
+};
+const getNodesByType = (widgetType, type) => {
+  const nodes = getNodes$1().filter(isMapeVariableNode);
+  const filteredNodes = type === `get` ? nodes.filter(isNodeGetter) : nodes.filter(isNodeSetter);
+  return filteredNodes.filter((node) => getWidgetValue(node) === widgetType);
+};
+const joinAllConnections = () => {
+  const selectedNodeIds = Object.fromEntries(getSelectedNodes$1().map((node) => [node.id, true]));
+  const selectedNodeCount = Object.keys(selectedNodeIds).length;
+  const types = Object.keys(Object.fromEntries(getMapeSetNodes().map((n2) => [getWidgetValue(n2), true])));
+  for (const type of types) {
+    const setter = getNodesByType(type, `set`)[0];
+    if (!setter) {
+      continue;
+    }
+    const linkId = setter.inputs[0].link;
+    if (!linkId) {
+      continue;
+    }
+    const {
+      origin_id: setOriginId,
+      origin_slot: setOriginSlot,
+      target_id: setTargetId
+    } = getLinkById(linkId);
+    const originNode = getNodeById(setOriginId);
+    if (!originNode) {
+      continue;
+    }
+    let shouldRemoveSet = false;
+    const getters = getNodesByType(type, `get`);
+    for (const getter of getters) {
+      let shouldRemoveGet = false;
+      for (const output of getter.outputs) {
+        if (output.links)
+          for (const linkId2 of output.links) {
+            const {
+              target_id: getTargetId,
+              target_slot: getTargetSlot,
+              origin_id: getOriginId
+            } = getLinkById(linkId2);
+            const targetNode = getNodeById(getTargetId);
+            try {
+              if (selectedNodeCount === 0 || selectedNodeIds[getOriginId] || selectedNodeIds[getTargetId] || selectedNodeIds[setOriginId] || selectedNodeIds[setTargetId]) {
+                originNode.connect(setOriginSlot, targetNode, getTargetSlot);
+                shouldRemoveGet = true;
+                shouldRemoveSet = true;
+              }
+            } catch (e2) {
+              console.error(e2);
+            }
+          }
+      }
+      if (shouldRemoveGet) {
+        graphRemove(getter);
+      }
+    }
+    if (shouldRemoveSet) {
+      const getters2 = getNodesByType(type, `get`);
+      if (selectedNodeCount === 0) {
+        graphRemove(setter);
+      } else if (getters2.length === 0) {
+        graphRemove(setter);
+      }
+    }
+  }
+  if (selectedNodeCount === 0) {
+    for (const node of getMapeNodes()) {
+      graphRemove(node);
+    }
+  }
+};
+function easeInOut(t2) {
+  return 0.5 - 0.5 * Math.cos(Math.PI * t2);
+}
+function lerp(a2, b, alpha) {
+  alpha = easeInOut(alpha);
+  return a2 + alpha * (b - a2);
+}
+const jumpToPosition = ([x2, y2], lGraph) => {
+  const drag = lGraph.ds;
+  const windowWidth = document.body.clientWidth;
+  const windowHeight = document.body.clientHeight;
+  const scale = drag.scale;
+  const toX = -x2 + windowWidth * 0.5 / scale;
+  const toY = -y2 + windowHeight * 0.5 / scale;
+  const duration = 250;
+  const end = Date.now() + duration;
+  const fromX = drag.offset[0];
+  const fromY = drag.offset[1];
+  const update = () => {
+    const delta = end - Date.now();
+    if (Date.now() < end) {
+      requestAnimationFrame(update);
+    } else {
+      drag.offset[0] = toX;
+      drag.offset[1] = toY;
+      lGraph.setDirty(true, true);
+      return;
+    }
+    const proc = 1 - delta / duration;
+    drag.offset[0] = lerp(fromX, toX, proc);
+    drag.offset[1] = lerp(fromY, toY, proc);
+    lGraph.setDirty(true, true);
+  };
+  requestAnimationFrame(update);
+};
+const jumpToNode = (node) => {
+  var _a;
+  const lGraph = (_a = node.graph) == null ? void 0 : _a.list_of_graphcanvas[0];
+  const [x2, y2] = node.pos;
+  const [width, height] = node.size;
+  jumpToPosition([x2 + width / 2, y2 + height / 2], lGraph);
+  lGraph == null ? void 0 : lGraph.selectNode(node);
+};
+const organizeNode = (selectedNodes, focus = false) => {
+  var _a, _b, _c;
+  if (selectedNodes.length === 0) {
+    return;
+  }
+  const offsetXInput = getSetting(`nodeOrganizeSpacingInputX`);
+  const offsetXOutput = getSetting(`nodeOrganizeSpacingOutputX`);
+  if (selectedNodes.filter((n2) => !isMapeVariableNode(n2)).length === 0) {
+    return;
+  }
+  for (const selectedNode2 of selectedNodes) {
+    let inputIndex = 0;
+    let outputIndex = 0;
+    const offsetInputY = getSetting(`nodeOrganizeSpacingInputY`);
+    const offsetOutputY = getSetting(`nodeOrganizeSpacingOutputY`);
+    const nodesFixed = [];
+    if (!selectedNode2.graph) {
+      continue;
+    }
+    for (const input of selectedNode2.inputs ?? []) {
+      const linkId = input.link;
+      if (!linkId) {
+        continue;
+      }
+      const {
+        origin_id,
+        target_slot
+      } = getLinkById(linkId);
+      const originNode = getNodeById(origin_id);
+      if (!originNode) {
+        continue;
+      }
+      if (originNode.type !== TYPE) {
+        continue;
+      }
+      if (originNode.outputs && originNode.outputs[0] && originNode.outputs[0].links && originNode.outputs[0].links.length > 1) {
+        return;
+      }
+      const targetSetPos = selectedNode2.getConnectionPos(true, target_slot);
+      originNode.pos = [targetSetPos[0] - offsetXInput, targetSetPos[1] + 15 + inputIndex * offsetInputY];
+      inputIndex += 1;
+      nodesFixed.push(originNode);
+      originNode.flags.collapsed = getSetting(`collapseNodesOnOrganize`);
+    }
+    for (const output of selectedNode2.outputs ?? []) {
+      if (!output.links) {
+        continue;
+      }
+      if (!selectedNode2.graph) {
+        continue;
+      }
+      for (const linkId of output.links) {
+        const {
+          target_id
+        } = getLinkById(linkId);
+        const originNode = getNodeById(target_id);
+        if (!originNode) {
+          console.error(`Failed`, selectedNode2.id, `>`, target_id);
+          continue;
+        }
+        if (originNode.type !== TYPE) {
+          continue;
+        }
+        const links = (_b = (_a = originNode.outputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.links;
+        if (links && links.length > 1) {
+          return;
+        }
+        const targetSetPos = selectedNode2.getConnectionPos(false, 0);
+        originNode.pos = [targetSetPos[0] + offsetXOutput, targetSetPos[1] + 15 + outputIndex * offsetOutputY];
+        outputIndex += 1;
+        nodesFixed.push(originNode);
+        originNode.flags.collapsed = getSetting(`collapseNodesOnOrganize`);
+      }
+    }
+    if (focus && selectedNodes.length === 1) {
+      const focused = [selectedNode2, ...nodesFixed];
+      const lGraph2 = selectedNode2.graph.list_of_graphcanvas[0];
+      lGraph2.selectNodes(focused);
+    }
+  }
+  const selectedNode = selectedNodes[0];
+  if (!selectedNode) {
+    return;
+  }
+  const lGraph = (_c = selectedNode.graph) == null ? void 0 : _c.list_of_graphcanvas[0];
+  lGraph.setDirty(true, true);
+  debouceUpdate();
+};
+const renameNode = (selectedNode) => {
+  const fromName = getWidgetValue(selectedNode);
+  setTimeout(() => {
+    var _a, _b, _c;
+    window.setPrompt(`Rename variable`, ((_c = (_b = (_a = selectedNode.graph) == null ? void 0 : _a.list_of_graphcanvas) == null ? void 0 : _b[0]) == null ? void 0 : _c.last_mouse_position) ?? [document.body.clientWidth / 2, document.body.clientHeight / 2], (toName) => {
+      if (!toName) {
+        return;
+      }
+      if (localStorage[`mape_tweak_${fromName}`]) {
+        localStorage[`mape_tweak_${toName}`] = localStorage[`mape_tweak_${fromName}`];
+        delete localStorage[`mape_tweak_${fromName}`];
+      }
+      if (localStorage[`${TWEAK_FLOATING}${fromName}`]) {
+        localStorage[`${TWEAK_FLOATING}${toName}`] = localStorage[`${TWEAK_FLOATING}${fromName}`];
+        delete localStorage[`${TWEAK_FLOATING}${fromName}`];
+      }
+      for (const node of graph._nodes) {
+        if (getWidgetValue(node) === fromName) {
+          setWidgetValue(node, toName);
+        }
+      }
+      notifyUpdate(`rename`);
+    }, fromName);
+  });
+};
+const nodeIsLive = (node) => {
+  if (!node) {
+    return false;
+  }
+  if (node.mode === 0) {
+    return true;
+  }
+  if (node.mode === 2) {
+    return false;
+  }
+  return true;
+};
+const traverseLink = (link, nodes = getNodes$1(), links = getLinks(), type, name = ``, first) => {
+  var _a, _b, _c, _d, _e, _f, _g, _h;
+  if (!link) {
+    return;
+  }
+  const linkOriginNode = getNodeById(link.origin_id, nodes);
+  const outputName = name || ((_b = (_a = linkOriginNode == null ? void 0 : linkOriginNode.outputs) == null ? void 0 : _a[link.origin_slot]) == null ? void 0 : _b.name);
+  if (!linkOriginNode) {
+    return;
+  }
+  if (isMapeVariableNode(linkOriginNode)) {
+    const linkType = getWidgetValue(linkOriginNode);
+    for (const node of nodes.filter(isMapeVariableNode).filter(isNodeSetter)) {
+      const varName = getWidgetValue(node);
+      if (varName === linkType) {
+        const input = node.inputs[0];
+        if (input.link) {
+          return traverseLink(
+            links[input.link],
+            nodes,
+            links,
+            type,
+            outputName
+          );
+        }
+      }
+    }
+    throw new Error(`Failed to resolve virtual link`);
+  }
+  const isDisabled = linkOriginNode.mode === 4;
+  if (isDisabled) {
+    if (!linkOriginNode.inputs) {
+      return;
+    }
+    const inputLinks = linkOriginNode.inputs.map((input) => links[input.link]).filter((link3) => (link3 == null ? void 0 : link3.type) === type).sort((a2, b) => {
+      var _a2, _b2, _c2, _d2;
+      const aOutput = (_b2 = (_a2 = getNodeById(a2.target_id, nodes)) == null ? void 0 : _a2.outputs[a2.target_slot]) == null ? void 0 : _b2.name;
+      const bOutput = (_d2 = (_c2 = getNodeById(b.target_id, nodes)) == null ? void 0 : _c2.outputs[b.target_slot]) == null ? void 0 : _d2.name;
+      if (aOutput === outputName) {
+        return -1;
+      }
+      if (bOutput === outputName) {
+        return 1;
+      }
+      if (a2.type === type) {
+        return -1;
+      }
+      if (b.type === type) {
+        return 1;
+      }
+      return 0;
+    });
+    const link2 = inputLinks[0];
+    if (link2 && link2.type === type) {
+      return traverseLink(link2, nodes, links, type, outputName);
+    }
+    const linkId = (_c = linkOriginNode.inputs[0]) == null ? void 0 : _c.link;
+    if (linkId) {
+      return traverseLink(links[linkId], nodes, links, type, outputName);
+    } else {
+      return;
+    }
+  }
+  if (linkOriginNode.type === `Reroute`) {
+    const linkId = (_d = linkOriginNode.inputs[0]) == null ? void 0 : _d.link;
+    if (linkId) {
+      return traverseLink(links[linkId], nodes, links, type, outputName);
+    } else {
+      return;
+    }
+  }
+  if (!first && linkOriginNode.outputs) {
+    const matchingOutputs = linkOriginNode.outputs.filter(
+      (output) => (output == null ? void 0 : output.type) === type
+    );
+    if (matchingOutputs.length === 1 && matchingOutputs[0]) {
+      const linkId = (_f = (_e = matchingOutputs == null ? void 0 : matchingOutputs[0]) == null ? void 0 : _e.links) == null ? void 0 : _f[0];
+      if (linkId) {
+        const link2 = getLinkById(linkId, links);
+        if (link2) {
+          return {
+            originId: link2.origin_id,
+            originIndex: link2.origin_slot
+          };
+        }
+      }
+    } else {
+      const sortedMatches = matchingOutputs.sort((a2, b) => {
+        const aOutput = a2 == null ? void 0 : a2.name;
+        const bOutput = b == null ? void 0 : b.name;
+        if (aOutput === outputName) {
+          return -1;
+        }
+        if (bOutput === outputName) {
+          return 1;
+        }
+        if (a2.type === type) {
+          return -1;
+        }
+        if (b.type === type) {
+          return 1;
+        }
+        return 0;
+      });
+      if (sortedMatches[0]) {
+        const linkId = (_h = (_g = sortedMatches == null ? void 0 : sortedMatches[0]) == null ? void 0 : _g.links) == null ? void 0 : _h[0];
+        if (linkId) {
+          const link2 = getLinkById(linkId, links);
+          if (link2) {
+            return {
+              originId: link2.origin_id,
+              originIndex: link2.origin_slot
+            };
+          }
+        }
+      }
+    }
+  }
+  if (link.type === type) {
+    return {
+      originId: link.origin_id,
+      originIndex: link.origin_slot
+    };
+  }
+};
+const resolveLinks = (nodes = getNodes$1(), links = getLinks()) => {
+  const nodeGet = {};
+  const nodeSet = {};
+  for (const node of nodes.filter(isMapeVariableNode).filter(isNodeSetter)) {
+    const varName = getWidgetValue(node);
+    const input = node.inputs[0];
+    if (input.link) {
+      const link = getLinkById(input.link, links);
+      if (link) {
+        const linkMeta = traverseLink(
+          link,
+          nodes,
+          links,
+          link.type,
+          void 0,
+          true
+        );
+        if (!linkMeta) {
+          nodeSet[varName] = {
+            originId: link.origin_id,
+            originIndex: link.origin_slot
+          };
+        } else {
+          nodeSet[varName] = linkMeta;
+        }
+      }
+    }
+  }
+  for (const node of nodes.filter(isMapeVariableNode).filter(isNodeGetter)) {
+    const varName = getWidgetValue(node);
+    nodeGet[node.id] = varName;
+  }
+  const internalLinks = {};
+  const liveNodes = nodes.filter(nodeIsLive);
+  const mapeNodes = liveNodes.filter(isMapeVariableNode);
+  const setterNodes = mapeNodes.filter(isNodeSetter);
+  for (const setNode of setterNodes) {
+    internalLinks[setNode.id] = [];
+    const setNodeType = getWidgetValue(setNode);
+    for (const getNode2 of mapeNodes) {
+      const getNodeType = getWidgetValue(getNode2);
+      if (setNodeType === getNodeType && setNode.id !== getNode2.id) {
+        internalLinks[setNode.id].push(getNode2.id);
+      }
+    }
+  }
+  return {
+    nodeSet,
+    nodeGet,
+    internalLinks
+  };
+};
+const getSelectedNodes = () => Object.values(
+  graph.list_of_graphcanvas[0].selected_nodes
+);
+const splitAllConnections = () => {
+  const selectedNodeIds = Object.fromEntries(getSelectedNodes().map((node) => [node.id, true]));
+  const selectedNodeCount = Object.keys(selectedNodeIds).length;
+  Object.values(getLinks()).filter(Boolean).sort((a2, b) => a2.origin_id - b.origin_id).map((link) => {
+    if (selectedNodeCount === 0 || selectedNodeIds[link.target_id] || selectedNodeIds[link.origin_id]) {
+      convertLinkToGetSet(link, true);
+    }
+  });
+  organizeNode(getNodes$1());
+};
+const setNodeInputOutputType = (node, type) => {
+  var _a, _b, _c;
+  const colors = (_a = app.canvas) == null ? void 0 : _a.default_connection_color_byType;
+  const inputs = (_b = node.inputs) == null ? void 0 : _b[0];
+  const outputs = (_c = node.outputs) == null ? void 0 : _c[0];
+  if (inputs) {
+    inputs.name = type;
+    inputs.type = type;
+    inputs.color_on = colors[type];
+  }
+  if (outputs) {
+    outputs.name = type;
+    outputs.type = type;
+    outputs.color_on = colors[type];
+  }
+};
+const updateLabels = (node) => {
+  const updateTypeBasedOnLink = (linkId, useSourceNodeType = false, callback = (_type) => {
+  }) => {
+    if (!node.graph) {
+      return;
+    }
+    const linkMeta = Object.values(getLinks()).filter(Boolean).find((link) => {
+      return link.id === linkId;
+    });
+    if (!linkMeta) {
+      return;
+    }
+    if (useSourceNodeType) {
+      const sourceNode = getNodeById(linkMeta.origin_id);
+      if (!sourceNode) {
+        return;
+      }
+      const type2 = sourceNode.outputs[linkMeta.origin_slot].type.toString();
+      setNodeInputOutputType(node, type2);
+      callback(type2);
+      return;
+    }
+    if (!linkMeta) {
+      setNodeInputOutputType(node, MISSING_INPUT);
+      return;
+    }
+    const type = linkMeta.type;
+    setNodeInputOutputType(node, type);
+    callback(type);
+  };
+  setTimeout(() => {
+    var _a, _b, _c, _d, _e, _f;
+    if (isNodeSetter(node)) {
+      const linkId = (_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link;
+      if (!linkId) {
+        return;
+      }
+      updateTypeBasedOnLink(linkId, true, (type) => {
+        const value = getWidgetValue(node);
+        if (localStorage[`mape_tweak_${value}`]) {
+          localStorage[`mape_tweak_${value}`] = type;
+        }
+      });
+    } else if (isNodeGetter(node)) {
+      const linkId = (_e = (_d = (_c = node.outputs) == null ? void 0 : _c[0]) == null ? void 0 : _d.links) == null ? void 0 : _e[0];
+      if (linkId) {
+        updateTypeBasedOnLink(linkId);
+      }
+    } else
+      ;
+    if (isNodeSetter(node)) {
+      const value = getWidgetValue(node);
+      if (!((_f = node.widgets) == null ? void 0 : _f[1])) {
+        node.addWidget(`toggle`, `tweak`, !!localStorage[`mape_tweak_${value}`], (enabled) => {
+          var _a2, _b2;
+          const type = (_b2 = (_a2 = node.inputs) == null ? void 0 : _a2[0]) == null ? void 0 : _b2.type;
+          const value2 = getWidgetValue(node);
+          if (enabled) {
+            localStorage[`mape_tweak_${value2}`] = type;
+          } else {
+            delete localStorage[`mape_tweak_${value2}`];
+          }
+          debouceUpdate();
+        });
+      }
+      node.setProperty(`tweak`, !!localStorage[`mape_tweak_${value}`]);
+    }
+  });
+};
+const root = ``;
+const registerPlugin = async () => {
+  const { app: app2 } = await __vitePreload(() => import(`${root}/scripts/app.js`), true ? __vite__mapDeps([]) : void 0);
+  let settings2;
+  app2.registerExtension({
+    name: `cg.customnodes.mape_helpers_boostrap`,
+    async init() {
+      const _conf = app2.graph.onConfigure;
+      app2.graph.onConfigure = function(...args) {
+        [settings2] = args;
+        _conf.apply(this, args);
+      };
+    }
+  });
+  const { api } = await __vitePreload(() => import(`${root}/scripts/api.js`), true ? __vite__mapDeps([]) : void 0);
+  const { setWidgetConfig } = await __vitePreload(() => import(`${root}/extensions/core/widgetInputs.js`), true ? __vite__mapDeps([]) : void 0);
+  let _graphToPrompt;
+  async function prepareGraphForServerPrompt() {
+    const originalPrompt = jsonClone(
+      await _graphToPrompt.apply(app2)
+    );
+    const prompt2 = jsonClone(await _graphToPrompt.apply(app2));
+    const { nodeGet, nodeSet } = resolveLinks(
+      prompt2.workflow.nodes,
+      Object.fromEntries(
+        prompt2.workflow.links.map(
+          ([
+            id,
+            origin_id,
+            origin_slot,
+            target_id,
+            target_slot,
+            type
+          ]) => {
+            return [
+              id,
+              {
+                id,
+                origin_id,
+                origin_slot,
+                target_id,
+                target_slot,
+                type
+              }
+            ];
+          }
+        )
+      )
+    );
+    prompt2.output = Object.fromEntries(
+      Object.entries(prompt2.output).filter(([_key, value]) => value.class_type !== TYPE).map(([key, node]) => {
+        node.inputs = Object.fromEntries(
+          Object.entries(node.inputs).map(
+            ([inputKey, inputValue]) => {
+              if (Array.isArray(inputValue)) {
+                const [badId, _badSlot] = inputValue;
+                const type = nodeGet[badId];
+                const good = nodeSet[type];
+                if (!type || !good) {
+                  return [inputKey, inputValue];
+                }
+                const goodNode = getNodeById(good.originId);
+                if (!goodNode) {
+                  return [inputKey, inputValue];
+                }
+                if (goodNode.type === `PrimitiveNode`) {
+                  return [
+                    inputKey,
+                    getWidgetValue(goodNode)
+                  ];
+                }
+                if (goodNode.updateLink) {
+                  const newLink = goodNode.updateLink({
+                    origin_id: good.originId,
+                    origin_slot: good.originIndex
+                  });
+                  if (newLink) {
+                    return [
+                      inputKey,
+                      [
+                        newLink.origin_id,
+                        newLink.origin_slot
+                      ]
+                    ];
+                  }
+                }
+                return [
+                  inputKey,
+                  [
+                    good.originId.toString(),
+                    good.originIndex
+                  ]
+                ];
+              } else {
+                return [inputKey, inputValue];
+              }
+            }
+          )
+        );
+        return [key, node];
+      })
+    );
+    const clearTmpPromptRegex = new RegExp(
+      `${promptRemoveStart}.*?${promptRemoveEnd}`,
+      `g`
+    );
+    prompt2.output = Object.fromEntries(
+      Object.entries(prompt2.output).map(([key, node]) => {
+        node.inputs = Object.fromEntries(
+          Object.entries(node.inputs).map(
+            ([inputKey, inputValue]) => {
+              if (Array.isArray(inputValue)) {
+                return [inputKey, inputValue];
+              } else if (typeof inputValue === `string`) {
+                return [
+                  inputKey,
+                  inputValue.replaceAll(clearTmpPromptRegex, ``).replace(/\(:\d+\.?\d+?\)/g, ``)
+                ];
+              } else {
+                return [inputKey, inputValue];
+              }
+            }
+          )
+        );
+        return [key, node];
+      }).filter(Boolean)
+    );
+    return { prompt: prompt2, originalPrompt };
+  }
+  let showLines = false;
+  let showLinesHover = false;
+  let manualSelectedNode = void 0;
+  const _showLinkMenu = LGraphCanvas.prototype.showLinkMenu;
+  const convertLinkIntoNodes = function(link, e2) {
+    if (!e2.shiftKey) {
+      _showLinkMenu.apply(this, [link, e2]);
+      return false;
+    }
+    convertLinkToGetSet(link);
+    return false;
+  };
+  const restorePrimitives = (settings22) => {
+    setTimeout(() => {
+      for (const node of settings22.nodes) {
+        if (node.type !== `PrimitiveNode`) {
+          continue;
+        }
+        const actualNode = getNodeById(node.id);
+        if (!actualNode) {
+          continue;
+        }
+        for (const [i2, value] of (node.widgets_values ?? []).entries()) {
+          if (actualNode.widgets && actualNode.widgets[i2]) {
+            setWidgetValue(actualNode, value, i2);
+          }
+        }
+      }
+      app2.graph.setDirtyCanvas(true, true);
+      debouceUpdate();
+    });
+  };
+  const plugin2 = {
+    name: `cg.customnodes.mape_helpers`,
+    async beforeRegisterNodeDef(nodeType, nodeData) {
+      for (const override of [
+        `onAdded`,
+        `onConnectInput`,
+        `onConnectionsChange`,
+        `onConnectOutput`,
+        `onRemoved`,
+        `onSelected`,
+        `onDeselected`,
+        `onPropertyChanged`,
+        `onWidgetChanged`,
+        `onMouseMove`
+      ]) {
+        const ref = nodeType.prototype[override];
+        nodeType.prototype[override] = function(...args) {
+          debouceUpdate();
+          ref == null ? void 0 : ref.apply(this, args);
+        };
+      }
+      if (nodeData.display_name !== TYPE) {
+        const _dblClick = nodeType.prototype.onDblClick;
+        nodeType.prototype.onDblClick = function(...args) {
+          _dblClick == null ? void 0 : _dblClick.apply(this, args);
+          const mousePos = args[1];
+          const [, y2] = mousePos;
+          if (!getSetting(`dblClickToRename`) || y2 > 0) {
+            return;
+          }
+          const newName = prompt(`Name`, this.title);
+          if (newName) {
+            this.title = newName;
+          }
+        };
+        const orig = nodeType.prototype.onDrawForeground;
+        nodeType.prototype.onDrawForeground = function(...args) {
+          if (getSetting(`profileNodes`)) {
+            const [ctx] = args;
+            drawProfileText(
+              ctx,
+              this.executionDuration || ``
+            );
+          }
+          return orig == null ? void 0 : orig.apply(this, args);
+        };
+        return;
+      }
+      if (typeof window.graph === `undefined`) {
+        window.graph = app2.graph;
+      }
+      if (typeof window.app === `undefined`) {
+        window.app = app2;
+      }
+      const onConnectionsChange = nodeType.prototype.onConnectionsChange;
+      nodeType.prototype.onConnectionsChange = function(...args) {
+        const [side] = args;
+        const node = this;
+        const type = side === 2 ? `output` : `input`;
+        if (type === `output`) {
+          if (isNodeSetter(node)) {
+            node.disconnectOutput(0);
+            return;
+          }
+        } else {
+          if (isNodeGetter(node)) {
+            node.disconnectInput(0);
+            return;
+          }
+        }
+        if (isMapeVariableNode(node) && side == 1) {
+          updateLabels(node);
+        }
+        onConnectionsChange == null ? void 0 : onConnectionsChange.apply(node, args);
+      };
+      nodeType.prototype.getTitle = function() {
+        const node = this;
+        const isSetter = isNodeSetter(node);
+        const icon = isSetter ? getSetting(`setIcon`) : getSetting(`getIcon`);
+        nodeType.title_color = isSetter ? getSetting(`setBackgroundColor`) : getSetting(`getBackgroundColor`);
+        const value = getWidgetValue(node);
+        return value ? `${icon}${value}` : node.title;
+      };
+      nodeType.prototype.onSelected = function() {
+        showLines = true;
+      };
+      nodeType.prototype.onMouseEnter = function() {
+        manualSelectedNode = this;
+        showLinesHover = true;
+      };
+      nodeType.prototype.onMouseLeave = function() {
+        manualSelectedNode = void 0;
+        showLinesHover = false;
+      };
+      nodeType.prototype.onDeselected = () => {
+        showLines = false;
+      };
+      nodeType.prototype.onRemoved = () => {
+        showLines = false;
+      };
+      nodeType.prototype.onDblClick = function(e2) {
+        const node = this;
+        if (e2.shiftKey) {
+          setTimeout(() => {
+            renameNode(node);
+          }, 100);
+        } else {
+          node.flags.collapsed = !node.flags.collapsed;
+        }
+      };
+    },
+    async nodeCreated(node) {
+      const nodeRef = node;
+      nodeRef.IS_MAPE_VARIABLE = isMapeVariableNode(
+        node
+      );
+      if (!nodeRef.IS_MAPE_VARIABLE) {
+        return;
+      }
+      node.onGraphConfigured = () => {
+      };
+      const _configure = node.configure;
+      node.configure = function(...args) {
+        _configure.apply(this, args);
+        const defaults2 = {
+          FLOAT: {
+            min: Number.MIN_SAFE_INTEGER,
+            max: Number.MAX_SAFE_INTEGER,
+            step: 0.1,
+            round: 0.01
+          },
+          INT: {
+            min: Number.MIN_SAFE_INTEGER,
+            max: Number.MAX_SAFE_INTEGER
+          },
+          STRING: {
+            default: ``
+          }
+        };
+        node.inputs = jsonClone(args[0].inputs).map((input) => {
+          setWidgetConfig(input, [input.type, defaults2[input.type]]);
+          return input;
+        });
+        updateLabels(node);
+      };
+    },
+    async setup() {
+      var _a;
+      _graphToPrompt = app2.graphToPrompt;
+      if (settings2) {
+        restorePrimitives(settings2);
+      }
+      const _conf = app2.graph.onConfigure;
+      app2.graph.onConfigure = function(...args) {
+        restorePrimitives(args[0]);
+        _conf.apply(this, args);
+      };
+      if (getSetting(`replaceSearch`)) {
+        String.prototype.__indexOf = String.prototype.indexOf;
+        String.prototype.indexOf = function(substring, startIndex) {
+          var _a2;
+          const searchValue = this;
+          if ((_a2 = new Error().stack) == null ? void 0 : _a2.match(/refreshHelper/)) {
+            return fuzzySearch(substring, searchValue) ? 1 : -1;
+          } else {
+            return this.__indexOf(substring, startIndex);
+          }
+        };
+      }
+      document.addEventListener(`keydown`, (e2) => {
+        if (e2.key === `z` && e2.ctrlKey) {
+          e2.preventDefault();
+        }
+      });
+      let interceptGraphToPrompt = true;
+      app2.graphToPrompt = async function() {
+        if (interceptGraphToPrompt && getMapeNodes().length > 0) {
+          return (await prepareGraphForServerPrompt()).prompt;
+        }
+        return _graphToPrompt.apply(app2);
+      };
+      for (const eventName of [
+        `status`,
+        `reconnecting`,
+        `reconnected`,
+        `executing`,
+        `executed`,
+        `execution_start`,
+        `execution_error`,
+        `b_preview`,
+        `progress`
+      ]) {
+        api.addEventListener(eventName, debouceUpdate);
+      }
+      const timeLookup = /* @__PURE__ */ new Map();
+      let lastId = 0;
+      for (const eventName of [`executing`]) {
+        api.addEventListener(eventName, (data) => {
+          var _a2;
+          const id = ((_a2 = data == null ? void 0 : data.detail) == null ? void 0 : _a2.node) ?? (data == null ? void 0 : data.detail);
+          const node = getNodeById(id);
+          if (node) {
+            node.executionDuration = ``;
+          }
+          const timeTaken = timeLookup.get(lastId);
+          timeLookup.delete(lastId);
+          if (lastId && timeTaken) {
+            const delta = Date.now() - timeTaken;
+            const lastNode = getNodeById(lastId);
+            if (lastNode) {
+              lastNode.executionDuration = `${(delta / 1e3).toFixed(2)}s`;
+            }
+          }
+          lastId = id;
+          timeLookup.set(id, Date.now());
+        });
+      }
+      let completeTimeout;
+      api.addEventListener(`progress`, (event) => {
+        clearTimeout(completeTimeout);
+        const { value, max, node: nodeId } = event.detail;
+        const node = getNodeById(nodeId);
+        if (value && max && nodeId) {
+          document.title = `${node && node.title ? `${node.title}: ` : ``}${value}/${max} (${(value / max * 100).toFixed(0)}%)`;
+          if (value === max) {
+            document.title = `Completed!`;
+            completeTimeout = setTimeout(() => {
+              document.title = `ComfyUI`;
+            }, 2e3);
+          }
+        }
+        debouceUpdate();
+      });
+      const _show = app2.ui.dialog.show;
+      window.mapeErrors = [];
+      app2.ui.dialog.show = function(...args) {
+        setTimeout(() => {
+          if (!app2.lastNodeErrors) {
+            return;
+          }
+          for (const [id, meta] of Object.entries(
+            app2.lastNodeErrors
+          )) {
+            const node = getNodeById(parseFloat(id));
+            for (const error of meta.errors) {
+              window.mapeErrors.push({
+                text: error.message,
+                type: error.details,
+                node
+              });
+            }
+          }
+          debouceUpdate();
+          window.showWarnings(true);
+        });
+        _show.apply(this, args);
+      };
+      const saveEl = document.getElementById(`comfy-save-button`);
+      if (saveEl) {
+        const _saveCallback = saveEl.onclick;
+        saveEl.onclick = function(e2) {
+          interceptGraphToPrompt = false;
+          _saveCallback(e2);
+          interceptGraphToPrompt = true;
+        };
+      }
+      const saveDevEl = document.getElementById(
+        `comfy-dev-save-api-button`
+      );
+      if (saveDevEl) {
+        const _saveDevCallback = saveDevEl.onclick;
+        saveDevEl.onclick = function(e2) {
+          interceptGraphToPrompt = false;
+          _saveDevCallback(e2);
+          interceptGraphToPrompt = true;
+        };
+      }
+      const _drawFrontCanvas = LGraphCanvas.prototype.drawFrontCanvas;
+      LGraphCanvas.prototype.drawFrontCanvas = function(...args) {
+        var _a2, _b;
+        _drawFrontCanvas.apply(this, args);
+        if (!showLines && !showLinesHover) {
+          return;
+        }
+        let selectedNode = getSelectedNode();
+        if (!selectedNode && manualSelectedNode && getSetting(`showAllConnectionsOnNodeHover`)) {
+          selectedNode = manualSelectedNode;
+        }
+        if (!selectedNode && manualSelectedNode && getSetting(`showConnectionOnNodeHover`)) {
+          if (isNodeGetter(manualSelectedNode)) {
+            selectedNode = getToSetNode(manualSelectedNode);
+          } else {
+            selectedNode = manualSelectedNode;
+          }
+        }
+        if (!selectedNode || !app2.canvas) {
+          return;
+        }
+        const onlyShowSelectedConnection = !showLines && showLinesHover && !getSetting(`showAllConnectionsOnNodeHover`) && getSetting(`showConnectionOnNodeHover`);
+        const ctx = this.ctx;
+        const { nodeSet, internalLinks } = resolveLinks();
+        for (const baseNode of getNodes$1().filter(
+          (node) => isMapeVariableNode(node)
+        )) {
+          const setNode = baseNode;
+          if (onlyShowSelectedConnection && baseNode.id !== selectedNode.id) {
+            continue;
+          }
+          if (baseNode.id !== setNode.id)
+            ;
+          if (isNodeGetter(baseNode)) {
+            continue;
+          }
+          const links = internalLinks[setNode.id];
+          if (!links) {
+            continue;
+          }
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          for (const targetId of links) {
+            const getNode2 = getNodeById(targetId);
+            if (!getNode2) {
+              console.error(`failed`, setNode.id, targetId);
+              continue;
+            }
+            const selectedType = getWidgetValue(selectedNode);
+            const nodeType = getWidgetValue(getNode2);
+            let onlyConnectedToDisabledNodes = true;
+            const links2 = (_b = (_a2 = getNode2.outputs) == null ? void 0 : _a2[0]) == null ? void 0 : _b.links;
+            if (links2) {
+              for (const linkId of links2) {
+                const link = getLinkById(linkId);
+                if (link) {
+                  const targetNode = getNodeById(
+                    link.target_id
+                  );
+                  if (targetNode && targetNode.mode !== 4) {
+                    onlyConnectedToDisabledNodes = false;
+                  }
+                }
+              }
+            }
+            if (onlyConnectedToDisabledNodes) {
+              continue;
+            }
+            if (!getSetting(`showAllConnectionsOnFocus`) && selectedType !== nodeType) {
+              continue;
+            }
+            let tmpSetNode = setNode;
+            let tmpSlot = 0;
+            if (nodeSet[nodeType] && nodeSet[nodeType].originId !== setNode.id) {
+              const replacementNode = getNodeById(
+                nodeSet[nodeType].originId
+              );
+              if (replacementNode) {
+                tmpSetNode = replacementNode;
+                tmpSlot = nodeSet[nodeType].originIndex;
+              }
+            }
+            const pos1IsInput = false;
+            const pos2IsInput = true;
+            const pos1 = tmpSetNode.getConnectionPos(
+              pos1IsInput,
+              tmpSlot
+            );
+            const pos2 = getNode2.getConnectionPos(pos2IsInput, 0);
+            const scale = app2.canvas.ds.scale;
+            const offset = app2.canvas.ds.offset;
+            pos1[0] = pos1[0] * scale + offset[0] * scale;
+            pos1[1] = pos1[1] * scale + offset[1] * scale;
+            pos2[0] = pos2[0] * scale + offset[0] * scale;
+            pos2[1] = pos2[1] * scale + offset[1] * scale;
+            const delta_x = pos2[0] - pos1[0];
+            const delta_y = pos2[1] - pos1[1];
+            const endDirection = LiteGraph.LEFT;
+            const staDirection = Math.abs(delta_y) > Math.abs(delta_x) ? delta_y > 0 ? LiteGraph.DOWN : LiteGraph.UP : delta_x < 0 ? LiteGraph.LEFT : LiteGraph.RIGHT;
+            const pos1InViewport = pos1[0] > 0 && pos1[1] > 0 && pos1[0] < viewportWidth && pos1[1] < viewportHeight;
+            const pos2InViewport = pos2[0] > 0 && pos2[1] > 0 && pos2[0] < viewportWidth && pos2[1] < viewportHeight;
+            const shouldCull = !pos1InViewport && !pos2InViewport;
+            if (shouldCull) {
+              continue;
+            }
+            ctx.save();
+            ctx.shadowColor = `#000`;
+            ctx.shadowBlur = 15;
+            ctx.lineCap = `round`;
+            const isSelectedNode = selectedType === nodeType;
+            const animate = getSetting(`animateAllNodes`) || isSelectedNode && getSetting(`animateSelectedNode`) || false;
+            app2.canvas.renderLink(
+              ctx,
+              pos1,
+              pos2,
+              void 0,
+              true,
+              animate,
+              isSelectedNode ? `rgba(255,244,53,${getSetting(
+                `selectedNodeConnectionOpacity`
+              ) / 100})` : `rgba(255,255,255,${getSetting(`nodeConnectionOpacity`) / 100})`,
+              staDirection,
+              endDirection
+            );
+            ctx.restore();
+          }
+        }
+      };
+      LGraphCanvas.prototype.showLinkMenu = convertLinkIntoNodes;
+      const originalShowConnectionMenu = LGraphCanvas.prototype.showConnectionMenu;
+      LGraphCanvas.prototype.showConnectionMenu = function(...args) {
+        if (shiftDown) {
+          return;
+        }
+        this.use_original_menu = true;
+        originalShowConnectionMenu.apply(this, args);
+        this.use_original_menu = false;
+      };
+      let shiftDown = false;
+      let ctrlDown = false;
+      document.addEventListener(`keydown`, (e2) => {
+        ctrlDown = e2.ctrlKey;
+        shiftDown = e2.shiftKey;
+      });
+      app2.canvas._mousemove_callback = () => {
+        if (!getSetting(`organizeSideNodes`)) {
+          return;
+        }
+        const selectedNodes = getSelectedNodes$1();
+        organizeNode(selectedNodes);
+      };
+      document.addEventListener(`keyup`, (e2) => {
+        var _a2;
+        const focusedElement = document.activeElement;
+        if (focusedElement.tagName === `INPUT` && (focusedElement.type === `text` || focusedElement.type === `number`) || focusedElement.tagName === `TEXTAREA`) {
+          return;
+        }
+        if (e2.key === `A` && e2.shiftKey) {
+          document.querySelector(
+            `.comfy-queue-btn`
+          ).click();
+          return;
+        }
+        if (e2.key === `ArrowLeft` && e2.shiftKey) {
+          const selectedNodes = getSelectedNodes$1();
+          const minLeft = Math.min(
+            ...selectedNodes.map((n2) => n2.pos[0])
+          );
+          const maxSize = Math.max(
+            ...selectedNodes.map((n2) => n2.size[0])
+          );
+          for (const node of selectedNodes) {
+            node.pos = [minLeft, node.pos[1]];
+            if (getSetting(`resizeNodeWidthOnAlignment`)) {
+              node.size = [maxSize, node.size[1]];
+            }
+          }
+          return;
+        }
+        if (e2.key === `ArrowDown` && e2.shiftKey) {
+          const selectedNodes = getSelectedNodes$1().filter(
+            (n2) => !isMapeVariableNode(n2)
+          );
+          const minY = Math.min(
+            ...selectedNodes.map((node) => {
+              return node.pos[1];
+            })
+          );
+          const perNodeY = getSetting(`nodeAlignOffsetY`);
+          let totalOffset = 0;
+          for (const node of selectedNodes.sort((a2, b) => {
+            return a2.pos[1] - b.pos[1];
+          })) {
+            node.pos = [node.pos[0], minY + totalOffset];
+            const sizeY = node.size[1] + perNodeY;
+            totalOffset += sizeY;
+          }
+          return;
+        }
+        if (e2.key === `ArrowUp` && e2.shiftKey) {
+          const selectedNodes = getSelectedNodes$1();
+          const minTop = Math.min(
+            ...selectedNodes.map((n2) => n2.pos[1])
+          );
+          for (const node of selectedNodes) {
+            node.pos = [node.pos[0], minTop];
+          }
+          return;
+        }
+        if (e2.key === `O` && e2.shiftKey) {
+          const selectedNodes = getSelectedNodes$1();
+          organizeNode(selectedNodes, true);
+          return;
+        }
+        const selectedNode = getSelectedNodes$1()[0];
+        if (selectedNode && e2.key === `S` && e2.shiftKey) {
+          splitAllConnections();
+          return;
+        }
+        if (selectedNode && e2.key === `J` && e2.shiftKey) {
+          joinAllConnections();
+          return;
+        }
+        if (!selectedNode || !selectedNode.type || selectedNode.type !== TYPE) {
+          return;
+        }
+        if (e2.key === `w`) {
+          renameNode(selectedNode);
+          return;
+        }
+        if (e2.key === `s`) {
+          const jumpTo = getWidgetValue(selectedNode);
+          for (const node of graph._nodes) {
+            if (getWidgetValue(node) === jumpTo) {
+              if ((_a2 = node.inputs) == null ? void 0 : _a2[0].link) {
+                jumpToNode(node);
+              }
+            }
+          }
+          return;
+        }
+        if (e2.key === `ArrowLeft` || e2.key === `ArrowRight`) {
+          const direction = e2.key === `ArrowLeft` ? -1 : 1;
+          const selected = selectedNode;
+          const jumpTo = getWidgetValue(selected);
+          let siblings = graph._nodes.filter((node) => {
+            return getWidgetValue(node) === jumpTo;
+          });
+          const source = siblings.find(isNodeSetter);
+          if (!source) {
+            return;
+          }
+          siblings = siblings.sort((a2, b) => {
+            const distanceA = calculateDistance(
+              source.pos[0],
+              source.pos[1],
+              a2.pos[0],
+              a2.pos[1]
+            );
+            const distanceB = calculateDistance(
+              source.pos[0],
+              source.pos[1],
+              b.pos[0],
+              b.pos[1]
+            );
+            return distanceA - distanceB;
+          });
+          const currentIndex = siblings.findIndex(
+            (n2) => n2.id === selected.id
+          );
+          const next = currentIndex + direction;
+          const count = siblings.length;
+          if (next > count - 1) {
+            return;
+          }
+          if (next < 0) {
+            return;
+          }
+          jumpToNode(siblings[next]);
+          return;
+        }
+        if (e2.key.match(/^\d+$/)) {
+          const index = parseFloat(e2.key) - 1;
+          const selected = selectedNode;
+          const jumpTo = getWidgetValue(selected);
+          const siblings = graph._nodes.filter((node2) => {
+            return getWidgetValue(node2) === jumpTo;
+          });
+          const node = siblings[index];
+          if (node) {
+            jumpToNode(node);
+          }
+          return;
+        }
+      });
+      document.body.addEventListener(`keyup`, () => {
+        ctrlDown = false;
+        shiftDown = false;
+      });
+      let original_allow_searchbox = (_a = app2.canvas) == null ? void 0 : _a.allow_searchbox;
+      Object.defineProperty(app2.canvas, `allow_searchbox`, {
+        get: function() {
+          var _a2, _b;
+          const group = this.graph.getGroupOnPos(
+            ...this.canvas_mouse
+          );
+          const undraggingConnection = this.connecting_node && isMapeVariableNode(this.connecting_node);
+          if (!shiftDown || undraggingConnection) {
+            return original_allow_searchbox;
+          }
+          if (this.connecting_input) {
+            const propName = formatVariables(
+              (_a2 = this.connecting_input.name) == null ? void 0 : _a2.toLowerCase()
+            );
+            const type = (_b = this.connecting_input) == null ? void 0 : _b.type;
+            const newGetNode = LiteGraph.createNode(
+              `mape Variable`
+            );
+            newGetNode.pos = [
+              this.canvas_mouse[0] + 10,
+              this.canvas_mouse[1]
+            ];
+            graphAdd(newGetNode);
+            const fromIndex = this.connecting_input.slot_index;
+            setWidgetValue(newGetNode, propName);
+            newGetNode.connect(0, this.connecting_node, fromIndex);
+            newGetNode.flags.collapsed = true;
+            newGetNode.setSize(newGetNode.computeSize());
+            setTimeout(() => {
+              var _a3, _b2;
+              window.setPrompt(
+                `Variable name`,
+                ((_b2 = (_a3 = graph.list_of_graphcanvas) == null ? void 0 : _a3[0]) == null ? void 0 : _b2.last_mouse_position) ?? [
+                  document.body.clientWidth / 2,
+                  document.body.clientHeight / 2
+                ],
+                (value) => {
+                  setWidgetValue(newGetNode, value);
+                },
+                propName,
+                type
+              );
+            });
+            return false;
+          } else if (this.connecting_output) {
+            const valueType = formatVariables(
+              this.connecting_output.name ?? this.connecting_output.type
+            );
+            const newSetNode = LiteGraph.createNode(
+              `mape Variable`
+            );
+            newSetNode.pos = [
+              this.canvas_mouse[0] + 10,
+              this.canvas_mouse[1]
+            ];
+            graphAdd(newSetNode);
+            const fromIndex = this.connecting_output.slot_index;
+            setWidgetValue(newSetNode, valueType);
+            this.connecting_node.connect(fromIndex, newSetNode, 0);
+            newSetNode.flags.collapsed = true;
+            newSetNode.setSize(newSetNode.computeSize());
+            if (!ctrlDown) {
+              setTimeout(() => {
+                var _a3, _b2;
+                window.setPrompt(
+                  `Variable name`,
+                  ((_b2 = (_a3 = graph.list_of_graphcanvas) == null ? void 0 : _a3[0]) == null ? void 0 : _b2.last_mouse_position) ?? [
+                    document.body.clientWidth / 2,
+                    document.body.clientHeight / 2
+                  ],
+                  (value) => {
+                    setWidgetValue(newSetNode, value);
+                  },
+                  valueType
+                );
+              });
+              return false;
+            }
+            const newGetNode = LiteGraph.createNode(
+              `mape Variable`
+            );
+            newGetNode.pos = [
+              this.canvas_mouse[0] + 10,
+              this.canvas_mouse[1] + 50
+            ];
+            graphAdd(newGetNode);
+            setWidgetValue(newGetNode, valueType);
+            newGetNode.flags.collapsed = true;
+            newGetNode.setSize(newGetNode.computeSize());
+            setTimeout(() => {
+              var _a3, _b2;
+              window.setPrompt(
+                `Variable name`,
+                ((_b2 = (_a3 = graph.list_of_graphcanvas) == null ? void 0 : _a3[0]) == null ? void 0 : _b2.last_mouse_position) ?? [
+                  document.body.clientWidth / 2,
+                  document.body.clientHeight / 2
+                ],
+                (value) => {
+                  setWidgetValue(newSetNode, value);
+                  setWidgetValue(newGetNode, value);
+                },
+                valueType
+              );
+            });
+            return false;
+          }
+          if (group && shiftDown && getSetting(`dblClickToRenameGroup`)) {
+            shiftDown = false;
+            setTimeout(() => {
+              const name = prompt(
+                `Change group name`,
+                group.title
+              );
+              if (name) {
+                group.title = name;
+                app2.graph.setDirtyCanvas(true, true);
+                notifyUpdate(`rename`);
+              }
+            }, 100);
+            return false;
+          }
+          return true;
+        },
+        set: function(ref) {
+          original_allow_searchbox = ref;
+        }
+      });
+    }
+  };
+  app2.registerExtension(plugin2);
+};
+const plugin = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  registerPlugin
+}, Symbol.toStringTag, { value: "Module" }));
+const isff = typeof navigator !== "undefined" ? navigator.userAgent.toLowerCase().indexOf("firefox") > 0 : false;
+function addEvent(object, event, method, useCapture) {
+  if (object.addEventListener) {
+    object.addEventListener(event, method, useCapture);
+  } else if (object.attachEvent) {
+    object.attachEvent("on".concat(event), method);
+  }
+}
+function removeEvent(object, event, method, useCapture) {
+  if (object.removeEventListener) {
+    object.removeEventListener(event, method, useCapture);
+  } else if (object.deachEvent) {
+    object.deachEvent("on".concat(event), method);
+  }
+}
+function getMods(modifier, key) {
+  const mods = key.slice(0, key.length - 1);
+  for (let i2 = 0; i2 < mods.length; i2++)
+    mods[i2] = modifier[mods[i2].toLowerCase()];
+  return mods;
+}
+function getKeys(key) {
+  if (typeof key !== "string")
+    key = "";
+  key = key.replace(/\s/g, "");
+  const keys = key.split(",");
+  let index = keys.lastIndexOf("");
+  for (; index >= 0; ) {
+    keys[index - 1] += ",";
+    keys.splice(index, 1);
+    index = keys.lastIndexOf("");
+  }
+  return keys;
+}
+function compareArray(a1, a2) {
+  const arr1 = a1.length >= a2.length ? a1 : a2;
+  const arr2 = a1.length >= a2.length ? a2 : a1;
+  let isIndex = true;
+  for (let i2 = 0; i2 < arr1.length; i2++) {
+    if (arr2.indexOf(arr1[i2]) === -1)
+      isIndex = false;
+  }
+  return isIndex;
+}
+const _keyMap = {
+  backspace: 8,
+  "⌫": 8,
+  tab: 9,
+  clear: 12,
+  enter: 13,
+  "↩": 13,
+  return: 13,
+  esc: 27,
+  escape: 27,
+  space: 32,
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40,
+  del: 46,
+  delete: 46,
+  ins: 45,
+  insert: 45,
+  home: 36,
+  end: 35,
+  pageup: 33,
+  pagedown: 34,
+  capslock: 20,
+  num_0: 96,
+  num_1: 97,
+  num_2: 98,
+  num_3: 99,
+  num_4: 100,
+  num_5: 101,
+  num_6: 102,
+  num_7: 103,
+  num_8: 104,
+  num_9: 105,
+  num_multiply: 106,
+  num_add: 107,
+  num_enter: 108,
+  num_subtract: 109,
+  num_decimal: 110,
+  num_divide: 111,
+  "⇪": 20,
+  ",": 188,
+  ".": 190,
+  "/": 191,
+  "`": 192,
+  "-": isff ? 173 : 189,
+  "=": isff ? 61 : 187,
+  ";": isff ? 59 : 186,
+  "'": 222,
+  "[": 219,
+  "]": 221,
+  "\\": 220
+};
+const _modifier = {
+  // shiftKey
+  "⇧": 16,
+  shift: 16,
+  // altKey
+  "⌥": 18,
+  alt: 18,
+  option: 18,
+  // ctrlKey
+  "⌃": 17,
+  ctrl: 17,
+  control: 17,
+  // metaKey
+  "⌘": 91,
+  cmd: 91,
+  command: 91
+};
+const modifierMap = {
+  16: "shiftKey",
+  18: "altKey",
+  17: "ctrlKey",
+  91: "metaKey",
+  shiftKey: 16,
+  ctrlKey: 17,
+  altKey: 18,
+  metaKey: 91
+};
+const _mods = {
+  16: false,
+  18: false,
+  17: false,
+  91: false
+};
+const _handlers = {};
+for (let k2 = 1; k2 < 20; k2++) {
+  _keyMap["f".concat(k2)] = 111 + k2;
+}
+let _downKeys = [];
+let winListendFocus = null;
+let _scope = "all";
+const elementEventMap = /* @__PURE__ */ new Map();
+const code = (x2) => _keyMap[x2.toLowerCase()] || _modifier[x2.toLowerCase()] || x2.toUpperCase().charCodeAt(0);
+const getKey = (x2) => Object.keys(_keyMap).find((k2) => _keyMap[k2] === x2);
+const getModifier = (x2) => Object.keys(_modifier).find((k2) => _modifier[k2] === x2);
+function setScope(scope) {
+  _scope = scope || "all";
+}
+function getScope() {
+  return _scope || "all";
+}
+function getPressedKeyCodes() {
+  return _downKeys.slice(0);
+}
+function getPressedKeyString() {
+  return _downKeys.map((c2) => getKey(c2) || getModifier(c2) || String.fromCharCode(c2));
+}
+function getAllKeyCodes() {
+  const result = [];
+  Object.keys(_handlers).forEach((k2) => {
+    _handlers[k2].forEach((_ref) => {
+      let {
+        key,
+        scope,
+        mods,
+        shortcut
+      } = _ref;
+      result.push({
+        scope,
+        shortcut,
+        mods,
+        keys: key.split("+").map((v2) => code(v2))
+      });
+    });
+  });
+  return result;
+}
+function filter(event) {
+  const target = event.target || event.srcElement;
+  const {
+    tagName
+  } = target;
+  let flag = true;
+  if (target.isContentEditable || (tagName === "INPUT" || tagName === "TEXTAREA" || tagName === "SELECT") && !target.readOnly) {
+    flag = false;
+  }
+  return flag;
+}
+function isPressed(keyCode) {
+  if (typeof keyCode === "string") {
+    keyCode = code(keyCode);
+  }
+  return _downKeys.indexOf(keyCode) !== -1;
+}
+function deleteScope(scope, newScope) {
+  let handlers;
+  let i2;
+  if (!scope)
+    scope = getScope();
+  for (const key in _handlers) {
+    if (Object.prototype.hasOwnProperty.call(_handlers, key)) {
+      handlers = _handlers[key];
+      for (i2 = 0; i2 < handlers.length; ) {
+        if (handlers[i2].scope === scope) {
+          const deleteItems = handlers.splice(i2, 1);
+          deleteItems.forEach((_ref2) => {
+            let {
+              element
+            } = _ref2;
+            return removeKeyEvent(element);
+          });
+        } else {
+          i2++;
+        }
+      }
+    }
+  }
+  if (getScope() === scope)
+    setScope(newScope || "all");
+}
+function clearModifier(event) {
+  let key = event.keyCode || event.which || event.charCode;
+  const i2 = _downKeys.indexOf(key);
+  if (i2 >= 0) {
+    _downKeys.splice(i2, 1);
+  }
+  if (event.key && event.key.toLowerCase() === "meta") {
+    _downKeys.splice(0, _downKeys.length);
+  }
+  if (key === 93 || key === 224)
+    key = 91;
+  if (key in _mods) {
+    _mods[key] = false;
+    for (const k2 in _modifier)
+      if (_modifier[k2] === key)
+        hotkeys[k2] = false;
+  }
+}
+function unbind(keysInfo) {
+  if (typeof keysInfo === "undefined") {
+    Object.keys(_handlers).forEach((key) => {
+      Array.isArray(_handlers[key]) && _handlers[key].forEach((info) => eachUnbind(info));
+      delete _handlers[key];
+    });
+    removeKeyEvent(null);
+  } else if (Array.isArray(keysInfo)) {
+    keysInfo.forEach((info) => {
+      if (info.key)
+        eachUnbind(info);
+    });
+  } else if (typeof keysInfo === "object") {
+    if (keysInfo.key)
+      eachUnbind(keysInfo);
+  } else if (typeof keysInfo === "string") {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+    let [scope, method] = args;
+    if (typeof scope === "function") {
+      method = scope;
+      scope = "";
+    }
+    eachUnbind({
+      key: keysInfo,
+      scope,
+      method,
+      splitKey: "+"
+    });
+  }
+}
+const eachUnbind = (_ref3) => {
+  let {
+    key,
+    scope,
+    method,
+    splitKey = "+"
+  } = _ref3;
+  const multipleKeys = getKeys(key);
+  multipleKeys.forEach((originKey) => {
+    const unbindKeys = originKey.split(splitKey);
+    const len = unbindKeys.length;
+    const lastKey = unbindKeys[len - 1];
+    const keyCode = lastKey === "*" ? "*" : code(lastKey);
+    if (!_handlers[keyCode])
+      return;
+    if (!scope)
+      scope = getScope();
+    const mods = len > 1 ? getMods(_modifier, unbindKeys) : [];
+    const unbindElements = [];
+    _handlers[keyCode] = _handlers[keyCode].filter((record) => {
+      const isMatchingMethod = method ? record.method === method : true;
+      const isUnbind = isMatchingMethod && record.scope === scope && compareArray(record.mods, mods);
+      if (isUnbind)
+        unbindElements.push(record.element);
+      return !isUnbind;
+    });
+    unbindElements.forEach((element) => removeKeyEvent(element));
+  });
+};
+function eventHandler(event, handler, scope, element) {
+  if (handler.element !== element) {
+    return;
+  }
+  let modifiersMatch;
+  if (handler.scope === scope || handler.scope === "all") {
+    modifiersMatch = handler.mods.length > 0;
+    for (const y2 in _mods) {
+      if (Object.prototype.hasOwnProperty.call(_mods, y2)) {
+        if (!_mods[y2] && handler.mods.indexOf(+y2) > -1 || _mods[y2] && handler.mods.indexOf(+y2) === -1) {
+          modifiersMatch = false;
+        }
+      }
+    }
+    if (handler.mods.length === 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91] || modifiersMatch || handler.shortcut === "*") {
+      handler.keys = [];
+      handler.keys = handler.keys.concat(_downKeys);
+      if (handler.method(event, handler) === false) {
+        if (event.preventDefault)
+          event.preventDefault();
+        else
+          event.returnValue = false;
+        if (event.stopPropagation)
+          event.stopPropagation();
+        if (event.cancelBubble)
+          event.cancelBubble = true;
+      }
+    }
+  }
+}
+function dispatch(event, element) {
+  const asterisk = _handlers["*"];
+  let key = event.keyCode || event.which || event.charCode;
+  if (!hotkeys.filter.call(this, event))
+    return;
+  if (key === 93 || key === 224)
+    key = 91;
+  if (_downKeys.indexOf(key) === -1 && key !== 229)
+    _downKeys.push(key);
+  ["ctrlKey", "altKey", "shiftKey", "metaKey"].forEach((keyName) => {
+    const keyNum = modifierMap[keyName];
+    if (event[keyName] && _downKeys.indexOf(keyNum) === -1) {
+      _downKeys.push(keyNum);
+    } else if (!event[keyName] && _downKeys.indexOf(keyNum) > -1) {
+      _downKeys.splice(_downKeys.indexOf(keyNum), 1);
+    } else if (keyName === "metaKey" && event[keyName] && _downKeys.length === 3) {
+      if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
+        _downKeys = _downKeys.slice(_downKeys.indexOf(keyNum));
+      }
+    }
+  });
+  if (key in _mods) {
+    _mods[key] = true;
+    for (const k2 in _modifier) {
+      if (_modifier[k2] === key)
+        hotkeys[k2] = true;
+    }
+    if (!asterisk)
+      return;
+  }
+  for (const e2 in _mods) {
+    if (Object.prototype.hasOwnProperty.call(_mods, e2)) {
+      _mods[e2] = event[modifierMap[e2]];
+    }
+  }
+  if (event.getModifierState && !(event.altKey && !event.ctrlKey) && event.getModifierState("AltGraph")) {
+    if (_downKeys.indexOf(17) === -1) {
+      _downKeys.push(17);
+    }
+    if (_downKeys.indexOf(18) === -1) {
+      _downKeys.push(18);
+    }
+    _mods[17] = true;
+    _mods[18] = true;
+  }
+  const scope = getScope();
+  if (asterisk) {
+    for (let i2 = 0; i2 < asterisk.length; i2++) {
+      if (asterisk[i2].scope === scope && (event.type === "keydown" && asterisk[i2].keydown || event.type === "keyup" && asterisk[i2].keyup)) {
+        eventHandler(event, asterisk[i2], scope, element);
+      }
+    }
+  }
+  if (!(key in _handlers))
+    return;
+  const handlerKey = _handlers[key];
+  const keyLen = handlerKey.length;
+  for (let i2 = 0; i2 < keyLen; i2++) {
+    if (event.type === "keydown" && handlerKey[i2].keydown || event.type === "keyup" && handlerKey[i2].keyup) {
+      if (handlerKey[i2].key) {
+        const record = handlerKey[i2];
+        const {
+          splitKey
+        } = record;
+        const keyShortcut = record.key.split(splitKey);
+        const _downKeysCurrent = [];
+        for (let a2 = 0; a2 < keyShortcut.length; a2++) {
+          _downKeysCurrent.push(code(keyShortcut[a2]));
+        }
+        if (_downKeysCurrent.sort().join("") === _downKeys.sort().join("")) {
+          eventHandler(event, record, scope, element);
+        }
+      }
+    }
+  }
+}
+function hotkeys(key, option, method) {
+  _downKeys = [];
+  const keys = getKeys(key);
+  let mods = [];
+  let scope = "all";
+  let element = document;
+  let i2 = 0;
+  let keyup = false;
+  let keydown = true;
+  let splitKey = "+";
+  let capture = false;
+  let single = false;
+  if (method === void 0 && typeof option === "function") {
+    method = option;
+  }
+  if (Object.prototype.toString.call(option) === "[object Object]") {
+    if (option.scope)
+      scope = option.scope;
+    if (option.element)
+      element = option.element;
+    if (option.keyup)
+      keyup = option.keyup;
+    if (option.keydown !== void 0)
+      keydown = option.keydown;
+    if (option.capture !== void 0)
+      capture = option.capture;
+    if (typeof option.splitKey === "string")
+      splitKey = option.splitKey;
+    if (option.single === true)
+      single = true;
+  }
+  if (typeof option === "string")
+    scope = option;
+  if (single)
+    unbind(key, scope);
+  for (; i2 < keys.length; i2++) {
+    key = keys[i2].split(splitKey);
+    mods = [];
+    if (key.length > 1)
+      mods = getMods(_modifier, key);
+    key = key[key.length - 1];
+    key = key === "*" ? "*" : code(key);
+    if (!(key in _handlers))
+      _handlers[key] = [];
+    _handlers[key].push({
+      keyup,
+      keydown,
+      scope,
+      mods,
+      shortcut: keys[i2],
+      method,
+      key: keys[i2],
+      splitKey,
+      element
+    });
+  }
+  if (typeof element !== "undefined" && window) {
+    if (!elementEventMap.has(element)) {
+      const keydownListener = function() {
+        let event = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : window.event;
+        return dispatch(event, element);
+      };
+      const keyupListenr = function() {
+        let event = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : window.event;
+        dispatch(event, element);
+        clearModifier(event);
+      };
+      elementEventMap.set(element, {
+        keydownListener,
+        keyupListenr,
+        capture
+      });
+      addEvent(element, "keydown", keydownListener, capture);
+      addEvent(element, "keyup", keyupListenr, capture);
+    }
+    if (!winListendFocus) {
+      const listener = () => {
+        _downKeys = [];
+      };
+      winListendFocus = {
+        listener,
+        capture
+      };
+      addEvent(window, "focus", listener, capture);
+    }
+  }
+}
+function trigger(shortcut) {
+  let scope = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "all";
+  Object.keys(_handlers).forEach((key) => {
+    const dataList = _handlers[key].filter((item) => item.scope === scope && item.shortcut === shortcut);
+    dataList.forEach((data) => {
+      if (data && data.method) {
+        data.method();
+      }
+    });
+  });
+}
+function removeKeyEvent(element) {
+  const values = Object.values(_handlers).flat();
+  const findindex = values.findIndex((_ref4) => {
+    let {
+      element: el
+    } = _ref4;
+    return el === element;
+  });
+  if (findindex < 0) {
+    const {
+      keydownListener,
+      keyupListenr,
+      capture
+    } = elementEventMap.get(element) || {};
+    if (keydownListener && keyupListenr) {
+      removeEvent(element, "keyup", keyupListenr, capture);
+      removeEvent(element, "keydown", keydownListener, capture);
+      elementEventMap.delete(element);
+    }
+  }
+  if (values.length <= 0 || elementEventMap.size <= 0) {
+    const eventKeys = Object.keys(elementEventMap);
+    eventKeys.forEach((el) => {
+      const {
+        keydownListener,
+        keyupListenr,
+        capture
+      } = elementEventMap.get(el) || {};
+      if (keydownListener && keyupListenr) {
+        removeEvent(el, "keyup", keyupListenr, capture);
+        removeEvent(el, "keydown", keydownListener, capture);
+        elementEventMap.delete(el);
+      }
+    });
+    elementEventMap.clear();
+    Object.keys(_handlers).forEach((key) => delete _handlers[key]);
+    if (winListendFocus) {
+      const {
+        listener,
+        capture
+      } = winListendFocus;
+      removeEvent(window, "focus", listener, capture);
+      winListendFocus = null;
+    }
+  }
+}
+const _api = {
+  getPressedKeyString,
+  setScope,
+  getScope,
+  deleteScope,
+  getPressedKeyCodes,
+  getAllKeyCodes,
+  isPressed,
+  filter,
+  trigger,
+  unbind,
+  keyMap: _keyMap,
+  modifier: _modifier,
+  modifierMap
+};
+for (const a2 in _api) {
+  if (Object.prototype.hasOwnProperty.call(_api, a2)) {
+    hotkeys[a2] = _api[a2];
+  }
+}
+if (typeof window !== "undefined") {
+  const _hotkeys = window.hotkeys;
+  hotkeys.noConflict = (deep) => {
+    if (deep && window.hotkeys === hotkeys) {
+      window.hotkeys = _hotkeys;
+    }
+    return hotkeys;
+  };
+  window.hotkeys = hotkeys;
+}
+const t$3 = window, e$8 = t$3.ShadowRoot && (void 0 === t$3.ShadyCSS || t$3.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, s$5 = Symbol(), n$7 = /* @__PURE__ */ new WeakMap();
+let o$8 = class o {
+  constructor(t2, e2, n2) {
+    if (this._$cssResult$ = true, n2 !== s$5)
+      throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+    this.cssText = t2, this.t = e2;
+  }
+  get styleSheet() {
+    let t2 = this.o;
+    const s3 = this.t;
+    if (e$8 && void 0 === t2) {
+      const e2 = void 0 !== s3 && 1 === s3.length;
+      e2 && (t2 = n$7.get(s3)), void 0 === t2 && ((this.o = t2 = new CSSStyleSheet()).replaceSync(this.cssText), e2 && n$7.set(s3, t2));
+    }
+    return t2;
+  }
+  toString() {
+    return this.cssText;
+  }
+};
+const r$4 = (t2) => new o$8("string" == typeof t2 ? t2 : t2 + "", void 0, s$5), i$3 = (t2, ...e2) => {
+  const n2 = 1 === t2.length ? t2[0] : e2.reduce((e3, s3, n3) => e3 + ((t3) => {
+    if (true === t3._$cssResult$)
+      return t3.cssText;
+    if ("number" == typeof t3)
+      return t3;
+    throw Error("Value passed to 'css' function must be a 'css' function result: " + t3 + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
+  })(s3) + t2[n3 + 1], t2[0]);
+  return new o$8(n2, t2, s$5);
+}, S$1 = (s3, n2) => {
+  e$8 ? s3.adoptedStyleSheets = n2.map((t2) => t2 instanceof CSSStyleSheet ? t2 : t2.styleSheet) : n2.forEach((e2) => {
+    const n3 = document.createElement("style"), o4 = t$3.litNonce;
+    void 0 !== o4 && n3.setAttribute("nonce", o4), n3.textContent = e2.cssText, s3.appendChild(n3);
+  });
+}, c$4 = e$8 ? (t2) => t2 : (t2) => t2 instanceof CSSStyleSheet ? ((t3) => {
+  let e2 = "";
+  for (const s3 of t3.cssRules)
+    e2 += s3.cssText;
+  return r$4(e2);
+})(t2) : t2;
+var s$4;
+const e$7 = window, r$3 = e$7.trustedTypes, h$3 = r$3 ? r$3.emptyScript : "", o$7 = e$7.reactiveElementPolyfillSupport, n$6 = { toAttribute(t2, i2) {
+  switch (i2) {
+    case Boolean:
+      t2 = t2 ? h$3 : null;
+      break;
+    case Object:
+    case Array:
+      t2 = null == t2 ? t2 : JSON.stringify(t2);
+  }
+  return t2;
+}, fromAttribute(t2, i2) {
+  let s3 = t2;
+  switch (i2) {
+    case Boolean:
+      s3 = null !== t2;
+      break;
+    case Number:
+      s3 = null === t2 ? null : Number(t2);
+      break;
+    case Object:
+    case Array:
+      try {
+        s3 = JSON.parse(t2);
+      } catch (t3) {
+        s3 = null;
+      }
+  }
+  return s3;
+} }, a$2 = (t2, i2) => i2 !== t2 && (i2 == i2 || t2 == t2), l$5 = { attribute: true, type: String, converter: n$6, reflect: false, hasChanged: a$2 }, d$1 = "finalized";
+let u$2 = class u extends HTMLElement {
+  constructor() {
+    super(), this._$Ei = /* @__PURE__ */ new Map(), this.isUpdatePending = false, this.hasUpdated = false, this._$El = null, this._$Eu();
+  }
+  static addInitializer(t2) {
+    var i2;
+    this.finalize(), (null !== (i2 = this.h) && void 0 !== i2 ? i2 : this.h = []).push(t2);
+  }
+  static get observedAttributes() {
+    this.finalize();
+    const t2 = [];
+    return this.elementProperties.forEach((i2, s3) => {
+      const e2 = this._$Ep(s3, i2);
+      void 0 !== e2 && (this._$Ev.set(e2, s3), t2.push(e2));
+    }), t2;
+  }
+  static createProperty(t2, i2 = l$5) {
+    if (i2.state && (i2.attribute = false), this.finalize(), this.elementProperties.set(t2, i2), !i2.noAccessor && !this.prototype.hasOwnProperty(t2)) {
+      const s3 = "symbol" == typeof t2 ? Symbol() : "__" + t2, e2 = this.getPropertyDescriptor(t2, s3, i2);
+      void 0 !== e2 && Object.defineProperty(this.prototype, t2, e2);
+    }
+  }
+  static getPropertyDescriptor(t2, i2, s3) {
+    return { get() {
+      return this[i2];
+    }, set(e2) {
+      const r2 = this[t2];
+      this[i2] = e2, this.requestUpdate(t2, r2, s3);
+    }, configurable: true, enumerable: true };
+  }
+  static getPropertyOptions(t2) {
+    return this.elementProperties.get(t2) || l$5;
+  }
+  static finalize() {
+    if (this.hasOwnProperty(d$1))
+      return false;
+    this[d$1] = true;
+    const t2 = Object.getPrototypeOf(this);
+    if (t2.finalize(), void 0 !== t2.h && (this.h = [...t2.h]), this.elementProperties = new Map(t2.elementProperties), this._$Ev = /* @__PURE__ */ new Map(), this.hasOwnProperty("properties")) {
+      const t3 = this.properties, i2 = [...Object.getOwnPropertyNames(t3), ...Object.getOwnPropertySymbols(t3)];
+      for (const s3 of i2)
+        this.createProperty(s3, t3[s3]);
+    }
+    return this.elementStyles = this.finalizeStyles(this.styles), true;
+  }
+  static finalizeStyles(i2) {
+    const s3 = [];
+    if (Array.isArray(i2)) {
+      const e2 = new Set(i2.flat(1 / 0).reverse());
+      for (const i3 of e2)
+        s3.unshift(c$4(i3));
+    } else
+      void 0 !== i2 && s3.push(c$4(i2));
+    return s3;
+  }
+  static _$Ep(t2, i2) {
+    const s3 = i2.attribute;
+    return false === s3 ? void 0 : "string" == typeof s3 ? s3 : "string" == typeof t2 ? t2.toLowerCase() : void 0;
+  }
+  _$Eu() {
+    var t2;
+    this._$E_ = new Promise((t3) => this.enableUpdating = t3), this._$AL = /* @__PURE__ */ new Map(), this._$Eg(), this.requestUpdate(), null === (t2 = this.constructor.h) || void 0 === t2 || t2.forEach((t3) => t3(this));
+  }
+  addController(t2) {
+    var i2, s3;
+    (null !== (i2 = this._$ES) && void 0 !== i2 ? i2 : this._$ES = []).push(t2), void 0 !== this.renderRoot && this.isConnected && (null === (s3 = t2.hostConnected) || void 0 === s3 || s3.call(t2));
+  }
+  removeController(t2) {
+    var i2;
+    null === (i2 = this._$ES) || void 0 === i2 || i2.splice(this._$ES.indexOf(t2) >>> 0, 1);
+  }
+  _$Eg() {
+    this.constructor.elementProperties.forEach((t2, i2) => {
+      this.hasOwnProperty(i2) && (this._$Ei.set(i2, this[i2]), delete this[i2]);
+    });
+  }
+  createRenderRoot() {
+    var t2;
+    const s3 = null !== (t2 = this.shadowRoot) && void 0 !== t2 ? t2 : this.attachShadow(this.constructor.shadowRootOptions);
+    return S$1(s3, this.constructor.elementStyles), s3;
+  }
+  connectedCallback() {
+    var t2;
+    void 0 === this.renderRoot && (this.renderRoot = this.createRenderRoot()), this.enableUpdating(true), null === (t2 = this._$ES) || void 0 === t2 || t2.forEach((t3) => {
+      var i2;
+      return null === (i2 = t3.hostConnected) || void 0 === i2 ? void 0 : i2.call(t3);
+    });
+  }
+  enableUpdating(t2) {
+  }
+  disconnectedCallback() {
+    var t2;
+    null === (t2 = this._$ES) || void 0 === t2 || t2.forEach((t3) => {
+      var i2;
+      return null === (i2 = t3.hostDisconnected) || void 0 === i2 ? void 0 : i2.call(t3);
+    });
+  }
+  attributeChangedCallback(t2, i2, s3) {
+    this._$AK(t2, s3);
+  }
+  _$EO(t2, i2, s3 = l$5) {
+    var e2;
+    const r2 = this.constructor._$Ep(t2, s3);
+    if (void 0 !== r2 && true === s3.reflect) {
+      const h2 = (void 0 !== (null === (e2 = s3.converter) || void 0 === e2 ? void 0 : e2.toAttribute) ? s3.converter : n$6).toAttribute(i2, s3.type);
+      this._$El = t2, null == h2 ? this.removeAttribute(r2) : this.setAttribute(r2, h2), this._$El = null;
+    }
+  }
+  _$AK(t2, i2) {
+    var s3;
+    const e2 = this.constructor, r2 = e2._$Ev.get(t2);
+    if (void 0 !== r2 && this._$El !== r2) {
+      const t3 = e2.getPropertyOptions(r2), h2 = "function" == typeof t3.converter ? { fromAttribute: t3.converter } : void 0 !== (null === (s3 = t3.converter) || void 0 === s3 ? void 0 : s3.fromAttribute) ? t3.converter : n$6;
+      this._$El = r2, this[r2] = h2.fromAttribute(i2, t3.type), this._$El = null;
+    }
+  }
+  requestUpdate(t2, i2, s3) {
+    let e2 = true;
+    void 0 !== t2 && (((s3 = s3 || this.constructor.getPropertyOptions(t2)).hasChanged || a$2)(this[t2], i2) ? (this._$AL.has(t2) || this._$AL.set(t2, i2), true === s3.reflect && this._$El !== t2 && (void 0 === this._$EC && (this._$EC = /* @__PURE__ */ new Map()), this._$EC.set(t2, s3))) : e2 = false), !this.isUpdatePending && e2 && (this._$E_ = this._$Ej());
+  }
+  async _$Ej() {
+    this.isUpdatePending = true;
+    try {
+      await this._$E_;
+    } catch (t3) {
+      Promise.reject(t3);
+    }
+    const t2 = this.scheduleUpdate();
+    return null != t2 && await t2, !this.isUpdatePending;
+  }
+  scheduleUpdate() {
+    return this.performUpdate();
+  }
+  performUpdate() {
+    var t2;
+    if (!this.isUpdatePending)
+      return;
+    this.hasUpdated, this._$Ei && (this._$Ei.forEach((t3, i3) => this[i3] = t3), this._$Ei = void 0);
+    let i2 = false;
+    const s3 = this._$AL;
+    try {
+      i2 = this.shouldUpdate(s3), i2 ? (this.willUpdate(s3), null === (t2 = this._$ES) || void 0 === t2 || t2.forEach((t3) => {
+        var i3;
+        return null === (i3 = t3.hostUpdate) || void 0 === i3 ? void 0 : i3.call(t3);
+      }), this.update(s3)) : this._$Ek();
+    } catch (t3) {
+      throw i2 = false, this._$Ek(), t3;
+    }
+    i2 && this._$AE(s3);
+  }
+  willUpdate(t2) {
+  }
+  _$AE(t2) {
+    var i2;
+    null === (i2 = this._$ES) || void 0 === i2 || i2.forEach((t3) => {
+      var i3;
+      return null === (i3 = t3.hostUpdated) || void 0 === i3 ? void 0 : i3.call(t3);
+    }), this.hasUpdated || (this.hasUpdated = true, this.firstUpdated(t2)), this.updated(t2);
+  }
+  _$Ek() {
+    this._$AL = /* @__PURE__ */ new Map(), this.isUpdatePending = false;
+  }
+  get updateComplete() {
+    return this.getUpdateComplete();
+  }
+  getUpdateComplete() {
+    return this._$E_;
+  }
+  shouldUpdate(t2) {
+    return true;
+  }
+  update(t2) {
+    void 0 !== this._$EC && (this._$EC.forEach((t3, i2) => this._$EO(i2, this[i2], t3)), this._$EC = void 0), this._$Ek();
+  }
+  updated(t2) {
+  }
+  firstUpdated(t2) {
+  }
+};
+u$2[d$1] = true, u$2.elementProperties = /* @__PURE__ */ new Map(), u$2.elementStyles = [], u$2.shadowRootOptions = { mode: "open" }, null == o$7 || o$7({ ReactiveElement: u$2 }), (null !== (s$4 = e$7.reactiveElementVersions) && void 0 !== s$4 ? s$4 : e$7.reactiveElementVersions = []).push("1.6.3");
+var t$2;
+const i$2 = window, s$3 = i$2.trustedTypes, e$6 = s$3 ? s$3.createPolicy("lit-html", { createHTML: (t2) => t2 }) : void 0, o$6 = "$lit$", n$5 = `lit$${(Math.random() + "").slice(9)}$`, l$4 = "?" + n$5, h$2 = `<${l$4}>`, r$2 = document, u$1 = () => r$2.createComment(""), d = (t2) => null === t2 || "object" != typeof t2 && "function" != typeof t2, c$3 = Array.isArray, v = (t2) => c$3(t2) || "function" == typeof (null == t2 ? void 0 : t2[Symbol.iterator]), a$1 = "[ 	\n\f\r]", f$1 = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, _ = /-->/g, m$1 = />/g, p$1 = RegExp(`>|${a$1}(?:([^\\s"'>=/]+)(${a$1}*=${a$1}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`, "g"), g = /'/g, $ = /"/g, y = /^(?:script|style|textarea|title)$/i, w = (t2) => (i2, ...s3) => ({ _$litType$: t2, strings: i2, values: s3 }), x = w(1), T = Symbol.for("lit-noChange"), A = Symbol.for("lit-nothing"), E = /* @__PURE__ */ new WeakMap(), C = r$2.createTreeWalker(r$2, 129, null, false);
+function P(t2, i2) {
+  if (!Array.isArray(t2) || !t2.hasOwnProperty("raw"))
+    throw Error("invalid template strings array");
+  return void 0 !== e$6 ? e$6.createHTML(i2) : i2;
+}
+const V = (t2, i2) => {
+  const s3 = t2.length - 1, e2 = [];
+  let l2, r2 = 2 === i2 ? "<svg>" : "", u3 = f$1;
+  for (let i3 = 0; i3 < s3; i3++) {
+    const s4 = t2[i3];
+    let d2, c2, v2 = -1, a2 = 0;
+    for (; a2 < s4.length && (u3.lastIndex = a2, c2 = u3.exec(s4), null !== c2); )
+      a2 = u3.lastIndex, u3 === f$1 ? "!--" === c2[1] ? u3 = _ : void 0 !== c2[1] ? u3 = m$1 : void 0 !== c2[2] ? (y.test(c2[2]) && (l2 = RegExp("</" + c2[2], "g")), u3 = p$1) : void 0 !== c2[3] && (u3 = p$1) : u3 === p$1 ? ">" === c2[0] ? (u3 = null != l2 ? l2 : f$1, v2 = -1) : void 0 === c2[1] ? v2 = -2 : (v2 = u3.lastIndex - c2[2].length, d2 = c2[1], u3 = void 0 === c2[3] ? p$1 : '"' === c2[3] ? $ : g) : u3 === $ || u3 === g ? u3 = p$1 : u3 === _ || u3 === m$1 ? u3 = f$1 : (u3 = p$1, l2 = void 0);
+    const w2 = u3 === p$1 && t2[i3 + 1].startsWith("/>") ? " " : "";
+    r2 += u3 === f$1 ? s4 + h$2 : v2 >= 0 ? (e2.push(d2), s4.slice(0, v2) + o$6 + s4.slice(v2) + n$5 + w2) : s4 + n$5 + (-2 === v2 ? (e2.push(void 0), i3) : w2);
+  }
+  return [P(t2, r2 + (t2[s3] || "<?>") + (2 === i2 ? "</svg>" : "")), e2];
+};
+class N {
+  constructor({ strings: t2, _$litType$: i2 }, e2) {
+    let h2;
+    this.parts = [];
+    let r2 = 0, d2 = 0;
+    const c2 = t2.length - 1, v2 = this.parts, [a2, f2] = V(t2, i2);
+    if (this.el = N.createElement(a2, e2), C.currentNode = this.el.content, 2 === i2) {
+      const t3 = this.el.content, i3 = t3.firstChild;
+      i3.remove(), t3.append(...i3.childNodes);
+    }
+    for (; null !== (h2 = C.nextNode()) && v2.length < c2; ) {
+      if (1 === h2.nodeType) {
+        if (h2.hasAttributes()) {
+          const t3 = [];
+          for (const i3 of h2.getAttributeNames())
+            if (i3.endsWith(o$6) || i3.startsWith(n$5)) {
+              const s3 = f2[d2++];
+              if (t3.push(i3), void 0 !== s3) {
+                const t4 = h2.getAttribute(s3.toLowerCase() + o$6).split(n$5), i4 = /([.?@])?(.*)/.exec(s3);
+                v2.push({ type: 1, index: r2, name: i4[2], strings: t4, ctor: "." === i4[1] ? H : "?" === i4[1] ? L : "@" === i4[1] ? z : k });
+              } else
+                v2.push({ type: 6, index: r2 });
+            }
+          for (const i3 of t3)
+            h2.removeAttribute(i3);
+        }
+        if (y.test(h2.tagName)) {
+          const t3 = h2.textContent.split(n$5), i3 = t3.length - 1;
+          if (i3 > 0) {
+            h2.textContent = s$3 ? s$3.emptyScript : "";
+            for (let s3 = 0; s3 < i3; s3++)
+              h2.append(t3[s3], u$1()), C.nextNode(), v2.push({ type: 2, index: ++r2 });
+            h2.append(t3[i3], u$1());
+          }
+        }
+      } else if (8 === h2.nodeType)
+        if (h2.data === l$4)
+          v2.push({ type: 2, index: r2 });
+        else {
+          let t3 = -1;
+          for (; -1 !== (t3 = h2.data.indexOf(n$5, t3 + 1)); )
+            v2.push({ type: 7, index: r2 }), t3 += n$5.length - 1;
+        }
+      r2++;
+    }
+  }
+  static createElement(t2, i2) {
+    const s3 = r$2.createElement("template");
+    return s3.innerHTML = t2, s3;
+  }
+}
+function S(t2, i2, s3 = t2, e2) {
+  var o4, n2, l2, h2;
+  if (i2 === T)
+    return i2;
+  let r2 = void 0 !== e2 ? null === (o4 = s3._$Co) || void 0 === o4 ? void 0 : o4[e2] : s3._$Cl;
+  const u3 = d(i2) ? void 0 : i2._$litDirective$;
+  return (null == r2 ? void 0 : r2.constructor) !== u3 && (null === (n2 = null == r2 ? void 0 : r2._$AO) || void 0 === n2 || n2.call(r2, false), void 0 === u3 ? r2 = void 0 : (r2 = new u3(t2), r2._$AT(t2, s3, e2)), void 0 !== e2 ? (null !== (l2 = (h2 = s3)._$Co) && void 0 !== l2 ? l2 : h2._$Co = [])[e2] = r2 : s3._$Cl = r2), void 0 !== r2 && (i2 = S(t2, r2._$AS(t2, i2.values), r2, e2)), i2;
+}
+class M {
+  constructor(t2, i2) {
+    this._$AV = [], this._$AN = void 0, this._$AD = t2, this._$AM = i2;
+  }
+  get parentNode() {
+    return this._$AM.parentNode;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  u(t2) {
+    var i2;
+    const { el: { content: s3 }, parts: e2 } = this._$AD, o4 = (null !== (i2 = null == t2 ? void 0 : t2.creationScope) && void 0 !== i2 ? i2 : r$2).importNode(s3, true);
+    C.currentNode = o4;
+    let n2 = C.nextNode(), l2 = 0, h2 = 0, u3 = e2[0];
+    for (; void 0 !== u3; ) {
+      if (l2 === u3.index) {
+        let i3;
+        2 === u3.type ? i3 = new R(n2, n2.nextSibling, this, t2) : 1 === u3.type ? i3 = new u3.ctor(n2, u3.name, u3.strings, this, t2) : 6 === u3.type && (i3 = new Z(n2, this, t2)), this._$AV.push(i3), u3 = e2[++h2];
+      }
+      l2 !== (null == u3 ? void 0 : u3.index) && (n2 = C.nextNode(), l2++);
+    }
+    return C.currentNode = r$2, o4;
+  }
+  v(t2) {
+    let i2 = 0;
+    for (const s3 of this._$AV)
+      void 0 !== s3 && (void 0 !== s3.strings ? (s3._$AI(t2, s3, i2), i2 += s3.strings.length - 2) : s3._$AI(t2[i2])), i2++;
+  }
+}
+class R {
+  constructor(t2, i2, s3, e2) {
+    var o4;
+    this.type = 2, this._$AH = A, this._$AN = void 0, this._$AA = t2, this._$AB = i2, this._$AM = s3, this.options = e2, this._$Cp = null === (o4 = null == e2 ? void 0 : e2.isConnected) || void 0 === o4 || o4;
+  }
+  get _$AU() {
+    var t2, i2;
+    return null !== (i2 = null === (t2 = this._$AM) || void 0 === t2 ? void 0 : t2._$AU) && void 0 !== i2 ? i2 : this._$Cp;
+  }
+  get parentNode() {
+    let t2 = this._$AA.parentNode;
+    const i2 = this._$AM;
+    return void 0 !== i2 && 11 === (null == t2 ? void 0 : t2.nodeType) && (t2 = i2.parentNode), t2;
+  }
+  get startNode() {
+    return this._$AA;
+  }
+  get endNode() {
+    return this._$AB;
+  }
+  _$AI(t2, i2 = this) {
+    t2 = S(this, t2, i2), d(t2) ? t2 === A || null == t2 || "" === t2 ? (this._$AH !== A && this._$AR(), this._$AH = A) : t2 !== this._$AH && t2 !== T && this._(t2) : void 0 !== t2._$litType$ ? this.g(t2) : void 0 !== t2.nodeType ? this.$(t2) : v(t2) ? this.T(t2) : this._(t2);
+  }
+  k(t2) {
+    return this._$AA.parentNode.insertBefore(t2, this._$AB);
+  }
+  $(t2) {
+    this._$AH !== t2 && (this._$AR(), this._$AH = this.k(t2));
+  }
+  _(t2) {
+    this._$AH !== A && d(this._$AH) ? this._$AA.nextSibling.data = t2 : this.$(r$2.createTextNode(t2)), this._$AH = t2;
+  }
+  g(t2) {
+    var i2;
+    const { values: s3, _$litType$: e2 } = t2, o4 = "number" == typeof e2 ? this._$AC(t2) : (void 0 === e2.el && (e2.el = N.createElement(P(e2.h, e2.h[0]), this.options)), e2);
+    if ((null === (i2 = this._$AH) || void 0 === i2 ? void 0 : i2._$AD) === o4)
+      this._$AH.v(s3);
+    else {
+      const t3 = new M(o4, this), i3 = t3.u(this.options);
+      t3.v(s3), this.$(i3), this._$AH = t3;
+    }
+  }
+  _$AC(t2) {
+    let i2 = E.get(t2.strings);
+    return void 0 === i2 && E.set(t2.strings, i2 = new N(t2)), i2;
+  }
+  T(t2) {
+    c$3(this._$AH) || (this._$AH = [], this._$AR());
+    const i2 = this._$AH;
+    let s3, e2 = 0;
+    for (const o4 of t2)
+      e2 === i2.length ? i2.push(s3 = new R(this.k(u$1()), this.k(u$1()), this, this.options)) : s3 = i2[e2], s3._$AI(o4), e2++;
+    e2 < i2.length && (this._$AR(s3 && s3._$AB.nextSibling, e2), i2.length = e2);
+  }
+  _$AR(t2 = this._$AA.nextSibling, i2) {
+    var s3;
+    for (null === (s3 = this._$AP) || void 0 === s3 || s3.call(this, false, true, i2); t2 && t2 !== this._$AB; ) {
+      const i3 = t2.nextSibling;
+      t2.remove(), t2 = i3;
+    }
+  }
+  setConnected(t2) {
+    var i2;
+    void 0 === this._$AM && (this._$Cp = t2, null === (i2 = this._$AP) || void 0 === i2 || i2.call(this, t2));
+  }
+}
+class k {
+  constructor(t2, i2, s3, e2, o4) {
+    this.type = 1, this._$AH = A, this._$AN = void 0, this.element = t2, this.name = i2, this._$AM = e2, this.options = o4, s3.length > 2 || "" !== s3[0] || "" !== s3[1] ? (this._$AH = Array(s3.length - 1).fill(new String()), this.strings = s3) : this._$AH = A;
+  }
+  get tagName() {
+    return this.element.tagName;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  _$AI(t2, i2 = this, s3, e2) {
+    const o4 = this.strings;
+    let n2 = false;
+    if (void 0 === o4)
+      t2 = S(this, t2, i2, 0), n2 = !d(t2) || t2 !== this._$AH && t2 !== T, n2 && (this._$AH = t2);
+    else {
+      const e3 = t2;
+      let l2, h2;
+      for (t2 = o4[0], l2 = 0; l2 < o4.length - 1; l2++)
+        h2 = S(this, e3[s3 + l2], i2, l2), h2 === T && (h2 = this._$AH[l2]), n2 || (n2 = !d(h2) || h2 !== this._$AH[l2]), h2 === A ? t2 = A : t2 !== A && (t2 += (null != h2 ? h2 : "") + o4[l2 + 1]), this._$AH[l2] = h2;
+    }
+    n2 && !e2 && this.j(t2);
+  }
+  j(t2) {
+    t2 === A ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, null != t2 ? t2 : "");
+  }
+}
+class H extends k {
+  constructor() {
+    super(...arguments), this.type = 3;
+  }
+  j(t2) {
+    this.element[this.name] = t2 === A ? void 0 : t2;
+  }
+}
+const I = s$3 ? s$3.emptyScript : "";
+class L extends k {
+  constructor() {
+    super(...arguments), this.type = 4;
+  }
+  j(t2) {
+    t2 && t2 !== A ? this.element.setAttribute(this.name, I) : this.element.removeAttribute(this.name);
+  }
+}
+class z extends k {
+  constructor(t2, i2, s3, e2, o4) {
+    super(t2, i2, s3, e2, o4), this.type = 5;
+  }
+  _$AI(t2, i2 = this) {
+    var s3;
+    if ((t2 = null !== (s3 = S(this, t2, i2, 0)) && void 0 !== s3 ? s3 : A) === T)
+      return;
+    const e2 = this._$AH, o4 = t2 === A && e2 !== A || t2.capture !== e2.capture || t2.once !== e2.once || t2.passive !== e2.passive, n2 = t2 !== A && (e2 === A || o4);
+    o4 && this.element.removeEventListener(this.name, this, e2), n2 && this.element.addEventListener(this.name, this, t2), this._$AH = t2;
+  }
+  handleEvent(t2) {
+    var i2, s3;
+    "function" == typeof this._$AH ? this._$AH.call(null !== (s3 = null === (i2 = this.options) || void 0 === i2 ? void 0 : i2.host) && void 0 !== s3 ? s3 : this.element, t2) : this._$AH.handleEvent(t2);
+  }
+}
+class Z {
+  constructor(t2, i2, s3) {
+    this.element = t2, this.type = 6, this._$AN = void 0, this._$AM = i2, this.options = s3;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  _$AI(t2) {
+    S(this, t2);
+  }
+}
+const j = { O: o$6, P: n$5, A: l$4, C: 1, M: V, L: M, R: v, D: S, I: R, V: k, H: L, N: z, U: H, F: Z }, B = i$2.litHtmlPolyfillSupport;
+null == B || B(N, R), (null !== (t$2 = i$2.litHtmlVersions) && void 0 !== t$2 ? t$2 : i$2.litHtmlVersions = []).push("2.8.0");
+const D = (t2, i2, s3) => {
+  var e2, o4;
+  const n2 = null !== (e2 = null == s3 ? void 0 : s3.renderBefore) && void 0 !== e2 ? e2 : i2;
+  let l2 = n2._$litPart$;
+  if (void 0 === l2) {
+    const t3 = null !== (o4 = null == s3 ? void 0 : s3.renderBefore) && void 0 !== o4 ? o4 : null;
+    n2._$litPart$ = l2 = new R(i2.insertBefore(u$1(), t3), t3, void 0, null != s3 ? s3 : {});
+  }
+  return l2._$AI(t2), l2;
+};
+var l$3, o$5;
+let s$2 = class s extends u$2 {
+  constructor() {
+    super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
+  }
+  createRenderRoot() {
+    var t2, e2;
+    const i2 = super.createRenderRoot();
+    return null !== (t2 = (e2 = this.renderOptions).renderBefore) && void 0 !== t2 || (e2.renderBefore = i2.firstChild), i2;
+  }
+  update(t2) {
+    const i2 = this.render();
+    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t2), this._$Do = D(i2, this.renderRoot, this.renderOptions);
+  }
+  connectedCallback() {
+    var t2;
+    super.connectedCallback(), null === (t2 = this._$Do) || void 0 === t2 || t2.setConnected(true);
+  }
+  disconnectedCallback() {
+    var t2;
+    super.disconnectedCallback(), null === (t2 = this._$Do) || void 0 === t2 || t2.setConnected(false);
+  }
+  render() {
+    return T;
+  }
+};
+s$2.finalized = true, s$2._$litElement$ = true, null === (l$3 = globalThis.litElementHydrateSupport) || void 0 === l$3 || l$3.call(globalThis, { LitElement: s$2 });
+const n$4 = globalThis.litElementPolyfillSupport;
+null == n$4 || n$4({ LitElement: s$2 });
+(null !== (o$5 = globalThis.litElementVersions) && void 0 !== o$5 ? o$5 : globalThis.litElementVersions = []).push("3.3.3");
+const e$5 = (e2) => (n2) => "function" == typeof n2 ? ((e3, n3) => (customElements.define(e3, n3), n3))(e2, n2) : ((e3, n3) => {
+  const { kind: t2, elements: s3 } = n3;
+  return { kind: t2, elements: s3, finisher(n4) {
+    customElements.define(e3, n4);
+  } };
+})(e2, n2);
+const i$1 = (i2, e2) => "method" === e2.kind && e2.descriptor && !("value" in e2.descriptor) ? { ...e2, finisher(n2) {
+  n2.createProperty(e2.key, i2);
+} } : { kind: "field", key: Symbol(), placement: "own", descriptor: {}, originalKey: e2.key, initializer() {
+  "function" == typeof e2.initializer && (this[e2.key] = e2.initializer.call(this));
+}, finisher(n2) {
+  n2.createProperty(e2.key, i2);
+} }, e$4 = (i2, e2, n2) => {
+  e2.constructor.createProperty(n2, i2);
+};
+function n$3(n2) {
+  return (t2, o4) => void 0 !== o4 ? e$4(n2, t2, o4) : i$1(n2, t2);
+}
+function t$1(t2) {
+  return n$3({ ...t2, state: true });
+}
+var n$2;
+null != (null === (n$2 = window.HTMLSlotElement) || void 0 === n$2 ? void 0 : n$2.prototype.assignedElements) ? (o4, n2) => o4.assignedElements(n2) : (o4, n2) => o4.assignedNodes(n2).filter((o5) => o5.nodeType === Node.ELEMENT_NODE);
+const t = { ATTRIBUTE: 1, CHILD: 2, PROPERTY: 3, BOOLEAN_ATTRIBUTE: 4, EVENT: 5, ELEMENT: 6 }, e$3 = (t2) => (...e2) => ({ _$litDirective$: t2, values: e2 });
+class i {
+  constructor(t2) {
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  _$AT(t2, e2, i2) {
+    this._$Ct = t2, this._$AM = e2, this._$Ci = i2;
+  }
+  _$AS(t2, e2) {
+    return this.update(t2, e2);
+  }
+  update(t2, e2) {
+    return this.render(...e2);
+  }
+}
+const { I: l$2 } = j, e$2 = (o4) => void 0 === o4.strings, r$1 = () => document.createComment(""), c$2 = (o4, i2, n2) => {
+  var t2;
+  const v2 = o4._$AA.parentNode, d2 = void 0 === i2 ? o4._$AB : i2._$AA;
+  if (void 0 === n2) {
+    const i3 = v2.insertBefore(r$1(), d2), t3 = v2.insertBefore(r$1(), d2);
+    n2 = new l$2(i3, t3, o4, o4.options);
+  } else {
+    const l2 = n2._$AB.nextSibling, i3 = n2._$AM, u3 = i3 !== o4;
+    if (u3) {
+      let l3;
+      null === (t2 = n2._$AQ) || void 0 === t2 || t2.call(n2, o4), n2._$AM = o4, void 0 !== n2._$AP && (l3 = o4._$AU) !== i3._$AU && n2._$AP(l3);
+    }
+    if (l2 !== d2 || u3) {
+      let o5 = n2._$AA;
+      for (; o5 !== l2; ) {
+        const l3 = o5.nextSibling;
+        v2.insertBefore(o5, d2), o5 = l3;
+      }
+    }
+  }
+  return n2;
+}, f = (o4, l2, i2 = o4) => (o4._$AI(l2, i2), o4), s$1 = {}, a = (o4, l2 = s$1) => o4._$AH = l2, m = (o4) => o4._$AH, p = (o4) => {
+  var l2;
+  null === (l2 = o4._$AP) || void 0 === l2 || l2.call(o4, false, true);
+  let i2 = o4._$AA;
+  const n2 = o4._$AB.nextSibling;
+  for (; i2 !== n2; ) {
+    const o5 = i2.nextSibling;
+    i2.remove(), i2 = o5;
+  }
+};
+const u2 = (e2, s3, t2) => {
+  const r2 = /* @__PURE__ */ new Map();
+  for (let l2 = s3; l2 <= t2; l2++)
+    r2.set(e2[l2], l2);
+  return r2;
+}, c$1 = e$3(class extends i {
+  constructor(e2) {
+    if (super(e2), e2.type !== t.CHILD)
+      throw Error("repeat() can only be used in text expressions");
+  }
+  ct(e2, s3, t2) {
+    let r2;
+    void 0 === t2 ? t2 = s3 : void 0 !== s3 && (r2 = s3);
+    const l2 = [], o4 = [];
+    let i2 = 0;
+    for (const s4 of e2)
+      l2[i2] = r2 ? r2(s4, i2) : i2, o4[i2] = t2(s4, i2), i2++;
+    return { values: o4, keys: l2 };
+  }
+  render(e2, s3, t2) {
+    return this.ct(e2, s3, t2).values;
+  }
+  update(s3, [t2, r2, c2]) {
+    var d2;
+    const a$12 = m(s3), { values: p$12, keys: v2 } = this.ct(t2, r2, c2);
+    if (!Array.isArray(a$12))
+      return this.ut = v2, p$12;
+    const h2 = null !== (d2 = this.ut) && void 0 !== d2 ? d2 : this.ut = [], m$12 = [];
+    let y2, x2, j2 = 0, k2 = a$12.length - 1, w2 = 0, A2 = p$12.length - 1;
+    for (; j2 <= k2 && w2 <= A2; )
+      if (null === a$12[j2])
+        j2++;
+      else if (null === a$12[k2])
+        k2--;
+      else if (h2[j2] === v2[w2])
+        m$12[w2] = f(a$12[j2], p$12[w2]), j2++, w2++;
+      else if (h2[k2] === v2[A2])
+        m$12[A2] = f(a$12[k2], p$12[A2]), k2--, A2--;
+      else if (h2[j2] === v2[A2])
+        m$12[A2] = f(a$12[j2], p$12[A2]), c$2(s3, m$12[A2 + 1], a$12[j2]), j2++, A2--;
+      else if (h2[k2] === v2[w2])
+        m$12[w2] = f(a$12[k2], p$12[w2]), c$2(s3, a$12[j2], a$12[k2]), k2--, w2++;
+      else if (void 0 === y2 && (y2 = u2(v2, w2, A2), x2 = u2(h2, j2, k2)), y2.has(h2[j2]))
+        if (y2.has(h2[k2])) {
+          const e2 = x2.get(v2[w2]), t3 = void 0 !== e2 ? a$12[e2] : null;
+          if (null === t3) {
+            const e3 = c$2(s3, a$12[j2]);
+            f(e3, p$12[w2]), m$12[w2] = e3;
+          } else
+            m$12[w2] = f(t3, p$12[w2]), c$2(s3, a$12[j2], t3), a$12[e2] = null;
+          w2++;
+        } else
+          p(a$12[k2]), k2--;
+      else
+        p(a$12[j2]), j2++;
+    for (; w2 <= A2; ) {
+      const e2 = c$2(s3, m$12[A2 + 1]);
+      f(e2, p$12[w2]), m$12[w2++] = e2;
+    }
+    for (; j2 <= k2; ) {
+      const e2 = a$12[j2++];
+      null !== e2 && p(e2);
+    }
+    return this.ut = v2, a(s3, m$12), T;
+  }
+});
+const l$1 = e$3(class extends i {
+  constructor(r2) {
+    if (super(r2), r2.type !== t.PROPERTY && r2.type !== t.ATTRIBUTE && r2.type !== t.BOOLEAN_ATTRIBUTE)
+      throw Error("The `live` directive is not allowed on child or event bindings");
+    if (!e$2(r2))
+      throw Error("`live` bindings can only contain a single expression");
+  }
+  render(r2) {
+    return r2;
+  }
+  update(i2, [t$12]) {
+    if (t$12 === T || t$12 === A)
+      return t$12;
+    const o4 = i2.element, l2 = i2.name;
+    if (i2.type === t.PROPERTY) {
+      if (t$12 === o4[l2])
+        return T;
+    } else if (i2.type === t.BOOLEAN_ATTRIBUTE) {
+      if (!!t$12 === o4.hasAttribute(l2))
+        return T;
+    } else if (i2.type === t.ATTRIBUTE && o4.getAttribute(l2) === t$12 + "")
+      return T;
+    return a(i2), t$12;
+  }
+});
+const s2 = (i2, t2) => {
+  var e2, o4;
+  const r2 = i2._$AN;
+  if (void 0 === r2)
+    return false;
+  for (const i3 of r2)
+    null === (o4 = (e2 = i3)._$AO) || void 0 === o4 || o4.call(e2, t2, false), s2(i3, t2);
+  return true;
+}, o$4 = (i2) => {
+  let t2, e2;
+  do {
+    if (void 0 === (t2 = i2._$AM))
+      break;
+    e2 = t2._$AN, e2.delete(i2), i2 = t2;
+  } while (0 === (null == e2 ? void 0 : e2.size));
+}, r = (i2) => {
+  for (let t2; t2 = i2._$AM; i2 = t2) {
+    let e2 = t2._$AN;
+    if (void 0 === e2)
+      t2._$AN = e2 = /* @__PURE__ */ new Set();
+    else if (e2.has(i2))
+      break;
+    e2.add(i2), l(t2);
+  }
+};
+function n$1(i2) {
+  void 0 !== this._$AN ? (o$4(this), this._$AM = i2, r(this)) : this._$AM = i2;
+}
+function h$1(i2, t2 = false, e2 = 0) {
+  const r2 = this._$AH, n2 = this._$AN;
+  if (void 0 !== n2 && 0 !== n2.size)
+    if (t2)
+      if (Array.isArray(r2))
+        for (let i3 = e2; i3 < r2.length; i3++)
+          s2(r2[i3], false), o$4(r2[i3]);
+      else
+        null != r2 && (s2(r2, false), o$4(r2));
+    else
+      s2(this, i2);
+}
+const l = (i2) => {
+  var t$12, s3, o4, r2;
+  i2.type == t.CHILD && (null !== (t$12 = (o4 = i2)._$AP) && void 0 !== t$12 || (o4._$AP = h$1), null !== (s3 = (r2 = i2)._$AQ) && void 0 !== s3 || (r2._$AQ = n$1));
+};
+class c extends i {
+  constructor() {
+    super(...arguments), this._$AN = void 0;
+  }
+  _$AT(i2, t2, e2) {
+    super._$AT(i2, t2, e2), r(this), this.isConnected = i2._$AU;
+  }
+  _$AO(i2, t2 = true) {
+    var e2, r2;
+    i2 !== this.isConnected && (this.isConnected = i2, i2 ? null === (e2 = this.reconnected) || void 0 === e2 || e2.call(this) : null === (r2 = this.disconnected) || void 0 === r2 || r2.call(this)), t2 && (s2(this, i2), o$4(this));
+  }
+  setValue(t2) {
+    if (e$2(this._$Ct))
+      this._$Ct._$AI(t2, this);
+    else {
+      const i2 = [...this._$Ct._$AH];
+      i2[this._$Ci] = t2, this._$Ct._$AI(i2, this, 0);
+    }
+  }
+  disconnected() {
+  }
+  reconnected() {
+  }
+}
+const e$1 = () => new o$3();
+let o$3 = class o2 {
+};
+const h = /* @__PURE__ */ new WeakMap(), n = e$3(class extends c {
+  render(t2) {
+    return A;
+  }
+  update(t2, [s3]) {
+    var e2;
+    const o4 = s3 !== this.G;
+    return o4 && void 0 !== this.G && this.ot(void 0), (o4 || this.rt !== this.lt) && (this.G = s3, this.dt = null === (e2 = t2.options) || void 0 === e2 ? void 0 : e2.host, this.ot(this.lt = t2.element)), A;
+  }
+  ot(i2) {
+    var t2;
+    if ("function" == typeof this.G) {
+      const s3 = null !== (t2 = this.dt) && void 0 !== t2 ? t2 : globalThis;
+      let e2 = h.get(s3);
+      void 0 === e2 && (e2 = /* @__PURE__ */ new WeakMap(), h.set(s3, e2)), void 0 !== e2.get(this.G) && this.G.call(this.dt, void 0), e2.set(this.G, i2), void 0 !== i2 && this.G.call(this.dt, i2);
+    } else
+      this.G.value = i2;
+  }
+  get rt() {
+    var i2, t2, s3;
+    return "function" == typeof this.G ? null === (t2 = h.get(null !== (i2 = this.dt) && void 0 !== i2 ? i2 : globalThis)) || void 0 === t2 ? void 0 : t2.get(this.G) : null === (s3 = this.G) || void 0 === s3 ? void 0 : s3.value;
+  }
+  disconnected() {
+    this.rt === this.lt && this.ot(void 0);
+  }
+  reconnected() {
+    this.ot(this.lt);
+  }
+});
+const o$2 = e$3(class extends i {
+  constructor(t$12) {
+    var i2;
+    if (super(t$12), t$12.type !== t.ATTRIBUTE || "class" !== t$12.name || (null === (i2 = t$12.strings) || void 0 === i2 ? void 0 : i2.length) > 2)
+      throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.");
+  }
+  render(t2) {
+    return " " + Object.keys(t2).filter((i2) => t2[i2]).join(" ") + " ";
+  }
+  update(i2, [s3]) {
+    var r2, o4;
+    if (void 0 === this.it) {
+      this.it = /* @__PURE__ */ new Set(), void 0 !== i2.strings && (this.nt = new Set(i2.strings.join(" ").split(/\s/).filter((t2) => "" !== t2)));
+      for (const t2 in s3)
+        s3[t2] && !(null === (r2 = this.nt) || void 0 === r2 ? void 0 : r2.has(t2)) && this.it.add(t2);
+      return this.render(s3);
+    }
+    const e2 = i2.element.classList;
+    this.it.forEach((t2) => {
+      t2 in s3 || (e2.remove(t2), this.it.delete(t2));
+    });
+    for (const t2 in s3) {
+      const i3 = !!s3[t2];
+      i3 === this.it.has(t2) || (null === (o4 = this.nt) || void 0 === o4 ? void 0 : o4.has(t2)) || (i3 ? (e2.add(t2), this.it.add(t2)) : (e2.remove(t2), this.it.delete(t2)));
+    }
+    return T;
+  }
+});
+var __decorate$3 = function(decorators, target, key, desc) {
+  var c2 = arguments.length, r2 = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r2 = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i2 = decorators.length - 1; i2 >= 0; i2--)
+      if (d2 = decorators[i2])
+        r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
+  return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
+};
+let NinjaHeader = class NinjaHeader2 extends s$2 {
+  constructor() {
+    super(...arguments);
+    this.placeholder = "";
+    this.hideBreadcrumbs = false;
+    this.breadcrumbHome = "Home";
+    this.breadcrumbs = [];
+    this._inputRef = e$1();
+  }
+  render() {
+    let breadcrumbs = "";
+    if (!this.hideBreadcrumbs) {
+      const itemTemplates = [];
+      for (const breadcrumb of this.breadcrumbs) {
+        itemTemplates.push(x`<button tabindex="-1" @click="${() => this.selectParent(breadcrumb)}" class="breadcrumb">${breadcrumb}</button>`);
+      }
+      breadcrumbs = x`<div class="breadcrumb-list"><button tabindex="-1" @click="${() => this.selectParent()}" class="breadcrumb">${this.breadcrumbHome}</button> ${itemTemplates}</div>`;
+    }
+    return x`${breadcrumbs}<div part="ninja-input-wrapper" class="search-wrapper"><input part="ninja-input" type="text" id="search" spellcheck="false" autocomplete="off" @input="${this._handleInput}" ${n(this._inputRef)} placeholder="${this.placeholder}" class="search"></div>`;
+  }
+  setSearch(value) {
+    if (this._inputRef.value) {
+      this._inputRef.value.value = value;
+    }
+  }
+  focusSearch() {
+    requestAnimationFrame(() => this._inputRef.value.focus());
+  }
+  _handleInput(event) {
+    const input = event.target;
+    this.dispatchEvent(new CustomEvent("change", {
+      detail: { search: input.value },
+      bubbles: false,
+      composed: false
+    }));
+  }
+  selectParent(breadcrumb) {
+    this.dispatchEvent(new CustomEvent("setParent", {
+      detail: { parent: breadcrumb },
+      bubbles: true,
+      composed: true
+    }));
+  }
+  firstUpdated() {
+    this.focusSearch();
+  }
+  _close() {
+    this.dispatchEvent(new CustomEvent("close", { bubbles: true, composed: true }));
+  }
+};
+NinjaHeader.styles = i$3`:host{flex:1;position:relative}.search{padding:1.25em;flex-grow:1;flex-shrink:0;margin:0;border:none;appearance:none;font-size:1.125em;background:0 0;caret-color:var(--ninja-accent-color);color:var(--ninja-text-color);outline:0;font-family:var(--ninja-font-family)}.search::placeholder{color:var(--ninja-placeholder-color)}.breadcrumb-list{padding:1em 4em 0 1em;display:flex;flex-direction:row;align-items:stretch;justify-content:flex-start;flex:initial}.breadcrumb{background:var(--ninja-secondary-background-color);text-align:center;line-height:1.2em;border-radius:var(--ninja-key-border-radius);border:0;cursor:pointer;padding:.1em .5em;color:var(--ninja-secondary-text-color);margin-right:.5em;outline:0;font-family:var(--ninja-font-family)}.search-wrapper{display:flex;border-bottom:var(--ninja-separate-border)}`;
+__decorate$3([
+  n$3()
+], NinjaHeader.prototype, "placeholder", void 0);
+__decorate$3([
+  n$3({ type: Boolean })
+], NinjaHeader.prototype, "hideBreadcrumbs", void 0);
+__decorate$3([
+  n$3()
+], NinjaHeader.prototype, "breadcrumbHome", void 0);
+__decorate$3([
+  n$3({ type: Array })
+], NinjaHeader.prototype, "breadcrumbs", void 0);
+NinjaHeader = __decorate$3([
+  e$5("ninja-header")
+], NinjaHeader);
+class e extends i {
+  constructor(i2) {
+    if (super(i2), this.et = A, i2.type !== t.CHILD)
+      throw Error(this.constructor.directiveName + "() can only be used in child bindings");
+  }
+  render(r2) {
+    if (r2 === A || null == r2)
+      return this.ft = void 0, this.et = r2;
+    if (r2 === T)
+      return r2;
+    if ("string" != typeof r2)
+      throw Error(this.constructor.directiveName + "() called with a non-string value");
+    if (r2 === this.et)
+      return this.ft;
+    this.et = r2;
+    const s3 = [r2];
+    return s3.raw = s3, this.ft = { _$litType$: this.constructor.resultType, strings: s3, values: [] };
+  }
+}
+e.directiveName = "unsafeHTML", e.resultType = 1;
+const o$1 = e$3(e);
+function* o3(o4, t2) {
+  const f2 = "function" == typeof t2;
+  if (void 0 !== o4) {
+    let i2 = -1;
+    for (const n2 of o4)
+      i2 > -1 && (yield f2 ? t2(i2) : t2), i2++, yield n2;
+  }
+}
+function __decorate$2(decorators, target, key, desc) {
+  var c2 = arguments.length, r2 = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r2 = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i2 = decorators.length - 1; i2 >= 0; i2--)
+      if (d2 = decorators[i2])
+        r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
+  return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
+}
+typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  var e2 = new Error(message);
+  return e2.name = "SuppressedError", e2.error = error, e2.suppressed = suppressed, e2;
+};
+const styles = i$3`:host{font-family:var(--mdc-icon-font, "Material Icons");font-weight:400;font-style:normal;font-size:var(--mdc-icon-size,24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}`;
+let Icon = class Icon2 extends s$2 {
+  /** @soyTemplate */
+  render() {
+    return x`<span><slot></slot></span>`;
+  }
+};
+Icon.styles = [styles];
+Icon = __decorate$2([
+  e$5("mwc-icon")
+], Icon);
+var __decorate$1 = function(decorators, target, key, desc) {
+  var c2 = arguments.length, r2 = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r2 = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i2 = decorators.length - 1; i2 >= 0; i2--)
+      if (d2 = decorators[i2])
+        r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
+  return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
+};
+let NinjaAction = class NinjaAction2 extends s$2 {
+  constructor() {
+    super();
+    this.selected = false;
+    this.hotKeysJoinedView = true;
+    this.addEventListener("click", this.click);
+  }
+  /**
+   * Scroll to show element
+   */
+  ensureInView() {
+    requestAnimationFrame(() => this.scrollIntoView({ block: "nearest" }));
+  }
+  click() {
+    this.dispatchEvent(new CustomEvent("actionsSelected", {
+      detail: this.action,
+      bubbles: true,
+      composed: true
+    }));
+  }
+  updated(changedProperties) {
+    if (changedProperties.has("selected")) {
+      if (this.selected) {
+        this.ensureInView();
+      }
+    }
+  }
+  render() {
+    let icon;
+    if (this.action.mdIcon) {
+      icon = x`<mwc-icon part="ninja-icon" class="ninja-icon">${this.action.mdIcon}</mwc-icon>`;
+    } else if (this.action.icon) {
+      icon = o$1(this.action.icon || "");
+    }
+    let hotkey;
+    if (this.action.hotkey) {
+      if (this.hotKeysJoinedView) {
+        hotkey = this.action.hotkey.split(",").map((hotkeys2) => {
+          const keys = hotkeys2.split("+");
+          const joinedKeys = x`${o3(keys.map((key) => x`<kbd>${key}</kbd>`), "+")}`;
+          return x`<div class="ninja-hotkey ninja-hotkeys">${joinedKeys}</div>`;
+        });
+      } else {
+        hotkey = this.action.hotkey.split(",").map((hotkeys2) => {
+          const keys = hotkeys2.split("+");
+          const keyElements = keys.map((key) => x`<kbd class="ninja-hotkey">${key}</kbd>`);
+          return x`<kbd class="ninja-hotkeys">${keyElements}</kbd>`;
+        });
+      }
+    }
+    const classes = {
+      selected: this.selected,
+      "ninja-action": true
+    };
+    return x`<div class="ninja-action" part="ninja-action ${this.selected ? "ninja-selected" : ""}" class="${o$2(classes)}">${icon}<div class="ninja-title">${this.action.title}</div>${hotkey}</div>`;
+  }
+};
+NinjaAction.styles = i$3`:host{display:flex;width:100%}.ninja-action{padding:.75em 1em;display:flex;border-left:2px solid transparent;align-items:center;justify-content:start;outline:0;transition:color 0s ease 0s;width:100%}.ninja-action.selected{cursor:pointer;color:var(--ninja-selected-text-color);background-color:var(--ninja-selected-background);border-left:2px solid var(--ninja-accent-color);outline:0}.ninja-action.selected .ninja-icon{color:var(--ninja-selected-text-color)}.ninja-icon{font-size:var(--ninja-icon-size);max-width:var(--ninja-icon-size);max-height:var(--ninja-icon-size);margin-right:1em;color:var(--ninja-icon-color);margin-right:1em;position:relative}.ninja-title{flex-shrink:.01;margin-right:.5em;flex-grow:1;font-size:.8125em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ninja-hotkeys{flex-shrink:0;width:min-content;display:flex}.ninja-hotkeys kbd{font-family:inherit}.ninja-hotkey{background:var(--ninja-secondary-background-color);padding:.06em .25em;border-radius:var(--ninja-key-border-radius);text-transform:capitalize;color:var(--ninja-secondary-text-color);font-size:.75em;font-family:inherit}.ninja-hotkey+.ninja-hotkey{margin-left:.5em}.ninja-hotkeys+.ninja-hotkeys{margin-left:1em}`;
+__decorate$1([
+  n$3({ type: Object })
+], NinjaAction.prototype, "action", void 0);
+__decorate$1([
+  n$3({ type: Boolean })
+], NinjaAction.prototype, "selected", void 0);
+__decorate$1([
+  n$3({ type: Boolean })
+], NinjaAction.prototype, "hotKeysJoinedView", void 0);
+NinjaAction = __decorate$1([
+  e$5("ninja-action")
+], NinjaAction);
+const footerHtml = x`<div class="modal-footer" slot="footer"><span class="help"><svg version="1.0" class="ninja-examplekey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1280"><path d="M1013 376c0 73.4-.4 113.3-1.1 120.2a159.9 159.9 0 0 1-90.2 127.3c-20 9.6-36.7 14-59.2 15.5-7.1.5-121.9.9-255 1h-242l95.5-95.5 95.5-95.5-38.3-38.2-38.2-38.3-160 160c-88 88-160 160.4-160 161 0 .6 72 73 160 161l160 160 38.2-38.3 38.3-38.2-95.5-95.5-95.5-95.5h251.1c252.9 0 259.8-.1 281.4-3.6 72.1-11.8 136.9-54.1 178.5-116.4 8.6-12.9 22.6-40.5 28-55.4 4.4-12 10.7-36.1 13.1-50.6 1.6-9.6 1.8-21 2.1-132.8l.4-122.2H1013v110z"/></svg> to select </span><span class="help"><svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg> to navigate </span><span class="help"><span class="ninja-examplekey esc">esc</span> to close </span><span class="help"><svg xmlns="http://www.w3.org/2000/svg" class="ninja-examplekey backspace" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z" clip-rule="evenodd"/></svg> move to parent</span></div>`;
+const baseStyles = i$3`:host{--ninja-width:640px;--ninja-backdrop-filter:none;--ninja-overflow-background:rgba(255, 255, 255, 0.5);--ninja-text-color:rgb(60, 65, 73);--ninja-font-size:16px;--ninja-top:20%;--ninja-key-border-radius:0.25em;--ninja-accent-color:rgb(110, 94, 210);--ninja-secondary-background-color:rgb(239, 241, 244);--ninja-secondary-text-color:rgb(107, 111, 118);--ninja-selected-background:rgb(248, 249, 251);--ninja-icon-color:var(--ninja-secondary-text-color);--ninja-icon-size:1.2em;--ninja-separate-border:1px solid var(--ninja-secondary-background-color);--ninja-modal-background:#fff;--ninja-modal-shadow:rgb(0 0 0 / 50%) 0px 16px 70px;--ninja-actions-height:300px;--ninja-group-text-color:rgb(144, 149, 157);--ninja-footer-background:rgba(242, 242, 242, 0.4);--ninja-placeholder-color:#8e8e8e;font-size:var(--ninja-font-size);--ninja-z-index:1}:host(.dark){--ninja-backdrop-filter:none;--ninja-overflow-background:rgba(0, 0, 0, 0.7);--ninja-text-color:#7d7d7d;--ninja-modal-background:rgba(17, 17, 17, 0.85);--ninja-accent-color:rgb(110, 94, 210);--ninja-secondary-background-color:rgba(51, 51, 51, 0.44);--ninja-secondary-text-color:#888;--ninja-selected-text-color:#eaeaea;--ninja-selected-background:rgba(51, 51, 51, 0.44);--ninja-icon-color:var(--ninja-secondary-text-color);--ninja-separate-border:1px solid var(--ninja-secondary-background-color);--ninja-modal-shadow:0 16px 70px rgba(0, 0, 0, 0.2);--ninja-group-text-color:rgb(144, 149, 157);--ninja-footer-background:rgba(30, 30, 30, 85%)}.modal{display:none;position:fixed;z-index:var(--ninja-z-index);left:0;top:0;width:100%;height:100%;overflow:auto;background:var(--ninja-overflow-background);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-backdrop-filter:var(--ninja-backdrop-filter);backdrop-filter:var(--ninja-backdrop-filter);text-align:left;color:var(--ninja-text-color);font-family:var(--ninja-font-family)}.modal.visible{display:block}.modal-content{position:relative;top:var(--ninja-top);margin:auto;padding:0;display:flex;flex-direction:column;flex-shrink:1;-webkit-box-flex:1;flex-grow:1;min-width:0;will-change:transform;background:var(--ninja-modal-background);border-radius:.5em;box-shadow:var(--ninja-modal-shadow);max-width:var(--ninja-width);overflow:hidden}.bump{animation:zoom-in-zoom-out .2s ease}@keyframes zoom-in-zoom-out{0%{transform:scale(.99)}50%{transform:scale(1.01,1.01)}100%{transform:scale(1,1)}}.ninja-github{color:var(--ninja-keys-text-color);font-weight:400;text-decoration:none}.actions-list{max-height:var(--ninja-actions-height);overflow:auto;scroll-behavior:smooth;position:relative;margin:0;padding:.5em 0;list-style:none;scroll-behavior:smooth}.group-header{height:1.375em;line-height:1.375em;padding-left:1.25em;padding-top:.5em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:.75em;line-height:1em;color:var(--ninja-group-text-color);margin:1px 0}.modal-footer{background:var(--ninja-footer-background);padding:.5em 1em;display:flex;border-top:var(--ninja-separate-border);color:var(--ninja-secondary-text-color)}.modal-footer .help{display:flex;margin-right:1em;align-items:center;font-size:.75em}.ninja-examplekey{background:var(--ninja-secondary-background-color);padding:.06em .25em;border-radius:var(--ninja-key-border-radius);color:var(--ninja-secondary-text-color);width:1em;height:1em;margin-right:.5em;font-size:1.25em;fill:currentColor}.ninja-examplekey.esc{width:auto;height:auto;font-size:1.1em}.ninja-examplekey.backspace{opacity:.7}`;
+var __decorate = function(decorators, target, key, desc) {
+  var c2 = arguments.length, r2 = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d2;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r2 = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i2 = decorators.length - 1; i2 >= 0; i2--)
+      if (d2 = decorators[i2])
+        r2 = (c2 < 3 ? d2(r2) : c2 > 3 ? d2(target, key, r2) : d2(target, key)) || r2;
+  return c2 > 3 && r2 && Object.defineProperty(target, key, r2), r2;
+};
+let NinjaKeys$2 = class NinjaKeys extends s$2 {
+  constructor() {
+    super(...arguments);
+    this.placeholder = "Type a command or search...";
+    this.disableHotkeys = false;
+    this.hideBreadcrumbs = false;
+    this.openHotkey = "cmd+k,ctrl+k";
+    this.navigationUpHotkey = "up,shift+tab";
+    this.navigationDownHotkey = "down,tab";
+    this.closeHotkey = "esc";
+    this.goBackHotkey = "backspace";
+    this.selectHotkey = "enter";
+    this.hotKeysJoinedView = false;
+    this.noAutoLoadMdIcons = false;
+    this.data = [];
+    this.visible = false;
+    this._bump = true;
+    this._actionMatches = [];
+    this._search = "";
+    this._flatData = [];
+    this._headerRef = e$1();
+  }
+  /**
+   * Public methods
+   */
+  /**
+   * Show a modal
+   */
+  open(options = {}) {
+    this._bump = true;
+    this.visible = true;
+    this._headerRef.value.focusSearch();
+    if (this._actionMatches.length > 0) {
+      this._selected = this._actionMatches[0];
+    }
+    this.setParent(options.parent);
+  }
+  /**
+   * Close modal
+   */
+  close() {
+    this._bump = false;
+    this.visible = false;
+  }
+  /**
+   * Navigate to group of actions
+   * @param parent id of parent group/action
+   */
+  setParent(parent) {
+    if (!parent) {
+      this._currentRoot = void 0;
+    } else {
+      this._currentRoot = parent;
+    }
+    this._selected = void 0;
+    this._search = "";
+    this._headerRef.value.setSearch("");
+  }
+  get breadcrumbs() {
+    var _a;
+    const path = [];
+    let parentAction = (_a = this._selected) === null || _a === void 0 ? void 0 : _a.parent;
+    if (parentAction) {
+      path.push(parentAction);
+      while (parentAction) {
+        const action = this._flatData.find((a2) => a2.id === parentAction);
+        if (action === null || action === void 0 ? void 0 : action.parent) {
+          path.push(action.parent);
+        }
+        parentAction = action ? action.parent : void 0;
+      }
+    }
+    return path.reverse();
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.noAutoLoadMdIcons) {
+      document.fonts.load("24px Material Icons", "apps").then(() => {
+      });
+    }
+    this._registerInternalHotkeys();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._unregisterInternalHotkeys();
+  }
+  _flattern(members, parent) {
+    let children2 = [];
+    if (!members) {
+      members = [];
+    }
+    return members.map((mem) => {
+      const alreadyFlatternByUser = mem.children && mem.children.some((value) => {
+        return typeof value == "string";
+      });
+      const m2 = { ...mem, parent: mem.parent || parent };
+      if (alreadyFlatternByUser) {
+        return m2;
+      } else {
+        if (m2.children && m2.children.length) {
+          parent = mem.id;
+          children2 = [...children2, ...m2.children];
+        }
+        m2.children = m2.children ? m2.children.map((c2) => c2.id) : [];
+        return m2;
+      }
+    }).concat(children2.length ? this._flattern(children2, parent) : children2);
+  }
+  update(changedProperties) {
+    if (changedProperties.has("data") && !this.disableHotkeys) {
+      this._flatData = this._flattern(this.data);
+      this._flatData.filter((action) => !!action.hotkey).forEach((action) => {
+        hotkeys(action.hotkey, (event) => {
+          event.preventDefault();
+          if (action.handler) {
+            action.handler(action);
+          }
+        });
+      });
+    }
+    super.update(changedProperties);
+  }
+  _registerInternalHotkeys() {
+    if (this.openHotkey) {
+      hotkeys(this.openHotkey, (event) => {
+        event.preventDefault();
+        this.visible ? this.close() : this.open();
+      });
+    }
+    if (this.selectHotkey) {
+      hotkeys(this.selectHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        this._actionSelected(this._actionMatches[this._selectedIndex]);
+      });
+    }
+    if (this.goBackHotkey) {
+      hotkeys(this.goBackHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        if (!this._search) {
+          event.preventDefault();
+          this._goBack();
+        }
+      });
+    }
+    if (this.navigationDownHotkey) {
+      hotkeys(this.navigationDownHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        if (this._selectedIndex >= this._actionMatches.length - 1) {
+          this._selected = this._actionMatches[0];
+        } else {
+          this._selected = this._actionMatches[this._selectedIndex + 1];
+        }
+      });
+    }
+    if (this.navigationUpHotkey) {
+      hotkeys(this.navigationUpHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        if (this._selectedIndex === 0) {
+          this._selected = this._actionMatches[this._actionMatches.length - 1];
+        } else {
+          this._selected = this._actionMatches[this._selectedIndex - 1];
+        }
+      });
+    }
+    if (this.closeHotkey) {
+      hotkeys(this.closeHotkey, () => {
+        if (!this.visible) {
+          return;
+        }
+        this.close();
+      });
+    }
+  }
+  _unregisterInternalHotkeys() {
+    if (this.openHotkey) {
+      hotkeys.unbind(this.openHotkey);
+    }
+    if (this.selectHotkey) {
+      hotkeys.unbind(this.selectHotkey);
+    }
+    if (this.goBackHotkey) {
+      hotkeys.unbind(this.goBackHotkey);
+    }
+    if (this.navigationDownHotkey) {
+      hotkeys.unbind(this.navigationDownHotkey);
+    }
+    if (this.navigationUpHotkey) {
+      hotkeys.unbind(this.navigationUpHotkey);
+    }
+    if (this.closeHotkey) {
+      hotkeys.unbind(this.closeHotkey);
+    }
+  }
+  _actionFocused(index, $event) {
+    this._selected = index;
+    $event.target.ensureInView();
+  }
+  _onTransitionEnd() {
+    this._bump = false;
+  }
+  _goBack() {
+    const parent = this.breadcrumbs.length > 1 ? this.breadcrumbs[this.breadcrumbs.length - 2] : void 0;
+    this.setParent(parent);
+  }
+  render() {
+    const classes = {
+      bump: this._bump,
+      "modal-content": true
+    };
+    const menuClasses = {
+      visible: this.visible,
+      modal: true
+    };
+    const actionMatches = this._flatData.filter((action) => {
+      var _a;
+      const regex = new RegExp(this._search, "gi");
+      const matcher = action.title.match(regex) || ((_a = action.keywords) === null || _a === void 0 ? void 0 : _a.match(regex));
+      if (!this._currentRoot && this._search) {
+        return matcher;
+      }
+      return action.parent === this._currentRoot && matcher;
+    });
+    const sections = actionMatches.reduce((entryMap, e2) => entryMap.set(e2.section, [...entryMap.get(e2.section) || [], e2]), /* @__PURE__ */ new Map());
+    this._actionMatches = [...sections.values()].flat();
+    if (this._actionMatches.length > 0 && this._selectedIndex === -1) {
+      this._selected = this._actionMatches[0];
+    }
+    if (this._actionMatches.length === 0) {
+      this._selected = void 0;
+    }
+    const actionsList = (actions) => x`${c$1(actions, (action) => action.id, (action) => {
+      var _a;
+      return x`<ninja-action exportparts="ninja-action,ninja-selected,ninja-icon" .selected="${l$1(action.id === ((_a = this._selected) === null || _a === void 0 ? void 0 : _a.id))}" .hotKeysJoinedView="${this.hotKeysJoinedView}" @mouseover="${(event) => this._actionFocused(action, event)}" @actionsSelected="${(event) => this._actionSelected(event.detail)}" .action="${action}"></ninja-action>`;
+    })}`;
+    const itemTemplates = [];
+    sections.forEach((actions, section) => {
+      const header = section ? x`<div class="group-header">${section}</div>` : void 0;
+      itemTemplates.push(x`${header}${actionsList(actions)}`);
+    });
+    return x`<div @click="${this._overlayClick}" class="${o$2(menuClasses)}"><div class="${o$2(classes)}" @animationend="${this._onTransitionEnd}"><ninja-header exportparts="ninja-input,ninja-input-wrapper" ${n(this._headerRef)} .placeholder="${this.placeholder}" .hideBreadcrumbs="${this.hideBreadcrumbs}" .breadcrumbs="${this.breadcrumbs}" @change="${this._handleInput}" @setParent="${(event) => this.setParent(event.detail.parent)}" @close="${this.close}"></ninja-header><div class="modal-body"><div class="actions-list" part="actions-list">${itemTemplates}</div></div><slot name="footer">${footerHtml}</slot></div></div>`;
+  }
+  get _selectedIndex() {
+    if (!this._selected) {
+      return -1;
+    }
+    return this._actionMatches.indexOf(this._selected);
+  }
+  _actionSelected(action) {
+    var _a;
+    this.dispatchEvent(new CustomEvent("selected", {
+      detail: { search: this._search, action },
+      bubbles: true,
+      composed: true
+    }));
+    if (!action) {
+      return;
+    }
+    if (action.children && ((_a = action.children) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+      this._currentRoot = action.id;
+      this._search = "";
+    }
+    this._headerRef.value.setSearch("");
+    this._headerRef.value.focusSearch();
+    if (action.handler) {
+      const result = action.handler(action);
+      if (!(result === null || result === void 0 ? void 0 : result.keepOpen)) {
+        this.close();
+      }
+    }
+    this._bump = true;
+  }
+  async _handleInput(event) {
+    this._search = event.detail.search;
+    await this.updateComplete;
+    this.dispatchEvent(new CustomEvent("change", {
+      detail: { search: this._search, actions: this._actionMatches },
+      bubbles: true,
+      composed: true
+    }));
+  }
+  _overlayClick(event) {
+    var _a;
+    if ((_a = event.target) === null || _a === void 0 ? void 0 : _a.classList.contains("modal")) {
+      this.close();
+    }
+  }
+};
+NinjaKeys$2.styles = [baseStyles];
+__decorate([
+  n$3({ type: String })
+], NinjaKeys$2.prototype, "placeholder", void 0);
+__decorate([
+  n$3({ type: Boolean })
+], NinjaKeys$2.prototype, "disableHotkeys", void 0);
+__decorate([
+  n$3({ type: Boolean })
+], NinjaKeys$2.prototype, "hideBreadcrumbs", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "openHotkey", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "navigationUpHotkey", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "navigationDownHotkey", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "closeHotkey", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "goBackHotkey", void 0);
+__decorate([
+  n$3()
+], NinjaKeys$2.prototype, "selectHotkey", void 0);
+__decorate([
+  n$3({ type: Boolean })
+], NinjaKeys$2.prototype, "hotKeysJoinedView", void 0);
+__decorate([
+  n$3({ type: Boolean })
+], NinjaKeys$2.prototype, "noAutoLoadMdIcons", void 0);
+__decorate([
+  n$3({
+    type: Array,
+    hasChanged() {
+      return true;
+    }
+  })
+], NinjaKeys$2.prototype, "data", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "visible", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_bump", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_actionMatches", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_search", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_currentRoot", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_flatData", void 0);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "breadcrumbs", null);
+__decorate([
+  t$1()
+], NinjaKeys$2.prototype, "_selected", void 0);
+NinjaKeys$2 = __decorate([
+  e$5("ninja-keys")
+], NinjaKeys$2);
+var _tmpl$$4 = /* @__PURE__ */ template(`<ninja-keys>`, true, false);
+const NinjaKeys2 = (props) => {
+  return (() => {
+    var _el$ = _tmpl$$4();
+    _el$._$owner = getOwner();
+    createRenderEffect((_p$) => {
+      var _v$ = props.hotkeys, _v$2 = props.placeholder, _v$3 = props.disableHotkeys, _v$4 = props.hideBreadcrumbs, _v$5 = props.openHotkey, _v$6 = props.navigationUpHotkey, _v$7 = props.navigationDownHotkey, _v$8 = props.closeHotkey, _v$9 = props.goBackHotkey, _v$10 = props.selectHotkey, _v$11 = props.hotKeysJoinedView, _v$12 = props.noAutoLoadMdIcons, _v$13 = props.isDark ? "dark" : "light";
+      _v$ !== _p$.e && (_el$.data = _p$.e = _v$);
+      _v$2 !== _p$.t && (_el$.placeholder = _p$.t = _v$2);
+      _v$3 !== _p$.a && (_el$.disablehotkeys = _p$.a = _v$3);
+      _v$4 !== _p$.o && (_el$.hidebreadcrumbs = _p$.o = _v$4);
+      _v$5 !== _p$.i && (_el$.openhotkey = _p$.i = _v$5);
+      _v$6 !== _p$.n && (_el$.navigationuphotkey = _p$.n = _v$6);
+      _v$7 !== _p$.s && (_el$.navigationdownhotkey = _p$.s = _v$7);
+      _v$8 !== _p$.h && (_el$.closehotkey = _p$.h = _v$8);
+      _v$9 !== _p$.r && (_el$.gobackhotkey = _p$.r = _v$9);
+      _v$10 !== _p$.d && (_el$.selecthotkey = _p$.d = _v$10);
+      _v$11 !== _p$.l && (_el$.hotkeysjoinedview = _p$.l = _v$11);
+      _v$12 !== _p$.u && (_el$.noautoloadmdicons = _p$.u = _v$12);
+      _v$13 !== _p$.c && className(_el$, _p$.c = _v$13);
+      return _p$;
+    }, {
+      e: void 0,
+      t: void 0,
+      a: void 0,
+      o: void 0,
+      i: void 0,
+      n: void 0,
+      s: void 0,
+      h: void 0,
+      r: void 0,
+      d: void 0,
+      l: void 0,
+      u: void 0,
+      c: void 0
+    });
+    return _el$;
+  })();
+};
+const NinjaKeys$1 = NinjaKeys2;
+function createNinjaKeys() {
+  let el;
+  onMount(() => {
+    el = document.querySelector("ninja-keys");
+  });
+  const open = (parent) => {
+    el == null ? void 0 : el.open(parent ? {
+      parent
+    } : void 0);
+  };
+  const close = () => {
+    el == null ? void 0 : el.close();
+  };
+  const setParent = (parent) => {
+    el == null ? void 0 : el.setParent(parent);
+  };
+  return {
+    open,
+    close,
+    setParent
+  };
+}
+var _tmpl$$3 = /* @__PURE__ */ template(`<p>Click <code>Shift</code> + <code>Left Mouse Button</code> to split a link into <code>💾Set</code> / <code>Get</code>.`), _tmpl$2$3 = /* @__PURE__ */ template(`<p>Or <code>Shift + Drag</code> to create a <code>💾Set</code> / <code>Get</code> node.`), _tmpl$3$1 = /* @__PURE__ */ template(`<p>Split hotkey: <code>Shift</code> + <code>S</code> (only works when nodes are selected).`), _tmpl$4$1 = /* @__PURE__ */ template(`<p>Join hotkey: <code>Shift</code> + <code>J</code> (only works when nodes are selected).`), _tmpl$5$1 = /* @__PURE__ */ template(`<p>Click <code>Convert links to set/get</code> button to split all links to<code>💾Set</code> / <code>Get</code> nodes.`), _tmpl$6$1 = /* @__PURE__ */ template(`<p>Select specific nodes and click <code>Convert links to set/get</code> button to split related links into<code>💾Set</code> / <code>Get</code> nodes.`), _tmpl$7$1 = /* @__PURE__ */ template(`<p>Click <code>Convert set/get to links</code> button to join all<code>💾Set</code> / <code>Get</code> nodes into links.`), _tmpl$8$1 = /* @__PURE__ */ template(`<p>Select specific nodes and click <code>Convert set/get to links</code> button to join related <code>💾Set</code> / <code>Get</code> nodes into links.`), _tmpl$9$1 = /* @__PURE__ */ template(`<p>Select a <code>💾Set</code> node and enable tweak.`), _tmpl$10$1 = /* @__PURE__ */ template(`<p>Make sure the <code>Get</code> node is assigned to a <code>Preview Image</code> or <code>Save Image</code> node.`), _tmpl$11$1 = /* @__PURE__ */ template(`<p>Select a node and press <code>W</code> to rename all instances.`), _tmpl$12$1 = /* @__PURE__ */ template(`<p>Or you can hold <code>Shift</code> and double click <code>Left Mouse Button</code> to rename all instances.`), _tmpl$13$1 = /* @__PURE__ */ template(`<p>Convert the text input into a separate node.<br>Assign that node to a <code>💾Set</code> node and enable tweak.`), _tmpl$14$1 = /* @__PURE__ */ template(`<p>You can use your scroll wheel to increase/decrease the weight for a token or all tokens.`), _tmpl$15$1 = /* @__PURE__ */ template(`<p>Click the pin icon to cause the prompt tweak window to float.`), _tmpl$16$1 = /* @__PURE__ */ template(`<p>The position in the graph will dictate it's position in the bar.`), _tmpl$17$1 = /* @__PURE__ */ template(`<p>You can use the scroll wheel to change numerical values.`), _tmpl$18$1 = /* @__PURE__ */ template(`<p>Click the 🚦 icon in the top bar to show available groups.`), _tmpl$19$1 = /* @__PURE__ */ template(`<p>Click a group to toggle all nodes inside it.`), _tmpl$20$1 = /* @__PURE__ */ template(`<p>Press <code>Shift</code> + <code>P</code> to access command palette`), _tmpl$21$1 = /* @__PURE__ */ template(`<p>Select a <code>Get</code> node and press <code>S</code> to jump to it's setter position.`), _tmpl$22$1 = /* @__PURE__ */ template(`<p>Select a <code>💾Set</code> or <code>Get</code> node and press <code>Arrow Left</code>/<code>Arrow Right</code> to jump to it's siblings.`), _tmpl$23 = /* @__PURE__ */ template(`<p>Enable the checkbox next to the token you want to temporarily disable.`), _tmpl$24 = /* @__PURE__ */ template(`<p><code>Double Click</code> the node title to rename it.`), _tmpl$25 = /* @__PURE__ */ template(`<p>Note that this doesn't work on some special nodes.`), _tmpl$26 = /* @__PURE__ */ template(`<p>This extension overrides the default ComfyUi search allowing you to be more flexible with your search.`), _tmpl$27 = /* @__PURE__ */ template(`<p>For example <code>lo mo onl</code> will match the <code>LoraLoaderModelOnly</code> node.`), _tmpl$28 = /* @__PURE__ */ template(`<p><code>Shift</code> + <code>Double Click</code> the group title to rename it.`), _tmpl$29 = /* @__PURE__ */ template(`<p>When an error is detected, you can open the Warning panel and navigate directly to the affected node.`), _tmpl$30 = /* @__PURE__ */ template(`<p>After a node completes execution, you can view its execution time.`), _tmpl$31 = /* @__PURE__ */ template(`<p><code>Shift</code> + <code>Arrow Up</code> aligns nodes to the top.`), _tmpl$32 = /* @__PURE__ */ template(`<p><code>Shift</code> + <code>Arrow Left</code> aligns nodes to the left.`), _tmpl$33 = /* @__PURE__ */ template(`<p><code>Shift</code> + <code>Arrow Down</code> stacks the nodes with an even spacing downwards.`), _tmpl$34 = /* @__PURE__ */ template(`<p>If you select a <code>💾Set</code> or <code>Get</code> node it will show all connections.`), _tmpl$35 = /* @__PURE__ */ template(`<p>Optionally you can change settings so that it shows connections as you hover a node. <br>Either the specific link, or all.`), _tmpl$36 = /* @__PURE__ */ template(`<p>Click the top right section of the top bar to toggle it on/off.`), _tmpl$37 = /* @__PURE__ */ template(`<div class=helpPopup><div class=close>❌</div><div class=header>Get Started</div><div class=modalContent><div class=help><div class=info><div class=title></div><div class=text></div></div></div><ul class=menu>`), _tmpl$38 = /* @__PURE__ */ template(`<video class=video>`), _tmpl$39 = /* @__PURE__ */ template(`<li class=help>`);
+const Help = (p2) => {
+  const [helpIndex, setHelpIndex] = createSignal(0);
+  const helps = [...[{
+    name: `Assign Variables`,
+    text: [_tmpl$$3(), _tmpl$2$3()],
+    video: `https://comfyui.ma.pe/help/assign.mp4`
+  }, {
+    name: `Split/Join Connections`,
+    text: [_tmpl$3$1(), _tmpl$4$1(), _tmpl$5$1(), _tmpl$6$1(), _tmpl$7$1(), _tmpl$8$1()],
+    video: `https://comfyui.ma.pe/help/splitJoin.mp4`
+  }, {
+    name: `Add image to image preview window`,
+    text: [_tmpl$9$1(), _tmpl$10$1()],
+    video: `https://comfyui.ma.pe/help/imagePreview.mp4`
+  }, {
+    name: `Rename Variables`,
+    text: [_tmpl$11$1(), _tmpl$12$1()],
+    video: `https://comfyui.ma.pe/help/rename.mp4`
+  }, {
+    name: `Make prompt tweakable`,
+    text: [_tmpl$13$1(), _tmpl$14$1()],
+    video: `https://comfyui.ma.pe/help/prompt.mp4`
+  }, {
+    name: `Floating prompt tweak window`,
+    text: _tmpl$15$1(),
+    video: `https://comfyui.ma.pe/help/pinPromptTweak.mp4`
+  }, {
+    name: `Add variables to top bar`,
+    text: [_tmpl$9$1(), _tmpl$16$1(), _tmpl$17$1()],
+    video: `https://comfyui.ma.pe/help/tweak.mp4`
+  }, {
+    name: `Toggle entire groups`,
+    text: [_tmpl$18$1(), _tmpl$19$1()],
+    video: `https://comfyui.ma.pe/help/groupToggle.mp4`
+  }, {
+    name: `Access command palette`,
+    text: _tmpl$20$1(),
+    video: `https://comfyui.ma.pe/help/command.mp4`
+  }, {
+    name: `Jump to Set node`,
+    text: _tmpl$21$1(),
+    video: `https://comfyui.ma.pe/help/jump.mp4`
+  }, {
+    name: `Jump to sibling nodes`,
+    text: _tmpl$22$1(),
+    video: `https://comfyui.ma.pe/help/jumpSiblings.mp4`
+  }, {
+    name: `Temporarily disable tokens`,
+    text: _tmpl$23(),
+    video: `https://comfyui.ma.pe/help/tmpPrompt.mp4`
+  }, {
+    name: `Rename Node`,
+    text: [_tmpl$24(), _tmpl$25()],
+    video: `https://comfyui.ma.pe/help/renameNode.mp4`
+  }, {
+    name: `Fuzzy Search`,
+    text: [_tmpl$26(), _tmpl$27()],
+    video: `https://comfyui.ma.pe/help/fuzzySearch.mp4`
+  }, {
+    name: `Rename Group`,
+    text: _tmpl$28(),
+    video: `https://comfyui.ma.pe/help/renameGroup.mp4`
+  }, {
+    name: `Warnings`,
+    text: _tmpl$29(),
+    video: `https://comfyui.ma.pe/help/warnings.mp4`
+  }, {
+    name: `Node runtime`,
+    text: _tmpl$30(),
+    video: `https://comfyui.ma.pe/help/duration.mp4`
+  }, {
+    name: `Organize nodes`,
+    text: [_tmpl$31(), _tmpl$32(), _tmpl$33()],
+    video: `https://comfyui.ma.pe/help/organize.mp4`
+  }, {
+    name: `Show connections`,
+    text: [_tmpl$34(), _tmpl$35()],
+    video: `https://comfyui.ma.pe/help/connections.mp4`
+  }, {
+    name: `Toggle bar on/off`,
+    text: _tmpl$36(),
+    video: `https://comfyui.ma.pe/help/toggle.mp4`
+  }]];
+  const currentHelp = () => helps[helpIndex()];
+  return (() => {
+    var _el$38 = _tmpl$37(), _el$39 = _el$38.firstChild, _el$40 = _el$39.nextSibling, _el$41 = _el$40.nextSibling, _el$42 = _el$41.firstChild, _el$43 = _el$42.firstChild, _el$44 = _el$43.firstChild, _el$45 = _el$44.nextSibling, _el$46 = _el$42.nextSibling;
+    addEventListener(_el$39, "click", p2.close, true);
+    insert(_el$42, (() => {
+      var _c$ = createMemo(() => !!currentHelp().video);
+      return () => _c$() ? (() => {
+        var _el$47 = _tmpl$38();
+        _el$47.muted = true;
+        _el$47.loop = true;
+        _el$47.autoplay = true;
+        _el$47.controls = true;
+        createRenderEffect(() => setAttribute(_el$47, "src", currentHelp().video));
+        return _el$47;
+      })() : null;
+    })(), _el$43);
+    insert(_el$44, () => currentHelp().name);
+    insert(_el$45, () => currentHelp().text);
+    insert(_el$46, () => helps.map((help, i2) => (() => {
+      var _el$48 = _tmpl$39();
+      _el$48.$$click = () => {
+        setHelpIndex(i2);
+      };
+      insert(_el$48, () => help.name);
+      createRenderEffect(() => _el$48.classList.toggle("active", !!(i2 === helpIndex())));
+      return _el$48;
+    })()));
+    return _el$38;
+  })();
+};
+delegateEvents(["click"]);
+const getWidgetType = (node, slot = 0) => {
+  var _a;
+  if (!node) {
+    return void 0;
+  }
+  return (_a = node.inputs) == null ? void 0 : _a[slot].type;
+};
+function isElementChildOrSame(parentElement, childElement) {
+  let currentElement = childElement;
+  while (currentElement !== null) {
+    if (currentElement === parentElement) {
+      return true;
+    }
+    currentElement = currentElement.parentElement;
+  }
+  return false;
+}
+var _tmpl$$2 = /* @__PURE__ */ template(`<div class=mapeConfirmPrompt><div class=title></div><input type=text><div class=suggestions>`), _tmpl$2$2 = /* @__PURE__ */ template(`<div class=suggestion><small>`);
+const InlinePrompt = ({
+  title,
+  position,
+  callback,
+  exit,
+  fallback,
+  type
+}) => {
+  const [suggestionIndex, setSuggestionIndex] = createSignal(-1);
+  let containerEl;
+  let inputEl;
+  onMount(() => {
+    inputEl.focus();
+    inputEl.select();
+  });
+  const [inputValue, setInputValue] = createSignal(``);
+  const [suggestions] = createSignal((() => {
+    const added = /* @__PURE__ */ new Map();
+    const mapped = getMapeNodes().map((n2) => {
+      const value = getWidgetValue(n2, 0);
+      const nodeType = getWidgetType(n2, 0);
+      if (added.has(value) || nodeType === `*` || typeof value === `undefined` || typeof nodeType === `undefined`) {
+        return void 0;
+      }
+      added.set(value, true);
+      return {
+        value,
+        type: nodeType
+      };
+    }).filter(isDefined).sort((a2, b) => {
+      if (a2.type === type && b.type !== type) {
+        return -1;
+      } else if (a2.type !== type && b.type === type) {
+        return 1;
+      }
+      const typeComparison = a2.type.localeCompare(b.type);
+      if (typeComparison !== 0) {
+        return typeComparison;
+      }
+      return a2.value.localeCompare(b.value);
+    });
+    return mapped;
+  })());
+  const handleClick = (e2) => {
+    if (isElementChildOrSame(containerEl, e2.target)) {
+      return;
+    }
+    exit();
+  };
+  const handleKeypress = (e2) => {
+    if (e2.key === `ArrowUp` || e2.key === `ArrowDown`) {
+      e2.preventDefault();
+      if (e2.key === `ArrowUp`) {
+        setSuggestionIndex(suggestionIndex() - 1);
+      }
+      if (e2.key === `ArrowDown`) {
+        setSuggestionIndex(suggestionIndex() + 1);
+      }
+      if (suggestionIndex() < 0) {
+        setSuggestionIndex(0);
+      }
+      if (suggestionIndex() > suggestions().length - 1) {
+        setSuggestionIndex(suggestions().length - 1);
+      }
+      inputEl.select();
+      return;
+    }
+    if (e2.key === `Enter`) {
+      if (suggestionIndex() !== -1) {
+        setInputValue(suggestions().filter(suggestionFilter)[suggestionIndex()].value);
+      }
+      callback((inputValue() || fallback) ?? ``);
+      return;
+    }
+    if (e2.key === `Escape`) {
+      exit();
+      return;
+    }
+    setSuggestionIndex(-1);
+  };
+  onMount(() => {
+    document.body.addEventListener(`click`, handleClick);
+    document.body.addEventListener(`keyup`, handleKeypress);
+  });
+  onCleanup(() => {
+    document.body.removeEventListener(`click`, handleClick);
+    document.body.removeEventListener(`keyup`, handleKeypress);
+  });
+  const suggestionFilter = (suggestion) => {
+    if (inputValue().trim() === ``) {
+      return true;
+    }
+    return suggestion == null ? void 0 : suggestion.value.match(new RegExp(inputValue(), `i`));
+  };
+  return (() => {
+    var _el$ = _tmpl$$2(), _el$2 = _el$.firstChild, _el$3 = _el$2.nextSibling, _el$4 = _el$3.nextSibling;
+    var _ref$ = containerEl;
+    typeof _ref$ === "function" ? use(_ref$, _el$) : containerEl = _el$;
+    insert(_el$2, title);
+    _el$3.$$keyup = (e2) => {
+      if (e2.key === `Shift`) {
+        return;
+      }
+      setInputValue(e2.currentTarget.value);
+    };
+    var _ref$2 = inputEl;
+    typeof _ref$2 === "function" ? use(_ref$2, _el$3) : inputEl = _el$3;
+    setAttribute(_el$3, "placeholder", fallback);
+    insert(_el$4, () => suggestions().filter(suggestionFilter).map((suggestion, i2) => {
+      if (!!type && type !== (suggestion == null ? void 0 : suggestion.type) && getSetting(`filterOutIncompatibleTypes`)) {
+        return null;
+      }
+      return (() => {
+        var _el$5 = _tmpl$2$2(), _el$6 = _el$5.firstChild;
+        _el$5.$$click = () => {
+          callback(suggestion == null ? void 0 : suggestion.value);
+        };
+        insert(_el$6, () => suggestion == null ? void 0 : suggestion.type);
+        insert(_el$5, () => suggestion == null ? void 0 : suggestion.value, null);
+        createRenderEffect((_p$) => {
+          var _v$3 = !!(suggestionIndex() === i2), _v$4 = !!(!!type && type !== (suggestion == null ? void 0 : suggestion.type));
+          _v$3 !== _p$.e && _el$5.classList.toggle("selected", _p$.e = _v$3);
+          _v$4 !== _p$.t && _el$5.classList.toggle("missingType", _p$.t = _v$4);
+          return _p$;
+        }, {
+          e: void 0,
+          t: void 0
+        });
+        return _el$5;
+      })();
+    }));
+    createRenderEffect((_p$) => {
+      var _v$ = `${position.x}px`, _v$2 = `${position.y}px`;
+      _v$ !== _p$.e && ((_p$.e = _v$) != null ? _el$.style.setProperty("left", _v$) : _el$.style.removeProperty("left"));
+      _v$2 !== _p$.t && ((_p$.t = _v$2) != null ? _el$.style.setProperty("top", _v$2) : _el$.style.removeProperty("top"));
+      return _p$;
+    }, {
+      e: void 0,
+      t: void 0
+    });
+    createRenderEffect(() => _el$3.value = inputValue());
+    return _el$;
+  })();
+};
+delegateEvents(["keyup", "click"]);
+const focusingInput = () => {
+  const focusedElement = document.activeElement;
+  if (focusedElement.tagName === `INPUT` && (focusedElement.type === `text` || focusedElement.type === `number`) || focusedElement.tagName === `TEXTAREA`) {
+    return true;
+  }
+  return false;
+};
+const getNodeInputLinkNode = (node) => {
+  var _a, _b;
+  const linkIndex = (_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link;
+  if (!node.graph) {
+    return;
+  }
+  if (!linkIndex) {
+    return;
+  }
+  const link = getLinkById(linkIndex);
+  if (!link) {
+    return;
+  }
+  const refId = link.origin_id;
+  const refNode = getNodeById(refId);
+  return refNode;
+};
+const getTweakValue = (type) => {
+  var _a, _b, _c, _d, _e;
+  let value;
+  let id;
+  let pinNodeId;
+  for (const node of graph._nodes) {
+    if (node.type !== TYPE || getWidgetValue(node) !== type) {
+      continue;
+    }
+    if (!node.graph) {
+      continue;
+    }
+    const index = (_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link;
+    if (!index) {
+      continue;
+    }
+    const link = getLinkById(index);
+    if (typeof link === `undefined`) {
+      continue;
+    }
+    const refId = link.origin_id;
+    if (typeof refId === `undefined`) {
+      continue;
+    }
+    const refSlotIndex = link.origin_slot;
+    if (typeof refSlotIndex === `undefined`) {
+      continue;
+    }
+    const refNode = node.graph.getNodeById(refId);
+    if (!refNode) {
+      continue;
+    }
+    if (refNode.outputs[refSlotIndex] && refNode.outputs[refSlotIndex].type === `IMAGE`) {
+      let images;
+      for (const subNode of getNodes$1()) {
+        if (!isMapeVariableNode(subNode) || getWidgetValue(subNode) !== type || isNodeSetter(subNode)) {
+          continue;
+        }
+        const index2 = (_d = (_c = subNode.outputs) == null ? void 0 : _c[0].links) == null ? void 0 : _d[0];
+        if (typeof index2 === `undefined`) {
+          continue;
+        }
+        const linkMeta = getLinkById(index2);
+        if (!linkMeta) {
+          continue;
+        }
+        const targetId = linkMeta.target_id;
+        const refNode2 = node.graph.getNodeById(targetId);
+        if (!refNode2) {
+          continue;
+        }
+        if (!((_e = refNode2.type) == null ? void 0 : _e.match(/(PreviewImage|SaveImage)/))) {
+          continue;
+        }
+        const nodeOutput = app.nodeOutputs[refNode2.id];
+        if (nodeOutput && nodeOutput.images) {
+          images = jsonClone(nodeOutput.images);
+        } else {
+          images = refNode2.images;
+        }
+      }
+      id = refNode.id;
+      value = images;
+      pinNodeId = node.id;
+      return [images, id, pinNodeId];
+    }
+    if (typeof refNode === `undefined`) {
+      continue;
+    }
+    if (!refNode.widgets) {
+      continue;
+    }
+    const refWidget = refNode.widgets[refSlotIndex];
+    if (typeof refWidget === `undefined`) {
+      continue;
+    }
+    id = refNode.id;
+    pinNodeId = node.id;
+    value = refWidget.value;
+  }
+  return [value, id, pinNodeId];
+};
+const jumpToGroupTitle = (title) => {
+  const group = getGroups().find((g2) => g2.title === title);
+  if (!group) {
+    return;
+  }
+  jumpToPosition([group.pos[0] + group.size[0] / 2, group.pos[1] + group.size[1] / 2], graph.list_of_graphcanvas[0]);
+};
+const jumpToGroup = (group) => {
+  jumpToPosition([group.pos[0] + group.size[0] / 2, group.pos[1] + group.size[1] / 2], graph.list_of_graphcanvas[0]);
+};
+const jumpToNodeByType = (type) => {
+  for (const node of getNodes$1()) {
+    if (node.type !== TYPE || !isNodeSetter(node) || getWidgetValue(node) !== type) {
+      continue;
+    }
+    jumpToNode(node);
+  }
+};
+const jumpToNodeId = (id) => {
+  const node = getNodeById(id);
+  if (!node) {
+    return;
+  }
+  jumpToNode(node);
+};
+const getLinkLookup = () => {
+  const links = jsonClone(Object.values(getLinks()).filter(Boolean));
+  const nodeGet = {};
+  const nodeSet = {};
+  for (const node of getNodes$1().filter(isMapeVariableNode)) {
+    const varName = getWidgetValue(node);
+    const input = node.inputs[0];
+    if (input.link) {
+      const link = links.find((link2) => {
+        const {
+          target_id: toId
+        } = link2;
+        return toId === node.id;
+      });
+      if (!link) {
+        continue;
+      }
+      const {
+        id,
+        origin_id: originId,
+        origin_slot: originSlot
+      } = link;
+      nodeSet[varName] = {
+        id,
+        originId,
+        originSlot
+      };
+      continue;
+    } else {
+      if (!nodeGet[varName]) {
+        nodeGet[varName] = [];
+      }
+      const link = links.find((link2) => {
+        const {
+          origin_id: fromId
+        } = link2;
+        return fromId === node.id;
+      });
+      if (!link) {
+        continue;
+      }
+      const {
+        id,
+        target_id: targetId,
+        target_slot: targetSlot
+      } = link;
+      nodeGet[varName].push({
+        id,
+        targetId,
+        targetSlot
+      });
+    }
+    continue;
+  }
+  return {
+    nodeSet,
+    nodeGet
+  };
+};
+const calculateExecutionFlow = () => {
+  var _a;
+  let orderedList = [];
+  const starterNodes = [];
+  const pendingNodes = {};
+  const visitedLinks = {};
+  const remainingLinks = {};
+  const linkLookup = getLinkLookup();
+  const links = getLinks();
+  for (const node of getNodes$1().filter((node2) => !isMapeVariableNode(node2))) {
+    pendingNodes[node.id] = node;
+    let inputConnectionCount = 0;
+    if (node.inputs) {
+      for (let j2 = 0, l2 = node.inputs.length; j2 < l2; j2++) {
+        if (node.inputs[j2] && node.inputs[j2].link != null) {
+          inputConnectionCount += 1;
+        }
+      }
+    }
+    if (inputConnectionCount == 0) {
+      starterNodes.push(node);
+    } else {
+      remainingLinks[node.id] = inputConnectionCount;
+    }
+  }
+  let finished = false;
+  while (!finished) {
+    if (starterNodes.length == 0) {
+      finished = true;
+      break;
+    }
+    const node = starterNodes.shift();
+    orderedList.push(node);
+    delete pendingNodes[node.id];
+    if (!node.outputs) {
+      continue;
+    }
+    for (let i2 = 0; i2 < node.outputs.length; i2++) {
+      const output = node.outputs[i2];
+      const outputLinks = (_a = output.links) == null ? void 0 : _a.flatMap((linkId) => {
+        const link = links[linkId];
+        const targetNode = getNodeById(link.target_id);
+        if (!targetNode) {
+          return linkId;
+        }
+        if (isMapeVariableNode(targetNode)) {
+          const type = getWidgetValue(targetNode);
+          const getters = linkLookup.nodeGet[type];
+          if (!getters) {
+            return linkId;
+          }
+          return linkLookup.nodeGet[type].map((l2) => l2.id);
+        }
+        return linkId;
+      });
+      if (!output || !outputLinks) {
+        continue;
+      }
+      const notConnected = output == null || outputLinks == null || outputLinks.length == 0;
+      if (notConnected) {
+        continue;
+      }
+      for (let j2 = 0; j2 < outputLinks.length; j2++) {
+        const link_id = outputLinks[j2];
+        const link = links[link_id];
+        if (!link) {
+          continue;
+        }
+        const ignoreVisitedLink = visitedLinks[link.id];
+        if (ignoreVisitedLink) {
+          continue;
+        }
+        const targetNode = getNodeById(link.target_id);
+        if (targetNode == null) {
+          visitedLinks[link.id] = true;
+          continue;
+        }
+        visitedLinks[link.id] = true;
+        remainingLinks[targetNode.id] -= 1;
+        const noMoreLinks = remainingLinks[targetNode.id] === 0;
+        if (noMoreLinks) {
+          starterNodes.push(targetNode);
+        }
+      }
+    }
+  }
+  for (const i2 in pendingNodes) {
+    orderedList.push(pendingNodes[i2]);
+  }
+  const length = orderedList.length;
+  for (let i2 = 0; i2 < length; ++i2) {
+    orderedList[i2].order = i2;
+  }
+  orderedList = orderedList.sort((A2, B2) => {
+    const aPriority = A2.constructor.priority || A2.priority || 0;
+    const bPriority = B2.constructor.priority || B2.priority || 0;
+    if (aPriority === bPriority) {
+      return A2.order - B2.order;
+    }
+    return aPriority - bPriority;
+  });
+  for (let i2 = 0; i2 < length; ++i2) {
+    orderedList[i2].order = i2;
+  }
+  return orderedList;
+};
+const organizeWorkflow = () => {
+  const selectedNodes = calculateExecutionFlow();
+  let offset = 50;
+  for (const node of selectedNodes) {
+    node.pos = [700, offset];
+    offset += 10;
+  }
+  const minY = Math.min(...selectedNodes.map((node) => {
+    return node.pos[1];
+  }));
+  const perNodeY = getSetting(`nodeAlignOffsetY`);
+  let totalOffset = 0;
+  for (const node of selectedNodes.sort((a2, b) => {
+    return a2.pos[1] - b.pos[1];
+  })) {
+    node.pos = [node.pos[0], minY + totalOffset];
+    const sizeY = node.size[1] + perNodeY;
+    totalOffset += sizeY;
+  }
+  organizeNode(selectedNodes, false);
+  app.graph.setDirtyCanvas(true, true);
+};
+const parseSemver = (version) => {
+  const [major, minor, patch] = version.split(`.`).map(parseFloat);
+  return { major, minor, patch };
+};
+const needsUpdate = (localVersion, remoteVersion) => {
+  const local = parseSemver(localVersion);
+  const remote = parseSemver(remoteVersion);
+  if (remote.major > local.major) {
+    return true;
+  }
+  if (remote.major === local.major) {
+    if (remote.minor > local.minor) {
+      return true;
+    }
+    if (remote.minor === local.minor) {
+      if (remote.patch > local.patch) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+const style = (a2) => {
+  const stylres = document.createElement(`style`);
+  stylres.appendChild(document.createTextNode(a2));
+  return stylres;
+};
+const tweakValue = (type, value) => {
+  var _a, _b, _c;
+  for (const node of graph._nodes) {
+    if (node.type !== TYPE || getWidgetValue(node) !== type) {
+      continue;
+    }
+    if (!node.inputs[0]) {
+      continue;
+    }
+    const index = (_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.link;
+    if (index === null) {
+      continue;
+    }
+    const link = getLinkById(index);
+    if (typeof link === `undefined`) {
+      continue;
+    }
+    const refId = link.origin_id;
+    if (typeof refId === `undefined`) {
+      continue;
+    }
+    const refSlotIndex = link.origin_slot;
+    if (typeof refSlotIndex === `undefined`) {
+      continue;
+    }
+    if (!node.graph) {
+      continue;
+    }
+    const refNode = node.graph.getNodeById(refId);
+    if (typeof refNode === `undefined`) {
+      continue;
+    }
+    const refWidget = (_c = refNode.widgets) == null ? void 0 : _c[refSlotIndex];
+    if (typeof refWidget === `undefined`) {
+      continue;
+    }
+    if (refWidget.options && refWidget.options.setValue) {
+      if (typeof value === `function`) {
+        refWidget.options.setValue(value(refWidget.value));
+      } else {
+        refWidget.options.setValue(value);
+      }
+    } else {
+      if (typeof value === `function`) {
+        refWidget.value = value(refWidget.value);
+      } else {
+        refWidget.value = value;
+      }
+    }
+    app.graph.setDirtyCanvas(true, true);
+    notifyUpdate();
+  }
+};
+var _tmpl$$1 = /* @__PURE__ */ template(`<div class=warningsPopup><div class=close>❌</div><div class=header>Warnings</div><div class=modalContent><div class=mapeSettings>`), _tmpl$2$1 = /* @__PURE__ */ template(`<div class=mapeSetting><label class=name><small></small></label><button>Jump to node`);
+const Warnings = (p2) => {
+  return (() => {
+    var _el$ = _tmpl$$1(), _el$2 = _el$.firstChild, _el$3 = _el$2.nextSibling, _el$4 = _el$3.nextSibling, _el$5 = _el$4.firstChild;
+    addEventListener(_el$2, "click", p2.close, true);
+    insert(_el$5, () => p2.warnings.map((warning) => {
+      return (() => {
+        var _el$6 = _tmpl$2$1(), _el$7 = _el$6.firstChild, _el$8 = _el$7.firstChild, _el$9 = _el$7.nextSibling;
+        insert(_el$7, (() => {
+          var _c$ = createMemo(() => !!isMapeVariableNode(warning.node));
+          return () => {
+            var _a, _b;
+            return _c$() ? getWidgetValue(warning.node) : `${((_a = warning.node) == null ? void 0 : _a.title) ?? ((_b = warning.node) == null ? void 0 : _b.type)}: ${warning.type}`;
+          };
+        })(), _el$8);
+        insert(_el$8, () => warning.text);
+        _el$9.$$click = () => {
+          jumpToNode(warning.node);
+        };
+        return _el$6;
+      })();
+    }));
+    return _el$;
+  })();
+};
+delegateEvents(["click"]);
+var _tmpl$ = /* @__PURE__ */ template(`<div class="tweak numberWrapper"><label></label><div class=value><input type=number step=1>`), _tmpl$2 = /* @__PURE__ */ template(`<div class="tweak numberWrapper"><label></label><div class=value><input type=number step=0.1>`), _tmpl$3 = /* @__PURE__ */ template(`<div class="tweak stringContainer"><label class=interactable></label><div class=value>`), _tmpl$4 = /* @__PURE__ */ template(`<div class=moveBar><div class=moveArea><div class=name></div></div><div class=toggleFloating>📌`), _tmpl$5 = /* @__PURE__ */ template(`<textarea>`), _tmpl$6 = /* @__PURE__ */ template(`<input type=text>`), _tmpl$7 = /* @__PURE__ */ template(`<div class="tweak imageContainer"><label>`), _tmpl$8 = /* @__PURE__ */ template(`<div class=thumbnails>`), _tmpl$9 = /* @__PURE__ */ template(`<img class=fullImage>`), _tmpl$10 = /* @__PURE__ */ template(`<div class=thumb><img class=smallImage>`), _tmpl$11 = /* @__PURE__ */ template(`<div class=missing>`), _tmpl$12 = /* @__PURE__ */ template(`<div class=value>`), _tmpl$13 = /* @__PURE__ */ template(`<div class=missingImage>?`), _tmpl$14 = /* @__PURE__ */ template(`<div class=image>`), _tmpl$15 = /* @__PURE__ */ template(`<div class="tweak defaultContainer"><label>`), _tmpl$16 = /* @__PURE__ */ template(`<div class=mapeRoot><div class=mapeBar><div class=logo title=https://twitter.com/mape></div><div class=tweaks></div><div class=options><div class=groupToggle title="Toggle groups"><span>🚦</span></div><div class="warnings interact"title="Organize workflow (Hold Shift-key to skip prompt)">✨</div><div class="warnings interact">💥</div><div class="warnings interact">🩹</div><div class="imagePreview interact"title="Open separate window for image previews">🖥️<small>🎨</small></div><div class="clear interact"title="Clear favourites">❌</div><div class="settings interact"title=Settings>⚙️</div><div class="help interact"title=Help>❔</div></div></div><div class=mapeBarToggle title="Toggle bar"></div><div>`), _tmpl$17 = /* @__PURE__ */ template(`<div class=tweakHighlight>`), _tmpl$18 = /* @__PURE__ */ template(`<div class="warnings blink interact"title="Show potentially broken nodes">⚠️`), _tmpl$19 = /* @__PURE__ */ template(`<div class="warnings blink interact">🆕`), _tmpl$20 = /* @__PURE__ */ template(`<div class=groups>`), _tmpl$21 = /* @__PURE__ */ template(`<div class=group><span class=groupName>No groups in workflow`), _tmpl$22 = /* @__PURE__ */ template(`<div class=group><span class=groupName></span><input type=checkbox>`);
+const MapeTweak = () => {
+  const [hidden, setHidden] = createSignal(!!localStorage.mape_toggleBar);
+  createEffect(() => {
+    if (hidden()) {
+      localStorage.mape_toggleBar = true;
+    } else {
+      delete localStorage.mape_toggleBar;
+    }
+  });
+  const [imagePreviewWindows, setImagePreviewWindows] = createSignal([]);
+  const [tweaks, setTweaks] = createStore({});
+  const [forcedOpen, setForcedOpen] = createStore({});
+  const [floatingMeta, setFloatingMeta] = createStore({});
+  const updatePositionFromLocalStorage = () => {
+    const maxY = window.innerHeight - 200;
+    const maxX = window.innerWidth - 200;
+    try {
+      for (const key of Object.keys(localStorage)) {
+        if (key.match(new RegExp(TWEAK_FLOATING))) {
+          const value = localStorage[key];
+          const id = key.replace(TWEAK_FLOATING, ``);
+          const floatMeta = JSON.parse(value);
+          floatMeta.position.x = Math.min(maxX, floatMeta.position.x);
+          floatMeta.position.y = Math.min(maxY, floatMeta.position.y);
+          setFloatingMeta(id, floatMeta);
+        }
+      }
+    } catch {
+    }
+  };
+  updatePositionFromLocalStorage();
+  createEffect(() => {
+    for (const [key, pos] of Object.entries(floatingMeta)) {
+      localStorage[`${TWEAK_FLOATING}${key}`] = JSON.stringify(pos);
+    }
+  });
+  const [warningNodes, setWarningNodes] = createSignal([]);
+  const [showHelp, setShowHelp] = createSignal(false);
+  const [showSettings, setShowSettings] = createSignal(false);
+  const [showWarnings, setShowWarnings] = createSignal(false);
+  const [showUpdate, setShowUpdate] = createSignal(``);
+  const [showGroups, setShowGroups] = createSignal(!!localStorage[PREFIX_GROUP]);
+  createEffect(() => {
+    if (showGroups()) {
+      updateGroups();
+      localStorage[PREFIX_GROUP] = `1`;
+    } else {
+      delete localStorage[PREFIX_GROUP];
+    }
+  });
+  const [groups, setGroups] = createStore([]);
+  const checkGetters = () => {
+    const broken = [];
+    const setters = {};
+    const nodes = getNodes$1().filter(isMapeVariableNode);
+    for (const node of nodes.filter(isNodeSetter)) {
+      const widgetValue = getWidgetValue(node);
+      if (!setters[widgetValue]) {
+        setters[widgetValue] = 0;
+      }
+      setters[widgetValue] += 1;
+      const linkedNode = getNodeInputLinkNode(node);
+      if (linkedNode && isMapeVariableNode(linkedNode)) {
+        const linkedWidgetValue = getWidgetValue(linkedNode);
+        if (widgetValue === linkedWidgetValue) {
+          broken.push({
+            node,
+            text: `Can't point a set to a get of itself`
+          });
+        }
+      }
+    }
+    for (const node of nodes.filter(isNodeGetter)) {
+      const value = getWidgetValue(node);
+      if (value && typeof setters[value] === `undefined`) {
+        broken.push({
+          node,
+          text: `Missing set node`
+        });
+      }
+    }
+    for (const node of nodes.filter(isNodeSetter)) {
+      const value = getWidgetValue(node);
+      if (setters[value] && setters[value] > 1) {
+        broken.push({
+          text: `Can't have multiple set nodes of the same name`,
+          node
+        });
+      }
+    }
+    setWarningNodes([...window.mapeErrors ?? [], ...broken]);
+  };
+  createEffect(() => {
+    if (warningNodes().length === 0) {
+      setShowWarnings(false);
+    }
+  });
+  const getCheckerInterval = setInterval(checkGetters, 1e3);
+  onCleanup(() => {
+    clearInterval(getCheckerInterval);
+  });
+  const update = () => {
+    setTweaks(reconcile(Object.fromEntries(Object.entries(localStorage).filter(([key]) => key.startsWith(PREFIX)).map(([key, type]) => {
+      const name = key.replace(PREFIX, ``);
+      const [value, _id, pinId] = getTweakValue(name);
+      const node = getNodeById(pinId);
+      if (!node) {
+        return null;
+      }
+      const pos = (node == null ? void 0 : node.pos) ? [node == null ? void 0 : node.pos[0], node == null ? void 0 : node.pos[1]] : [Number.MIN_SAFE_INTEGER, Number.MIN_SAFE_INTEGER];
+      return [name, {
+        name,
+        type,
+        value,
+        pos
+      }];
+    }).filter(Boolean))));
+    localStorage[localStoragePreviewImagesKey] = JSON.stringify(Object.fromEntries(Object.entries(tweaks).filter(([, tweak]) => tweak.type === `IMAGE`)));
+    updateGroups();
+  };
+  const updateGroups = () => {
+    const rawGroups = getGroups();
+    setGroups(getGroups().sort(distanceSortGeneric(rawGroups, `id`, `pos`)).map((group) => {
+      group.recomputeInsideNodes();
+      return group;
+    }).map((group) => ({
+      title: group.title,
+      enabled: !!group._nodes.filter((n2) => !isMapeVariableNode(n2)).find((n2) => n2.mode !== 4),
+      group
+    })));
+  };
+  onMount(update);
+  onMount(async () => {
+    const res = await fetch(`https://comfyui.ma.pe/VERSION?c=${Date.now()}`);
+    const remoteVersion = (await res.text()).trim();
+    if (needsUpdate("0.5.0", remoteVersion)) {
+      setShowUpdate(`New version ${remoteVersion} is available.`);
+    }
+  });
+  window.addEventListener(`mapeTweak`, (e2) => {
+    var _a;
+    update();
+    if (((_a = e2.detail) == null ? void 0 : _a.message) === `rename`) {
+      updatePositionFromLocalStorage();
+    }
+  });
+  const valueWidth = (value) => {
+    const px = (value ?? 0).toString().length * 6 + 35;
+    return `${Math.max(55, px)}px`;
+  };
+  const renderType = {
+    INT: (tweak) => {
+      return (() => {
+        var _el$ = _tmpl$(), _el$2 = _el$.firstChild, _el$3 = _el$2.nextSibling, _el$4 = _el$3.firstChild;
+        _el$.addEventListener("wheel", (e2) => {
+          const diff = e2.deltaY > 0 ? -1 : 1;
+          tweakValue(tweak.name, (value) => value + diff);
+        });
+        _el$.$$click = (e2) => {
+          if (e2.shiftKey) {
+            return jumpToNodeByType(tweak.name);
+          }
+        };
+        insert(_el$2, () => tweak.name);
+        _el$4.$$input = (e2) => {
+          const value = parseInt(e2.currentTarget.value, 10);
+          setTweaks(tweak.name, `value`, value);
+          tweakValue(tweak.name, value);
+        };
+        createRenderEffect(() => valueWidth(tweak.value) != null ? _el$3.style.setProperty("width", valueWidth(tweak.value)) : _el$3.style.removeProperty("width"));
+        createRenderEffect(() => _el$4.value = tweak.value);
+        return _el$;
+      })();
+    },
+    FLOAT: (tweak) => {
+      const fixFloat = (num) => typeof num !== `undefined` ? parseFloat(parseFloat(num.toString()).toFixed(3)) : 0;
+      return (() => {
+        var _el$5 = _tmpl$2(), _el$6 = _el$5.firstChild, _el$7 = _el$6.nextSibling, _el$8 = _el$7.firstChild;
+        _el$5.addEventListener("wheel", (e2) => {
+          const diff = e2.deltaY > 0 ? -0.1 : 0.1;
+          tweakValue(tweak.name, tweak.value + diff);
+        });
+        _el$5.$$click = (e2) => {
+          if (e2.shiftKey) {
+            return jumpToNodeByType(tweak.name);
+          }
+        };
+        insert(_el$6, () => tweak.name);
+        _el$8.$$input = (e2) => {
+          const value = parseFloat(e2.currentTarget.value);
+          setTweaks(tweak.name, `value`, value);
+          tweakValue(tweak.name, value);
+        };
+        createRenderEffect(() => valueWidth(fixFloat(tweak.value)) != null ? _el$7.style.setProperty("width", valueWidth(fixFloat(tweak.value))) : _el$7.style.removeProperty("width"));
+        createRenderEffect(() => _el$8.value = fixFloat(tweak.value));
+        return _el$5;
+      })();
+    },
+    STRING: (tweak) => {
+      const [focused, setFocused] = createSignal(forcedOpen[tweak.name] ?? false);
+      const onInput = (e2) => {
+        const value = e2.currentTarget.value;
+        setTweaks(tweak.name, `value`, value);
+        tweakValue(tweak.name, value);
+      };
+      let textareaEl;
+      onMount(() => {
+        if (!textareaEl) {
+          return;
+        }
+      });
+      let resizeTimeout;
+      createEffect(() => {
+        if (!floatingMeta[tweak.name]) {
+          return;
+        }
+        if (!textareaEl) {
+          return;
+        }
+        const outputsize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            if (!floatingMeta[tweak.name]) {
+              return;
+            }
+            setFloatingMeta(tweak.name, `height`, textareaEl.offsetHeight);
+          }, 100);
+        };
+        new MutationObserver(outputsize).observe(textareaEl, {
+          attributes: true,
+          attributeFilter: [`style`]
+        });
+      });
+      return (() => {
+        var _el$9 = _tmpl$3(), _el$10 = _el$9.firstChild, _el$11 = _el$10.nextSibling;
+        _el$10.$$click = (e2) => {
+          if (e2.shiftKey) {
+            return jumpToNodeByType(tweak.name);
+          }
+          setFocused(!focused());
+        };
+        insert(_el$10, () => tweak.name);
+        insert(_el$11, (() => {
+          var _c$ = createMemo(() => !!(focused() || !!floatingMeta[tweak.name]));
+          return () => _c$() ? [(() => {
+            var _el$12 = _tmpl$4(), _el$13 = _el$12.firstChild, _el$14 = _el$13.firstChild, _el$15 = _el$13.nextSibling;
+            _el$13.$$mousedown = (e2) => {
+              const startMouse = {
+                x: e2.clientX,
+                y: e2.clientY
+              };
+              const startPos = jsonClone(floatingMeta[tweak.name].position);
+              const handleMouseMove = (e22) => {
+                const current = {
+                  x: e22.clientX,
+                  y: e22.clientY
+                };
+                const delta = {
+                  x: current.x - startMouse.x,
+                  y: current.y - startMouse.y
+                };
+                setFloatingMeta(tweak.name, `position`, {
+                  x: startPos.x + delta.x,
+                  y: startPos.y + delta.y
+                });
+              };
+              const handleMouseUp = () => {
+                document.removeEventListener(`mousemove`, handleMouseMove);
+                document.removeEventListener(`mouseup`, handleMouseUp);
+              };
+              document.addEventListener(`mousemove`, handleMouseMove);
+              document.addEventListener(`mouseup`, handleMouseUp);
+            };
+            insert(_el$14, () => tweak.name);
+            _el$15.$$click = () => {
+              if (floatingMeta[tweak.name]) {
+                setFloatingMeta(tweak.name, void 0);
+                delete localStorage[`${TWEAK_FLOATING}${tweak.name}`];
+                setFocused(false);
+              } else {
+                setFloatingMeta(tweak.name, {
+                  position: {
+                    x: 10,
+                    y: 40
+                  },
+                  height: 60
+                });
+              }
+            };
+            createRenderEffect(() => setAttribute(_el$15, "title", floatingMeta[tweak.name] ? `Pin the window to top bar` : `Unpin the window`));
+            return _el$12;
+          })(), (() => {
+            var _el$16 = _tmpl$5();
+            _el$16.$$input = onInput;
+            var _ref$ = textareaEl;
+            typeof _ref$ === "function" ? use(_ref$, _el$16) : textareaEl = _el$16;
+            createRenderEffect((_$p) => style$1(_el$16, floatingMeta[tweak.name] ? {
+              height: `${floatingMeta[tweak.name].height}px`
+            } : {}, _$p));
+            createRenderEffect(() => _el$16.value = tweak.value);
+            return _el$16;
+          })(), createComponent(PromptTweaker, {
+            get prompt() {
+              return tweak.value;
+            },
+            update: (prompt2) => {
+              tweakValue(tweak.name, prompt2);
+            }
+          })] : (() => {
+            var _el$17 = _tmpl$6();
+            _el$17.$$input = onInput;
+            _el$17.addEventListener("focus", () => {
+              setFocused(true);
+            });
+            createRenderEffect(() => _el$17.value = tweak.value);
+            return _el$17;
+          })();
+        })());
+        createRenderEffect((_p$) => {
+          var _v$ = !!(focused() || !!floatingMeta[tweak.name]), _v$2 = !!floatingMeta[tweak.name], _v$3 = floatingMeta[tweak.name] ? {
+            position: `fixed`,
+            top: `${floatingMeta[tweak.name].position.y}px`,
+            left: `${floatingMeta[tweak.name].position.x}px`
+          } : {};
+          _v$ !== _p$.e && _el$9.classList.toggle("focused", _p$.e = _v$);
+          _v$2 !== _p$.t && _el$9.classList.toggle("floating", _p$.t = _v$2);
+          _p$.a = style$1(_el$9, _v$3, _p$.a);
+          return _p$;
+        }, {
+          e: void 0,
+          t: void 0,
+          a: void 0
+        });
+        return _el$9;
+      })();
+    },
+    IMAGE: (tweak) => {
+      const [focused, setFocused] = createSignal(false);
+      const [selectedIndex, setSelectedIndex] = createSignal(0);
+      createEffect(() => {
+        const menuEl = document.querySelector(`.comfy-menu`);
+        if (!menuEl) {
+          return;
+        }
+        if (focused()) {
+          menuEl.style.display = `none`;
+        } else {
+          menuEl.style.display = `block`;
+        }
+      });
+      const cacheKey = () => `mape_tweak_image_cache_${tweak.name}`;
+      createEffect(() => {
+        if (tweak.value) {
+          sessionStorage[cacheKey()] = JSON.stringify(tweak.value);
+        }
+      });
+      const helpText = () => `Connect "${tweak.name}" variable to a Preview Image node or Regenerate the image`;
+      const value = () => tweak.value ?? (sessionStorage[cacheKey()] ? JSON.parse(sessionStorage[cacheKey()]) : void 0);
+      return (() => {
+        var _el$18 = _tmpl$7(), _el$19 = _el$18.firstChild;
+        _el$18.$$click = (e2) => {
+          if (e2.shiftKey) {
+            return jumpToNodeByType(tweak.name);
+          }
+          if (e2.target.tagName === `IMG` || e2.target.className === `thumbnails` || e2.target.className === `thumb`) {
+            return;
+          }
+          setFocused(!focused());
+          if (!focused()) {
+            setSelectedIndex(0);
+          }
+        };
+        insert(_el$19, () => tweak.name);
+        insert(_el$18, (() => {
+          var _c$2 = createMemo(() => !!focused());
+          return () => _c$2() ? (() => {
+            var _c$3 = createMemo(() => !!value());
+            return () => _c$3() ? [(() => {
+              var _el$20 = _tmpl$8();
+              insert(_el$20, () => (value() ?? []).map((image, i2) => {
+                return (() => {
+                  var _el$22 = _tmpl$10(), _el$23 = _el$22.firstChild;
+                  _el$22.$$click = () => {
+                    setSelectedIndex(i2);
+                  };
+                  createRenderEffect(() => setAttribute(_el$23, "src", comfyImageSrc(image)));
+                  return _el$22;
+                })();
+              }));
+              return _el$20;
+            })(), (() => {
+              var _el$21 = _tmpl$9();
+              createRenderEffect(() => {
+                var _a;
+                return setAttribute(_el$21, "src", comfyImageSrc((_a = value()) == null ? void 0 : _a[selectedIndex()]));
+              });
+              return _el$21;
+            })()] : (() => {
+              var _el$24 = _tmpl$11();
+              insert(_el$24, helpText);
+              return _el$24;
+            })();
+          })() : (() => {
+            var _el$25 = _tmpl$12();
+            insert(_el$25, (() => {
+              var _c$4 = createMemo(() => !!value());
+              return () => _c$4() ? `` : (() => {
+                var _el$26 = _tmpl$13();
+                createRenderEffect(() => setAttribute(_el$26, "title", helpText()));
+                return _el$26;
+              })();
+            })(), null);
+            insert(_el$25, () => (value() ?? []).map((image) => {
+              const backgroundImage = `url("${comfyImageSrc(image)}")`;
+              return (() => {
+                var _el$27 = _tmpl$14();
+                backgroundImage != null ? _el$27.style.setProperty("background-image", backgroundImage) : _el$27.style.removeProperty("background-image");
+                return _el$27;
+              })();
+            }), null);
+            return _el$25;
+          })();
+        })(), null);
+        createRenderEffect((_p$) => {
+          var _v$4 = !!focused(), _v$5 = !!((value() ?? []).length > 1);
+          _v$4 !== _p$.e && _el$18.classList.toggle("focused", _p$.e = _v$4);
+          _v$5 !== _p$.t && _el$18.classList.toggle("hasMultiple", _p$.t = _v$5);
+          return _p$;
+        }, {
+          e: void 0,
+          t: void 0
+        });
+        return _el$18;
+      })();
+    },
+    DEFAULT: (tweak) => {
+      return (() => {
+        var _el$28 = _tmpl$15(), _el$29 = _el$28.firstChild;
+        _el$28.$$click = (e2) => {
+          if (e2.shiftKey) {
+            return jumpToNodeByType(tweak.name);
+          }
+        };
+        insert(_el$29, () => tweak.name);
+        createRenderEffect(() => setAttribute(_el$28, "title", JSON.stringify(tweak, null, `  `)));
+        return _el$28;
+      })();
+    }
+  };
+  const [dynamicHotkeys, setHotKeys] = createSignal([]);
+  const {
+    open
+  } = createNinjaKeys();
+  onMount(() => {
+    const ninjaEl = document.querySelector(`ninja-keys`);
+    if (!ninjaEl) {
+      return;
+    }
+    ninjaEl.shadowRoot.appendChild(style(`
 			* {
 				will-change: unset !important;
 				&::-webkit-scrollbar {
@@ -14,7 +7876,150 @@ const ds="modulepreload",fs=function(e){return"/extensions/ComfyUI-Mape-Helpers/
 					border-radius: 10px;
 				}
 			}
-			`))});const q=g=>{if(g.key==="P"&&g.shiftKey){if(ro())return;E(),K([...He().filter(y=>{var A,O;return y.type!=="mape Variable"||y.type==="mape Variable"&&((O=(A=y.inputs)==null?void 0:A[0])==null?void 0:O.type)!=="*"}).map(y=>y.type==="mape Variable"?{id:y.id,title:`Jump to variable: ${Y(y)??y.title??y.type} (${y.id})`,mdIcon:"timeline",handler:()=>{_o(y.id)}}:{id:y.id,title:`Jump to node: ${y.title??y.type} (${y.id}) ${y.widgets_values&&Array.isArray(y.widgets_values)?` - ${y.widgets_values.join(", ")}`:""}`.slice(0,90),mdIcon:"circle",handler:()=>{_o(y.id)}}),...fn().map(y=>({title:`Jump to group: ${y.title}`,mdIcon:"workspaces",handler:()=>{pa(y.title)}}))])}},J=[],[W,U]=ne({1:!1,2:!1,3:!1,4:!1,5:!1,6:!1,7:!1,8:!1,9:!1}),M=g=>Object.fromEntries(Object.keys(W()).map((y,A)=>[y,g===A]));Qe(()=>{document.body.addEventListener("keydown",q);for(const g of[1,2,3,4,5,6,7,8,9])for(const y of["up","down"]){const A=`${g}+${y}`;ge(A,()=>{if(ro())return;const O=T()[g-1];if(!O)return;const I=O.type;if(I==="INT"){const N=y==="up"?1:-1;qe(O.name,O.value+N)}if(I==="FLOAT"){const N=y==="up"?.1:-.1;qe(O.name,O.value+N)}}),J.push(()=>{ge.unbind(A)})}});const Q=g=>{if(ro())return;const y=g.key.match(/^\d+$/);if(y){const A=T()[parseInt(y[0],10)-1];if(!A)return;A.type==="STRING"?s(A.name,!i[A.name]):U(M(parseFloat(g.key)-1))}},Z=g=>{g.key.match(/^\d+$/)&&U(M(-1))};document.body.addEventListener("keypress",Q),document.body.addEventListener("keyup",Z),Vt(()=>{document.body.addEventListener("keydown",q);for(const g of J)g();document.body.removeEventListener("keypress",Q),document.body.removeEventListener("keyup",Z)});const[de,ke]=ne([]);window.setPrompt=(g,y,A,O)=>{const I=Math.random(),N=()=>{ke(de().filter(P=>P.id!==I))};ke([...de(),{callback:P=>(A(P),N(),setTimeout(()=>{app.graph.setDirtyCanvas(!0,!0)}),!0),exit:()=>{N()},position:{x:y[0],y:y[1]},title:g,id:I,fallback:O}])};const Ee=le(()=>Object.values(W()).filter(Boolean).length>0),T=le(()=>Object.values(n).sort(Ei(n))),oe=()=>{const g=window.open("","_blank","width=1280,height=720,location=no,toolbar=no,menubar=no");if(g.document.write(`
+			`));
+  });
+  const handleKeyPress = (e2) => {
+    if (e2.key === `P` && e2.shiftKey) {
+      if (focusingInput()) {
+        return;
+      }
+      open();
+      setHotKeys([...getNodes$1().filter((node) => {
+        var _a, _b;
+        return node.type !== `mape Variable` || node.type === `mape Variable` && ((_b = (_a = node.inputs) == null ? void 0 : _a[0]) == null ? void 0 : _b.type) !== `*`;
+      }).map((node) => {
+        return node.type === `mape Variable` ? {
+          id: node.id,
+          title: `Jump to variable: ${getWidgetValue(node) ?? node.title ?? node.type} (${node.id})`,
+          mdIcon: `timeline`,
+          handler: () => {
+            jumpToNodeId(node.id);
+          }
+        } : {
+          id: node.id,
+          title: `Jump to node: ${node.title ?? node.type} (${node.id}) ${node.widgets_values && Array.isArray(node.widgets_values) ? ` - ${node.widgets_values.join(`, `)}` : ``}`.slice(0, 90),
+          mdIcon: `circle`,
+          handler: () => {
+            jumpToNodeId(node.id);
+          }
+        };
+      }), ...getGroups().map((group) => ({
+        title: `Jump to group: ${group.title}`,
+        mdIcon: `workspaces`,
+        handler: () => {
+          jumpToGroupTitle(group.title);
+        }
+      }))]);
+    }
+  };
+  const bindCleanups = [];
+  const [highlights, setHighlights] = createSignal({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false
+  });
+  const newHighlight = (i2) => Object.fromEntries(Object.keys(highlights()).map((k2, u3) => [k2, i2 === u3]));
+  onMount(() => {
+    document.body.addEventListener(`keydown`, handleKeyPress);
+    for (const index of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      for (const direction of [`up`, `down`]) {
+        const hotkeyString = `${index}+${direction}`;
+        hotkeys(hotkeyString, () => {
+          if (focusingInput()) {
+            return;
+          }
+          const tweaker = allTweakers()[index - 1];
+          if (!tweaker) {
+            return;
+          }
+          const type = tweaker.type;
+          if (type === `INT`) {
+            const diff = direction === `up` ? 1 : -1;
+            tweakValue(tweaker.name, tweaker.value + diff);
+          }
+          if (type === `FLOAT`) {
+            const diff = direction === `up` ? 0.1 : -0.1;
+            tweakValue(tweaker.name, tweaker.value + diff);
+          }
+        });
+        bindCleanups.push(() => {
+          hotkeys.unbind(hotkeyString);
+        });
+      }
+    }
+  });
+  const handleKeypressHighlight = (e2) => {
+    if (focusingInput()) {
+      return;
+    }
+    const index = e2.key.match(/^\d+$/);
+    if (index) {
+      const tweaker = allTweakers()[parseInt(index[0], 10) - 1];
+      if (!tweaker) {
+        return;
+      }
+      if (tweaker.type === `STRING`) {
+        setForcedOpen(tweaker.name, !forcedOpen[tweaker.name]);
+      } else {
+        setHighlights(newHighlight(parseFloat(e2.key) - 1));
+      }
+    }
+  };
+  const handleKeyupHighlight = (e2) => {
+    if (e2.key.match(/^\d+$/)) {
+      setHighlights(newHighlight(-1));
+    }
+  };
+  document.body.addEventListener(`keypress`, handleKeypressHighlight);
+  document.body.addEventListener(`keyup`, handleKeyupHighlight);
+  onCleanup(() => {
+    document.body.addEventListener(`keydown`, handleKeyPress);
+    for (const cb of bindCleanups)
+      cb();
+    document.body.removeEventListener(`keypress`, handleKeypressHighlight);
+    document.body.removeEventListener(`keyup`, handleKeyupHighlight);
+  });
+  const [prompts, setPrompts] = createSignal([]);
+  window.setPrompt = (title, position, callback, fallback, type) => {
+    const id = Math.random();
+    const remove = () => {
+      setPrompts(prompts().filter((p2) => p2.id !== id));
+    };
+    setPrompts([...prompts(), {
+      callback: (value) => {
+        callback(value);
+        remove();
+        setTimeout(() => {
+          app.graph.setDirtyCanvas(true, true);
+        });
+        return true;
+      },
+      exit: () => {
+        remove();
+      },
+      position: {
+        x: position[0],
+        y: position[1]
+      },
+      title,
+      id,
+      fallback,
+      type
+    }]);
+  };
+  const highlightActive = createMemo(() => {
+    return Object.values(highlights()).filter(Boolean).length > 0;
+  });
+  const allTweakers = createMemo(() => Object.values(tweaks).sort(distanceSort(tweaks)));
+  const openImageWindow = () => {
+    const newWindow = window.open(``, `_blank`, `width=1280,height=720,location=no,toolbar=no,menubar=no`);
+    newWindow.document.write(`
 		<!DOCTYPE html>
 		<html lang="en">
 			<head>
@@ -24,17 +8029,242 @@ const ds="modulepreload",fs=function(e){return"/extensions/ComfyUI-Mape-Helpers/
 			<body>
 				<script>
 					window.standaloneImagePreview = true;
-					import('/extensions/ComfyUI-mape-Helpers/tweak/mape-helpers.js');
+					import('${`/extensions/ComfyUI-mape-Helpers/tweak/mape-helpers.js`}');
 				<\/script>
 			</body>
 		</html>
-		`),g){let y=!0;g.addEventListener("unload",()=>{if(y){y=!1;return}t([...e().filter(A=>A!==g)])}),t([...e(),g])}else console.error("Failed to open a new window.")};return window.showWarnings=(g=!0)=>{w(g)},(()=>{var g=Ha(),y=g.firstChild,A=y.firstChild,O=A.nextSibling,I=O.nextSibling,N=I.firstChild,P=N.firstChild,G=N.nextSibling,ee=G.nextSibling,ce=ee.nextSibling,X=ce.nextSibling,re=X.nextSibling,ie=re.nextSibling,xe=ie.nextSibling,Ce=y.nextSibling;return A.$$click=R,L(O,Ae(ki,{get each(){return T()},children:(D,fe)=>(()=>{var pe=za();return L(pe,(()=>{var Se=le(()=>!!(C[D.type]&&typeof D.value<"u"));return()=>Se()?C[D.type](D):C.DEFAULT(D)})()),F(Se=>{var Me=!!W()[fe()+1],ze=!!Ee();return Me!==Se.e&&pe.classList.toggle("active",Se.e=Me),ze!==Se.t&&pe.classList.toggle("siblingActive",Se.t=ze),Se},{e:void 0,t:void 0}),pe})()})),L(I,(()=>{var D=le(()=>u().length>0);return()=>D()?(()=>{var fe=Da();return fe.$$click=()=>{w(!m())},fe})():null})(),N),L(I,(()=>{var D=le(()=>!!$());return()=>D()?(()=>{var fe=Fa();return fe.$$click=()=>{b("")},F(()=>he(fe,"title",$())),fe})():null})(),N),P.$$click=()=>{k(!_())},L(N,(()=>{var D=le(()=>!!_());return()=>D()?(()=>{var fe=Ba();return L(fe,(()=>{var pe=le(()=>x.length===0);return()=>pe()?Ua():null})(),null),L(fe,()=>x.map((pe,Se)=>(()=>{var Me=Ga(),ze=Me.firstChild,lt=ze.nextSibling;return Me.$$click=us=>{if(us.shiftKey){ha(pe.group);return}j(Se,"enabled",!x[Se].enabled);const Lo=pe.group;if(!Lo)return;const Mo=Lo._nodes.filter(Mt=>!se(Mt));if(x[Se].enabled)for(const Mt of Mo)Mt.mode=0;else for(const Mt of Mo)Mt.mode=4;app.graph.setDirtyCanvas(!0,!0)},L(ze,()=>pe.title),F(()=>he(ze,"title",pe.title.length>50?pe.title:"")),F(()=>lt.checked=x[Se].enabled),Me})()),null),fe})():null})(),null),G.$$click=D=>{(D.shiftKey||confirm("Do you want to organize workflow?"))&&va()},ee.$$click=D=>{(te("ignorePromptForExplodeHeal")||D.shiftKey||confirm("Do you want to convert all links to set/get nodes?"))&&Po()},ce.$$click=D=>{(te("ignorePromptForExplodeHeal")||D.shiftKey||confirm(`Do you want to convert all set/get nodes to connections?
-This is finicky with PrimitiveNodes...`))&&Co()},X.$$click=()=>{oe()},re.$$click=()=>{if(confirm("Clear all favourites?")){for(const D of Object.keys(localStorage))if(D.startsWith(cn)){const fe=D.replace(cn,"");for(const pe of yn(fe,"set"))Te(pe,!1,1);delete localStorage[D]}R()}},ie.$$click=()=>{f(!d()),d()&&h(!1)},xe.$$click=()=>{h(!p()),p()&&f(!1)},Ce.style.setProperty("--ninja-font-family","Arial"),Ce.style.setProperty("position","relative"),Ce.style.setProperty("z-index","10000000"),L(Ce,Ae(wl,{isDark:!0,get hotkeys(){return B()}})),L(g,()=>de().map(D=>Ae(ua,D)),null),L(g,(()=>{var D=le(()=>!!d());return()=>D()?Ae(kr,{close:()=>{f(!1)}}):null})(),null),L(g,(()=>{var D=le(()=>!!p());return()=>D()?Ae(sa,{close:()=>{h(!1)}}):null})(),null),L(g,(()=>{var D=le(()=>!!m());return()=>D()?Ae(ba,{get warnings(){return u()},close:()=>{window.mapeErrors=[],w(!1)}}):null})(),null),F(D=>{var fe=`Convert links to set/get ${te("ignorePromptForExplodeHeal")?"":"(Hold Shift-key to skip prompt)"}`,pe=`Convert set/get to links ${te("ignorePromptForExplodeHeal")?"":"(Hold Shift-key to skip prompt)"}`;return fe!==D.e&&he(ee,"title",D.e=fe),pe!==D.t&&he(ce,"title",D.t=pe),D},{e:void 0,t:void 0}),g})()};yt(["click","input","mousedown"]);const Wa=Object.freeze(Object.defineProperty({__proto__:null,MapeTweak:Ka},Symbol.toStringTag,{value:"Module"}));
+		`);
+    if (newWindow) {
+      let first = true;
+      newWindow.addEventListener(`unload`, () => {
+        if (first) {
+          first = false;
+          return;
+        }
+        setImagePreviewWindows([...imagePreviewWindows().filter((w2) => w2 !== newWindow)]);
+      });
+      setImagePreviewWindows([...imagePreviewWindows(), newWindow]);
+    } else {
+      console.error(`Failed to open a new window.`);
+    }
+  };
+  window.showWarnings = (enabled = true) => {
+    setShowWarnings(enabled);
+  };
+  return (() => {
+    var _el$30 = _tmpl$16(), _el$31 = _el$30.firstChild, _el$32 = _el$31.firstChild, _el$33 = _el$32.nextSibling, _el$34 = _el$33.nextSibling, _el$35 = _el$34.firstChild, _el$36 = _el$35.firstChild, _el$37 = _el$35.nextSibling, _el$38 = _el$37.nextSibling, _el$39 = _el$38.nextSibling, _el$40 = _el$39.nextSibling, _el$41 = _el$40.nextSibling, _el$42 = _el$41.nextSibling, _el$43 = _el$42.nextSibling, _el$44 = _el$31.nextSibling, _el$45 = _el$44.nextSibling;
+    _el$32.$$click = update;
+    insert(_el$33, createComponent(For, {
+      get each() {
+        return allTweakers();
+      },
+      children: (tweak, i2) => (() => {
+        var _el$46 = _tmpl$17();
+        insert(_el$46, (() => {
+          var _c$11 = createMemo(() => !!(renderType[tweak.type] && typeof tweak.value !== `undefined`));
+          return () => _c$11() ? renderType[tweak.type](tweak) : renderType.DEFAULT(tweak);
+        })());
+        createRenderEffect((_p$) => {
+          var _v$10 = !!highlights()[i2() + 1], _v$11 = !!highlightActive();
+          _v$10 !== _p$.e && _el$46.classList.toggle("active", _p$.e = _v$10);
+          _v$11 !== _p$.t && _el$46.classList.toggle("siblingActive", _p$.t = _v$11);
+          return _p$;
+        }, {
+          e: void 0,
+          t: void 0
+        });
+        return _el$46;
+      })()
+    }));
+    insert(_el$34, (() => {
+      var _c$5 = createMemo(() => warningNodes().length > 0);
+      return () => _c$5() ? (() => {
+        var _el$47 = _tmpl$18();
+        _el$47.$$click = () => {
+          setShowWarnings(!showWarnings());
+        };
+        return _el$47;
+      })() : null;
+    })(), _el$35);
+    insert(_el$34, (() => {
+      var _c$6 = createMemo(() => !!showUpdate());
+      return () => _c$6() ? (() => {
+        var _el$48 = _tmpl$19();
+        _el$48.$$click = () => {
+          setShowUpdate(``);
+        };
+        createRenderEffect(() => setAttribute(_el$48, "title", showUpdate()));
+        return _el$48;
+      })() : null;
+    })(), _el$35);
+    _el$36.$$click = () => {
+      setShowGroups(!showGroups());
+    };
+    insert(_el$35, (() => {
+      var _c$7 = createMemo(() => !!showGroups());
+      return () => _c$7() ? (() => {
+        var _el$49 = _tmpl$20();
+        insert(_el$49, (() => {
+          var _c$12 = createMemo(() => groups.length === 0);
+          return () => _c$12() ? _tmpl$21() : null;
+        })(), null);
+        insert(_el$49, () => groups.map((group, i2) => {
+          return (() => {
+            var _el$51 = _tmpl$22(), _el$52 = _el$51.firstChild, _el$53 = _el$52.nextSibling;
+            _el$51.$$click = (e2) => {
+              if (e2.shiftKey) {
+                jumpToGroup(group.group);
+                return;
+              }
+              setGroups(i2, `enabled`, !groups[i2].enabled);
+              const gg = group.group;
+              if (!gg) {
+                return;
+              }
+              const nodes = gg._nodes.filter((n2) => !isMapeVariableNode(n2));
+              if (groups[i2].enabled) {
+                for (const node of nodes) {
+                  node.mode = 0;
+                }
+              } else {
+                for (const node of nodes) {
+                  node.mode = 4;
+                }
+              }
+              app.graph.setDirtyCanvas(true, true);
+            };
+            insert(_el$52, () => group.title);
+            createRenderEffect(() => setAttribute(_el$52, "title", group.title.length > 50 ? group.title : ``));
+            createRenderEffect(() => _el$53.checked = groups[i2].enabled);
+            return _el$51;
+          })();
+        }), null);
+        return _el$49;
+      })() : null;
+    })(), null);
+    _el$37.$$click = (e2) => {
+      if (e2.shiftKey || confirm(`Do you want to organize workflow?`)) {
+        organizeWorkflow();
+      }
+    };
+    _el$38.$$click = (e2) => {
+      if (getSetting(`ignorePromptForExplodeHeal`) || e2.shiftKey || confirm(`Do you want to convert all links to set/get nodes?`)) {
+        splitAllConnections();
+      }
+    };
+    _el$39.$$click = (e2) => {
+      if (getSetting(`ignorePromptForExplodeHeal`) || e2.shiftKey || confirm(`Do you want to convert all set/get nodes to connections?
+This is finicky with PrimitiveNodes...`)) {
+        joinAllConnections();
+      }
+    };
+    _el$40.$$click = () => {
+      openImageWindow();
+    };
+    _el$41.$$click = () => {
+      if (!confirm(`Clear all favourites?`)) {
+        return;
+      }
+      for (const key of Object.keys(localStorage)) {
+        if (key.startsWith(PREFIX)) {
+          const widgetType = key.replace(PREFIX, ``);
+          for (const node of getNodesByType(widgetType, `set`)) {
+            setWidgetValue(node, false, 1);
+          }
+          delete localStorage[key];
+        }
+      }
+      update();
+    };
+    _el$42.$$click = () => {
+      setShowSettings(!showSettings());
+      if (showSettings()) {
+        setShowHelp(false);
+      }
+    };
+    _el$43.$$click = () => {
+      setShowHelp(!showHelp());
+      if (showHelp()) {
+        setShowSettings(false);
+      }
+    };
+    _el$44.$$click = () => {
+      setHidden(!hidden());
+    };
+    _el$45.style.setProperty("--ninja-font-family", "Arial");
+    _el$45.style.setProperty("position", "relative");
+    _el$45.style.setProperty("z-index", "10000000");
+    insert(_el$45, createComponent(NinjaKeys$1, {
+      isDark: true,
+      get hotkeys() {
+        return dynamicHotkeys();
+      }
+    }));
+    insert(_el$30, () => prompts().map((p2) => createComponent(InlinePrompt, p2)), null);
+    insert(_el$30, (() => {
+      var _c$8 = createMemo(() => !!showSettings());
+      return () => _c$8() ? createComponent(Settings, {
+        close: () => {
+          setShowSettings(false);
+        }
+      }) : null;
+    })(), null);
+    insert(_el$30, (() => {
+      var _c$9 = createMemo(() => !!showHelp());
+      return () => _c$9() ? createComponent(Help, {
+        close: () => {
+          setShowHelp(false);
+        }
+      }) : null;
+    })(), null);
+    insert(_el$30, (() => {
+      var _c$10 = createMemo(() => !!showWarnings());
+      return () => _c$10() ? createComponent(Warnings, {
+        get warnings() {
+          return warningNodes();
+        },
+        close: () => {
+          window.mapeErrors = [];
+          setShowWarnings(false);
+        }
+      }) : null;
+    })(), null);
+    createRenderEffect((_p$) => {
+      var _v$6 = !!hidden(), _v$7 = `Convert links to set/get ${!getSetting(`ignorePromptForExplodeHeal`) ? `(Hold Shift-key to skip prompt)` : ``}`, _v$8 = `Convert set/get to links ${!getSetting(`ignorePromptForExplodeHeal`) ? `(Hold Shift-key to skip prompt)` : ``}`, _v$9 = !!hidden();
+      _v$6 !== _p$.e && _el$31.classList.toggle("hidden", _p$.e = _v$6);
+      _v$7 !== _p$.t && setAttribute(_el$38, "title", _p$.t = _v$7);
+      _v$8 !== _p$.a && setAttribute(_el$39, "title", _p$.a = _v$8);
+      _v$9 !== _p$.o && _el$44.classList.toggle("hidden", _p$.o = _v$9);
+      return _p$;
+    }, {
+      e: void 0,
+      t: void 0,
+      a: void 0,
+      o: void 0
+    });
+    return _el$30;
+  })();
+};
+delegateEvents(["click", "input", "mousedown"]);
+const bar = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  MapeTweak
+}, Symbol.toStringTag, { value: "Module" }));
+(function() {
+  "use strict";
+  try {
+    if (typeof document != "undefined") {
+      var elementStyle = document.createElement("style");
+      elementStyle.appendChild(document.createTextNode("@import 'https://fonts.googleapis.com/css?family=Material+Icons&display=block';.imagePreviews {\n  background: repeating-radial-gradient(#181818 0 4px, #1f1f1f 5px 5px);\n  font-family: arial;\n  color: #fff;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1000;\n  margin: 0;\n  background-size: 10px 10px;\n  display: flex;\n  flex-direction: column;\n}\n.imagePreviews .content {\n  display: flex;\n  height: 100%;\n}\n.imagePreviews .value {\n  position: static;\n}\n.imagePreviews .image {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n}\n.imagePreviews .imagePreviewTweaks {\n  display: flex;\n  background: #111;\n  padding: 10px;\n  justify-content: space-around;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px inset rgba(0, 0, 0, 0.5);\n  gap: 10px;\n}\n.imagePreviews .imagePreviewTweaks .button {\n  flex: auto;\n  vertical-align: top;\n  border: 0;\n  text-transform: uppercase;\n  text-shadow: 2px 2px 1px #000000;\n  user-select: none;\n  position: relative;\n  display: inline-block;\n  color: #fff;\n  border-top: 1px solid #0f0f12;\n  background: #0f0f0f;\n  margin: 2px;\n  border-radius: 4px;\n  cursor: pointer;\n  line-height: 1;\n  transition: color 1s;\n  padding: 5px;\n  outline: none;\n  text-align: center;\n  opacity: 0.5;\n  padding: 8px 10px;\n}\n.imagePreviews .imagePreviewTweaks .button.active {\n  background: #490000;\n}\n.imagePreviews .imagePreviewTweaks .button:before {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  border-radius: 4px;\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 0 1px rgba(255, 255, 255, 0.2);\n  content: '';\n  pointer-events: none;\n}\n.imagePreviews .imagePreviewTweaks .button:hover:before {\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));\n}\n.imagePreviews .imagePreviewTweaks .button:active:before {\n  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));\n}\n.imagePreviews .imagePreviewTweaks .button:active {\n  transform: translate(1px, 1px);\n}\n.imagePreviews .imagePreviewTweaks .button.active {\n  opacity: 1;\n}\n.imagePreviews .imagePreviewTweaks label {\n  text-transform: uppercase;\n  padding: 8px 10px;\n  color: rgba(255, 255, 255, 0.5);\n  line-height: 21px;\n}\n.imagePreviews .value {\n  width: 50px;\n}\n.imagePreviews .value {\n  position: static;\n}\n.imagePreviews .bigPreview {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n  cursor: move;\n}\n.imagePreviews .fullImage {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  max-width: 98%;\n  max-height: calc(100vh - 80px);\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.3);\n  transform-origin: top left;\n}\n.imagePreviews .thumbnails {\n  display: flex;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #111;\n  padding: 10px;\n  justify-content: flex-start;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px inset rgba(0, 0, 0, 0.5);\n  flex-direction: column;\n  max-width: 100px;\n  gap: 10px;\n  width: 100px;\n}\n.imagePreviews .thumbnails .thumb {\n  width: 100%;\n  opacity: 0.2;\n  cursor: pointer;\n  position: relative;\n  height: 100%;\n}\n.imagePreviews .thumbnails .thumb:hover {\n  opacity: 0.7;\n}\n.imagePreviews .thumbnails .thumb.active {\n  opacity: 1;\n}\n.imagePreviews .thumbnails .thumb img {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  border-radius: 10px;\n}\n.imagePreviews .thumbnails .smallImage {\n  border-radius: 5px;\n  max-width: 100%;\n  max-height: 100%;\n  margin: 0 auto;\n  display: block;\n}\n.imagePreviews .mosaicGrid {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform-origin: top left;\n}\n.imagePreviews .mosaicGrid .inner {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n.imagePreviews .mosaicGrid .mosaicImage {\n  display: inline-block;\n  transform: none;\n  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.3);\n}\n.imagePreviews .mosaicGrid .mosaicImage img {\n  width: 100%;\n  height: 100%;\n}\n.imagePreviews .zoom {\n  font-size: 20px;\n  font-weight: bold;\n  position: absolute;\n  top: 16px;\n  right: 15px;\n  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);\n  cursor: pointer !important;\n  cursor: pointer;\n}\n.imagePreviews .zoom:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.imagePreviews .zoom:active {\n  transform: scale(0.9);\n}\n.imagePreviews .flipbookFps {\n  font-size: 20px;\n  font-weight: bold;\n  position: absolute;\n  top: 15px;\n  right: 100px;\n  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);\n  cursor: pointer !important;\n}\n.imagePreviews .flipbookFps label {\n  margin-right: 10px;\n}\n.imagePreviews .flipbookFps input {\n  background: transparent;\n  color: #fff;\n  border: 0;\n  background: rgba(0, 0, 0, 0.2);\n  padding: 5px 3px;\n  border-radius: 5px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  border-right: 0;\n  font-size: 11px;\n  color: rgba(255, 255, 255, 0.6);\n  line-height: 10px;\n  width: 40px;\n  position: relative;\n  font-size: 16px;\n  top: -1px;\n  margin-right: 20px;\n}\n.imagePreviews .flipbookFps input[type='checkbox'] {\n  vertical-align: top;\n  min-width: 15px;\n  max-width: 15px;\n  min-height: 15px;\n  max-height: 15px;\n  background-color: rgba(0, 0, 0, 0.2);\n  display: inline-block;\n  margin-right: 0.8vh;\n  border-radius: 100%;\n  margin-top: 0.45vh;\n  box-shadow: 0 0 0 0.1vh rgba(255, 255, 255, 0.2);\n  padding: 0.5vh;\n  -webkit-appearance: none;\n  outline: none;\n  position: relative;\n  top: 3px;\n}\n.imagePreviews .flipbookFps input[type='checkbox']:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.imagePreviews .flipbookFps input[type='checkbox']:checked {\n  background: #fff;\n}\n.imagePreviews .flipbookFps input[type='checkbox']:disabled {\n  opacity: 0.2;\n}\n.imagePreviews .imagePreviewHelp {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  padding: 10px;\n  text-align: center;\n  background: rgba(0, 0, 0, 0.2);\n  padding: 5px 3px;\n  border-radius: 5px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n}\n.imagePreviews .imagePreviewHelp p {\n  padding: 0 20px;\n}\n.imagePreviews .imagePreviewHelp video {\n  max-width: 90vw;\n  max-height: calc(90vh - 50px);\n  float: left;\n}\n.mapeBar .tweaks .promptTweaker {\n  background: #333;\n  padding: 5px 0 10px;\n  border-radius: 0 0 5px 5px;\n  position: relative;\n  top: -5px;\n}\n.mapeBar .tweaks .promptTweaker * {\n  box-sizing: border-box;\n}\n.mapeBar .tweaks .promptTweaker .promptTweakerPrompts {\n  max-height: calc(100vh - 310px);\n  overflow: auto;\n}\n.mapeBar .tweaks .promptTweaker .buttons {\n  display: flex;\n  padding: 0 10px 10px;\n}\n.mapeBar .tweaks .promptTweaker button {\n  flex: auto;\n  vertical-align: top;\n  border: 0;\n  text-transform: uppercase;\n  text-shadow: 2px 2px 1px #000000;\n  user-select: none;\n  position: relative;\n  display: inline-block;\n  color: #fff;\n  border-top: 1px solid #0f0f12;\n  background: #0f0f0f;\n  margin: 2px;\n  border-radius: 4px;\n  cursor: pointer;\n  line-height: 1;\n  transition: color 1s;\n  padding: 5px;\n  outline: none;\n  white-space: nowrap;\n  font-size: 11px;\n  height: 23px;\n  padding: 5px 8px;\n}\n.mapeBar .tweaks .promptTweaker button.active {\n  background: #490000;\n}\n.mapeBar .tweaks .promptTweaker button:before {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  border-radius: 4px;\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 0 1px rgba(255, 255, 255, 0.2);\n  content: '';\n  pointer-events: none;\n}\n.mapeBar .tweaks .promptTweaker button:hover:before {\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));\n}\n.mapeBar .tweaks .promptTweaker button:active:before {\n  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));\n}\n.mapeBar .tweaks .promptTweaker button:active {\n  transform: translate(1px, 1px);\n}\n.mapeBar .tweaks .promptTweaker button.remove {\n  width: 25px;\n  padding: 5px 8px;\n}\n.mapeBar .tweaks .promptTweaker .prompt {\n  display: flex;\n  padding: 0 5px;\n}\n.mapeBar .tweaks .promptTweaker .prompt label {\n  max-width: 130px;\n  min-width: 130px;\n  height: auto;\n  line-height: 1.5;\n  padding: 2px;\n  border-radius: 5px;\n}\n.mapeBar .tweaks .promptTweaker .prompt .weight {\n  padding: 0 10px;\n  line-height: 26px;\n  min-width: 43px;\n  max-width: 43px;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='range'] {\n  appearance: none;\n  -webkit-appearance: none;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='range']::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  height: 10px;\n  width: 10px;\n  border-radius: 50%;\n  background: #ffffff;\n  margin-top: -3px;\n  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);\n  cursor: pointer;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='range']::-webkit-slider-runnable-track {\n  width: 60%;\n  height: 5px;\n  background: rgba(255, 255, 255, 0.2);\n  border-radius: 3rem;\n  transition: all 0.5s;\n  cursor: pointer;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='range']:hover::-webkit-slider-runnable-track {\n  background: rgba(255, 255, 255, 0.3);\n}\n.mapeBar .tweaks .promptTweaker .prompt.tmp {\n  opacity: 0.5;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='checkbox'] {\n  vertical-align: top;\n  min-width: 15px;\n  max-width: 15px;\n  min-height: 15px;\n  max-height: 15px;\n  background-color: rgba(0, 0, 0, 0.2);\n  display: inline-block;\n  margin-right: 0.8vh;\n  border-radius: 100%;\n  margin-top: 0.45vh;\n  box-shadow: 0 0 0 0.1vh rgba(255, 255, 255, 0.2);\n  padding: 0.5vh;\n  -webkit-appearance: none;\n  outline: none;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='checkbox']:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='checkbox']:checked {\n  background: #fff;\n}\n.mapeBar .tweaks .promptTweaker .prompt input[type='checkbox']:disabled {\n  opacity: 0.2;\n}\n.mapeBar .tweaks .promptTweaker .prompt .arrows {\n  padding: 3px 5px 3px 0;\n  position: relative;\n  top: 0px;\n}\n.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow {\n  color: rgba(255, 255, 255, 0.2);\n  font-size: 12px;\n  line-height: 10px;\n}\n.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow.disabled {\n  pointer-events: none;\n  opacity: 0;\n}\n.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow:hover {\n  cursor: pointer;\n  color: rgba(255, 255, 255, 0.9);\n}\n.settingsPopup {\n  position: fixed;\n  background: #333;\n  top: 30px;\n  right: 0;\n  color: #fff;\n  font-family: arial;\n  min-width: 500px;\n  z-index: 1111111111;\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\n  border: 1px solid #444;\n}\n.settingsPopup .close {\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  filter: saturate(0);\n}\n.settingsPopup .close:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.settingsPopup .close:active {\n  transform: scale(0.9);\n}\n.settingsPopup .header {\n  background: rgba(0, 0, 0, 0.3);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  font-size: 20px;\n  padding: 10px 15px;\n  text-transform: uppercase;\n}\n.settingsPopup .modalContent {\n  max-height: calc(100vh - 100px);\n  overflow: auto;\n}\n.settingsPopup .mapeSetting {\n  display: flex;\n  position: relative;\n  padding: 1px 0;\n  margin: 0 3px;\n  z-index: 1;\n}\n.settingsPopup .mapeSetting .name {\n  background: rgba(0, 0, 0, 0.2);\n  padding: 8px 10px;\n  border-radius: 5px 0 0 5px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  border-right: 0;\n  font-size: 11px;\n  color: rgba(255, 255, 255, 0.6);\n  line-height: 10px;\n  min-width: 400px;\n  line-height: 1.5;\n}\n.settingsPopup .mapeSetting input {\n  padding: 5px;\n  height: 22px;\n  color: #fff;\n  font-size: 11px;\n  width: 100%;\n  border: 0;\n  background: transparent;\n  resize: none;\n  font-family: monospace;\n}\n.settingsPopup .mapeSetting input:focus,\n.settingsPopup .mapeSetting input:active {\n  outline: 1px solid transparent;\n}\n.settingsPopup .mapeSetting input[type='checkbox'] {\n  vertical-align: top;\n  min-width: 15px;\n  max-width: 15px;\n  min-height: 15px;\n  max-height: 15px;\n  background-color: rgba(0, 0, 0, 0.2);\n  display: inline-block;\n  margin-right: 0.8vh;\n  border-radius: 100%;\n  margin-top: 0.45vh;\n  box-shadow: 0 0 0 0.1vh rgba(255, 255, 255, 0.2);\n  padding: 0.5vh;\n  -webkit-appearance: none;\n  outline: none;\n  margin: 0 auto;\n  display: block;\n}\n.settingsPopup .mapeSetting input[type='checkbox']:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.settingsPopup .mapeSetting input[type='checkbox']:checked {\n  background: #fff;\n}\n.settingsPopup .mapeSetting input[type='checkbox']:disabled {\n  opacity: 0.2;\n}\n.settingsPopup .mapeSetting input:focus {\n  color: #ffa;\n}\n.settingsPopup .mapeSetting input[type='color'] {\n  margin: -15px 0 -10px;\n  height: 36px;\n  position: relative;\n  top: 4px;\n}\n.settingsPopup .mapeSetting .reset {\n  padding: 5px;\n  filter: saturate(0);\n}\n.settingsPopup .mapeSetting .reset:hover {\n  filter: saturate(1);\n}\n.settingsPopup .mapeSetting .value {\n  width: 100%;\n  position: relative;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  background: #222;\n  border-radius: 0 5px 5px 0;\n  padding: 8px 10px;\n}\n.helpPopup {\n  position: fixed;\n  background: #333;\n  top: 30px;\n  right: 0;\n  color: #fff;\n  font-family: arial;\n  min-width: 500px;\n  z-index: 1111111111;\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\n  border: 1px solid #444;\n}\n.helpPopup .close {\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  filter: saturate(0);\n}\n.helpPopup .close:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.helpPopup .close:active {\n  transform: scale(0.9);\n}\n.helpPopup .header {\n  background: rgba(0, 0, 0, 0.3);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  font-size: 20px;\n  padding: 10px 15px;\n  text-transform: uppercase;\n}\n.helpPopup .modalContent {\n  max-height: calc(100vh - 100px);\n  overflow: auto;\n}\n.helpPopup .modalContent {\n  display: flex;\n}\n.helpPopup .modalContent .help {\n  padding: 15px;\n}\n.helpPopup .modalContent .help .video,\n.helpPopup .modalContent .help .image {\n  width: 720px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);\n  background: rgba(0, 0, 0, 0.8);\n}\n.helpPopup .modalContent .help .info {\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  background: rgba(0, 0, 0, 0.1);\n  margin: 10px 0;\n  border-radius: 10px;\n  overflow: hidden;\n}\n.helpPopup .modalContent .help .title {\n  font-size: 25px;\n  padding: 15px 20px;\n  font-weight: bold;\n  text-transform: uppercase;\n  background: rgba(0, 0, 0, 0.2);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.helpPopup .modalContent .help .text {\n  max-width: 720px;\n  font-size: 15px;\n  padding: 20px 0;\n  font-size: 17px;\n  color: rgba(255, 255, 255, 0.8);\n  white-space: pre-wrap;\n}\n.helpPopup .modalContent .help .text p {\n  margin: 0;\n  padding: 0 20px 1em;\n  line-height: 1.5;\n}\n.helpPopup .modalContent .help .text p:last-child {\n  padding-bottom: 0;\n}\n.helpPopup .modalContent .help .text code {\n  outline: 1px solid rgba(0, 0, 0, 0.3);\n  background: rgba(0, 0, 0, 0.1);\n  border-radius: 5px;\n  padding: 5px;\n  margin: 0 0.2em;\n}\n.helpPopup .modalContent .menu {\n  background-color: #222;\n  margin: 0;\n  padding: 0;\n}\n.helpPopup .modalContent .menu li {\n  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0));\n  border-left: 1px solid #555;\n  padding: 10px 15px;\n  list-style: none;\n  color: rgba(255, 255, 255, 0.5);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.helpPopup .modalContent .menu li:nth-child(odd) {\n  background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.1));\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.helpPopup .modalContent .menu li:hover {\n  color: #ffffff;\n  cursor: pointer;\n}\n.helpPopup .modalContent .menu li.active {\n  background: #333;\n  color: #fff;\n  box-shadow: 6px 2px 6px #0003;\n  border-left: 1px solid transparent;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  background: linear-gradient(to right, #333, #424242 20%, #333);\n}\n.helpPopup .modalContent .menu li.active:first-child {\n  border-top: 0;\n}\n.mapeConfirmPrompt {\n  font-family: arial;\n  position: fixed;\n  padding: 10px;\n  background: #333;\n  border-bottom: 1px solid #444;\n  font-size: 13px;\n  z-index: 111;\n  border-radius: 10px;\n  border: 2px solid #555;\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);\n  transform: translate(-50%, -50%);\n}\n.mapeConfirmPrompt * {\n  box-sizing: border-box;\n}\n.mapeConfirmPrompt .title {\n  white-space: nowrap;\n  text-transform: uppercase;\n  padding: 0 0 5px;\n  text-align: center;\n}\n.mapeConfirmPrompt input {\n  position: relative;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px #0000004d inset;\n  background: #222;\n  color: #fff;\n  border-radius: 5px;\n  padding: 8px 10px;\n  width: 100%;\n}\n.mapeConfirmPrompt input:focus,\n.mapeConfirmPrompt input:active {\n  outline: 1px solid transparent;\n}\n.mapeConfirmPrompt .suggestions {\n  background: #333;\n  border-bottom: 1px solid #444;\n  font-size: 13px;\n  z-index: 111;\n  border-radius: 10px;\n  border: 2px solid #555;\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  border-radius: 5px;\n}\n.mapeConfirmPrompt .suggestions .suggestion {\n  padding: 5px;\n}\n.mapeConfirmPrompt .suggestions .suggestion:nth-child(odd) {\n  background: rgba(0, 0, 0, 0.1);\n}\n.mapeConfirmPrompt .suggestions .suggestion:hover,\n.mapeConfirmPrompt .suggestions .suggestion.selected {\n  color: #ffa;\n  background: rgba(0, 0, 0, 0.3);\n  cursor: pointer;\n}\n.mapeConfirmPrompt .suggestions .suggestion small {\n  opacity: 0.5;\n  float: right;\n}\n.mapeConfirmPrompt .suggestions .suggestion.missingType {\n  opacity: 0.3;\n}\n.warningsPopup {\n  position: fixed;\n  background: #333;\n  top: 30px;\n  right: 0;\n  color: #fff;\n  font-family: arial;\n  min-width: 500px;\n  z-index: 1111111111;\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\n  border: 1px solid #444;\n}\n.warningsPopup .close {\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  filter: saturate(0);\n}\n.warningsPopup .close:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.warningsPopup .close:active {\n  transform: scale(0.9);\n}\n.warningsPopup .header {\n  background: rgba(0, 0, 0, 0.3);\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  font-size: 20px;\n  padding: 10px 15px;\n  text-transform: uppercase;\n}\n.warningsPopup .modalContent {\n  max-height: calc(100vh - 100px);\n  overflow: auto;\n}\n.warningsPopup .mapeSetting {\n  display: flex;\n  position: relative;\n  padding: 4px 0;\n  margin: 0 3px;\n  z-index: 1;\n}\n.warningsPopup .mapeSetting .name {\n  background: rgba(0, 0, 0, 0.2);\n  padding: 8px 10px;\n  border-radius: 5px 0 0 5px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  border-right: 0;\n  font-size: 11px;\n  color: #fff;\n  line-height: 10px;\n  line-height: 1.5;\n  width: 100%;\n  font-size: 16px;\n}\n.warningsPopup .mapeSetting .name small {\n  padding: 0 10px;\n  color: rgba(255, 255, 255, 0.6);\n}\n.warningsPopup .mapeSetting button {\n  flex: auto;\n  vertical-align: top;\n  border: 0;\n  text-transform: uppercase;\n  text-shadow: 2px 2px 1px #000000;\n  user-select: none;\n  position: relative;\n  display: inline-block;\n  color: #fff;\n  border-top: 1px solid #0f0f12;\n  background: #0f0f0f;\n  margin: 2px;\n  border-radius: 4px;\n  cursor: pointer;\n  line-height: 1;\n  transition: color 1s;\n  padding: 5px;\n  outline: none;\n  padding: 0 10px;\n  white-space: nowrap;\n}\n.warningsPopup .mapeSetting button.active {\n  background: #490000;\n}\n.warningsPopup .mapeSetting button:before {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  border-radius: 4px;\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));\n  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 0 1px rgba(255, 255, 255, 0.2);\n  content: '';\n  pointer-events: none;\n}\n.warningsPopup .mapeSetting button:hover:before {\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));\n}\n.warningsPopup .mapeSetting button:active:before {\n  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);\n  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));\n}\n.warningsPopup .mapeSetting button:active {\n  transform: translate(1px, 1px);\n}\n\n@media only screen and (max-height: 850px) {\n  html body .comfy-menu {\n    top: 30px !important;\n  }\n}\n.mapeRoot * {\n  box-sizing: border-box;\n  font-family: arial;\n  user-select: none;\n}\n.mapeRoot *::-webkit-scrollbar {\n  width: 5px;\n  height: 5px;\n  background: linear-gradient(to right, #111, #222);\n}\n.mapeRoot *::-webkit-scrollbar-thumb {\n  background: linear-gradient(to bottom, #fff, #aaa);\n  border: 1px solid #fff;\n  border-radius: 10px;\n}\n.mapeBar {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 30px;\n  background: #333;\n  border-bottom: 1px solid #444;\n  display: flex;\n  font-size: 13px;\n  z-index: 1111111;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n  background: linear-gradient(to bottom, #353535, #313131 30%, #333);\n}\n.mapeBar.hidden {\n  opacity: 0;\n  pointer-events: none;\n}\n.mapeBar:after {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  height: 20px;\n  background: linear-gradient(to bottom, #0000002f, #00000000);\n  border-top: 2px solid rgba(0, 0, 0, 0.3);\n  pointer-events: none;\n}\n.mapeBar .logo {\n  background: url(https://comfyui.ma.pe/logo.svg);\n  background-size: contain;\n  background-repeat: no-repeat;\n  min-width: 26px;\n  max-width: 26px;\n  margin: 8px;\n  cursor: pointer;\n}\n.mapeBar .logo:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.mapeBar .logo:active {\n  transform: scale(0.9);\n}\n.mapeBar .tweakHighlight {\n  position: relative;\n}\n.mapeBar .tweakHighlight.siblingActive {\n  opacity: 0.1;\n}\n.mapeBar .tweakHighlight.active {\n  opacity: 1;\n}\n.mapeBar .tweaks {\n  display: flex;\n}\n.mapeBar .tweaks .tweak {\n  display: flex;\n  position: relative;\n  padding: 4px 0;\n  margin: 0 3px;\n  z-index: 1;\n}\n.mapeBar .tweaks .tweak label {\n  background: rgba(0, 0, 0, 0.2);\n  padding: 5px 8px;\n  height: 22px;\n  border-radius: 5px 0 0 5px;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  border-right: 0;\n  font-size: 11px;\n  color: rgba(255, 255, 255, 0.6);\n  line-height: 10px;\n}\n.mapeBar .tweaks .tweak label.interactable {\n  cursor: pointer;\n}\n.mapeBar .tweaks .tweak label.interactable:hover {\n  color: #fff;\n}\n.mapeBar .tweaks .tweak.defaultContainer label {\n  border-radius: 5px;\n}\n.mapeBar .tweaks .tweak input,\n.mapeBar .tweaks .tweak textarea {\n  padding: 5px;\n  height: 22px;\n  color: #fff;\n  font-size: 11px;\n  width: 100%;\n  border: 0;\n  background: transparent;\n  resize: none;\n  font-family: monospace;\n}\n.mapeBar .tweaks .tweak input:focus,\n.mapeBar .tweaks .tweak textarea:focus,\n.mapeBar .tweaks .tweak input:active,\n.mapeBar .tweaks .tweak textarea:active {\n  outline: 1px solid transparent;\n}\n.mapeBar .tweaks .tweak input:focus {\n  color: #ffa;\n}\n.mapeBar .tweaks .tweak .image {\n  position: absolute;\n  top: 0;\n  left: 0px;\n  width: 50px;\n  height: 50px;\n  border-radius: 5px;\n  background: #000;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center center;\n}\n.mapeBar .tweaks .tweak .value {\n  width: 70px;\n  position: relative;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  background: #222;\n  height: 22px;\n  border-radius: 0 5px 5px 0;\n}\n.mapeBar .tweaks .tweak.stringContainer.focused .value {\n  width: 450px;\n}\n.mapeBar .tweaks .tweak.stringContainer.focused textarea {\n  height: 150px;\n  padding: 10px;\n  line-height: 1.5;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;\n  background: #222;\n}\n.mapeBar .tweaks .tweak.imageContainer {\n  cursor: pointer;\n}\n.mapeBar .tweaks .tweak.imageContainer .value {\n  width: 50px;\n}\n.mapeBar .tweaks .tweak.imageContainer .missingImage {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  color: rgba(255, 255, 255, 0.5);\n  width: 50px;\n  text-align: center;\n}\n.mapeBar .tweaks .tweak.imageContainer .missing {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-size: 20px;\n}\n.mapeBar .tweaks .tweak.imageContainer.focused {\n  display: block;\n  background: repeating-radial-gradient(#181818 0 4px, #1f1f1f 5px 5px);\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1000;\n  margin: 0;\n  background-size: 10px 10px;\n}\n.mapeBar .tweaks .tweak.imageContainer.focused label {\n  display: none;\n}\n.mapeBar .tweaks .tweak.imageContainer.focused .value {\n  position: static;\n}\n.mapeBar .tweaks .tweak.imageContainer.focused .image {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n}\n.mapeBar .tweaks .tweak.imageContainer.focused.hasMultiple {\n  top: 150px;\n}\n.mapeBar .tweaks .tweak.imageContainer .fullImage {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  max-width: 98%;\n  max-height: 98%;\n  border: 1px solid rgba(255, 255, 255, 0.2);\n  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.3);\n}\n.mapeBar .tweaks .tweak.imageContainer .thumbnails {\n  display: flex;\n  position: absolute;\n  height: 150px;\n  left: 0;\n  right: 0;\n  bottom: 100%;\n  background: #111;\n  padding: 10px;\n  justify-content: space-around;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n  box-shadow: 0 0 10px inset rgba(0, 0, 0, 0.5);\n}\n.mapeBar .tweaks .tweak.imageContainer .thumbnails .thumb {\n  width: 100%;\n}\n.mapeBar .tweaks .tweak.imageContainer .thumbnails .smallImage {\n  border-radius: 5px;\n  max-width: 100%;\n  max-height: 100%;\n  margin: 0 auto;\n  display: block;\n}\n.mapeBar button {\n  width: 100px;\n}\n.mapeBar .options {\n  position: absolute;\n  top: 0px;\n  font-weight: 900;\n  color: #fff;\n  line-height: 28px;\n  font-size: 18px;\n  background: linear-gradient(to bottom, #353535, #313131 30%, #333);\n  display: flex;\n  right: 5px;\n  height: 29px;\n  gap: 5px;\n  padding: 0 5px;\n  z-index: 9;\n}\n.mapeBar .options .interact {\n  filter: saturate(0.8);\n  cursor: pointer;\n}\n.mapeBar .options .interact:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.mapeBar .options .interact:active {\n  transform: scale(0.9);\n}\n.mapeBar .options .interact small {\n  position: absolute;\n  top: 6px;\n  left: 12px;\n  font-size: 62%;\n}\n@keyframes fadeInOut {\n  0% {\n    opacity: 0.5;\n  }\n  50% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.5;\n  }\n}\n.mapeBar .options .blink {\n  animation: fadeInOut 1s ease-in-out infinite;\n}\n.mapeBar .tweak.floating {\n  display: block;\n  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);\n  padding: 0;\n}\n.mapeBar .tweak.floating .promptTweaker {\n  margin: 0 0 -5px;\n  border-radius: 0;\n}\n.mapeBar .tweak.floating > label {\n  display: none;\n}\n.mapeBar .tweak.floating .moveArea {\n  cursor: move;\n}\n.mapeBar .tweak.floating .moveArea .name {\n  display: block;\n}\n.mapeBar .tweak.floating textarea {\n  resize: vertical;\n  /* This allows resizing only vertically */\n}\n.mapeBar .tweak.floating .value {\n  height: auto;\n  border-radius: 0;\n}\n.mapeBar .moveBar {\n  position: relative;\n  height: 20px;\n  background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.3) 0px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.2) 2px, rgba(0, 0, 0, 0.2) 9px);\n}\n.mapeBar .moveBar .moveArea {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 30px;\n}\n.mapeBar .moveBar .moveArea .name {\n  font-size: 11px;\n  padding: 4px 6px;\n  display: none;\n}\n.mapeBar .moveBar .toggleFloating {\n  position: absolute;\n  top: -1px;\n  right: 5px;\n  filter: saturate(0);\n  cursor: pointer;\n  font-size: 15px;\n}\n.mapeBar .moveBar .toggleFloating:hover {\n  filter: saturate(1);\n}\n.mapeBar .groupToggle {\n  position: relative;\n}\n.mapeBar .groupToggle > span {\n  cursor: pointer;\n  display: block;\n}\n.mapeBar .groupToggle > span:hover {\n  transform: scale(1.1);\n  filter: saturate(1);\n}\n.mapeBar .groupToggle > span:active {\n  transform: scale(0.9);\n}\n.mapeBar .groupToggle .groups {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  background: #333;\n  padding: 0 5px;\n  border-radius: 0 0 5px 5px;\n  transform: translate(-50%, 0);\n}\n.mapeBar .groupToggle .groups .group {\n  display: flex;\n  white-space: nowrap;\n  border-right: 0;\n  font-size: 11px;\n  color: #fff9;\n  font-weight: normal;\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 5px;\n  padding: 0 10px;\n  margin: 5px 0;\n}\n.mapeBar .groupToggle .groups .group:nth-child(odd) {\n  background: rgba(0, 0, 0, 0.1);\n}\n.mapeBar .groupToggle .groups .group .groupName {\n  width: 100%;\n  padding-right: 10px;\n  line-height: 22px;\n  max-width: 300px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.mapeBar .groupToggle .groups input[type='checkbox'] {\n  vertical-align: top;\n  min-width: 15px;\n  max-width: 15px;\n  min-height: 15px;\n  max-height: 15px;\n  background-color: rgba(0, 0, 0, 0.2);\n  display: inline-block;\n  margin-right: 0.8vh;\n  border-radius: 100%;\n  margin-top: 0.45vh;\n  box-shadow: 0 0 0 0.1vh rgba(255, 255, 255, 0.2);\n  padding: 0.5vh;\n  -webkit-appearance: none;\n  outline: none;\n  position: relative;\n  top: 6px;\n  margin: 0;\n  min-width: 10px;\n  min-height: 10px;\n  height: 10px;\n  width: 10px;\n}\n.mapeBar .groupToggle .groups input[type='checkbox']:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.mapeBar .groupToggle .groups input[type='checkbox']:checked {\n  background: #fff;\n}\n.mapeBar .groupToggle .groups input[type='checkbox']:disabled {\n  opacity: 0.2;\n}\n.mapeBarToggle {\n  position: fixed;\n  top: 0;\n  right: 0;\n  width: 7px;\n  height: 30px;\n  background: #4b4b4b;\n  z-index: 100000000;\n  cursor: zoom-out;\n  border-radius: 5px 0 0 5px;\n}\n.mapeBarToggle.hidden {\n  cursor: zoom-in;\n}"));
+      document.head.appendChild(elementStyle);
+    }
+  } catch (e) {
+    console.error("vite-plugin-css-injected-by-js", e);
+  }
+})();
 function __vite__mapDeps(indexes) {
   if (!__vite__mapDeps.viteFileDeps) {
     __vite__mapDeps.viteFileDeps = []
   }
   return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
 }
-//# sourceMappingURL=mape-helpers.js.map
-(function(){"use strict";try{if(typeof document<"u"){var e=document.createElement("style");e.appendChild(document.createTextNode('@import"https://fonts.googleapis.com/css?family=Material+Icons&display=block";.imagePreviews{background:repeating-radial-gradient(#181818 0,#181818 4px,#1f1f1f 5px,#1f1f1f 5px);font-family:arial;color:#fff;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;margin:0;background-size:10px 10px;display:flex;flex-direction:column}.imagePreviews .content{display:flex;height:100%}.imagePreviews .image{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}.imagePreviews .imagePreviewTweaks{display:flex;background:#111;padding:10px;justify-content:space-around;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px inset #00000080;gap:10px}.imagePreviews .imagePreviewTweaks .button{flex:auto;vertical-align:top;border:0;text-transform:uppercase;text-shadow:2px 2px 1px #000000;-webkit-user-select:none;user-select:none;position:relative;display:inline-block;color:#fff;border-top:1px solid #0f0f12;background:#0f0f0f;margin:2px;border-radius:4px;cursor:pointer;line-height:1;transition:color 1s;outline:none;text-align:center;opacity:.5;padding:8px 10px}.imagePreviews .imagePreviewTweaks .button.active{background:#490000}.imagePreviews .imagePreviewTweaks .button:before{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:4px;background:linear-gradient(to bottom,#ffffff17,#ffffff0a);box-shadow:inset 0 1px #ffffff0d,inset 0 0 1px #fff3;content:"";pointer-events:none}.imagePreviews .imagePreviewTweaks .button:hover:before{background:linear-gradient(to bottom,#ffffff1f,#ffffff0f)}.imagePreviews .imagePreviewTweaks .button:active:before{box-shadow:inset 0 1px 3px #0000004d;background:linear-gradient(to bottom,#ffffff0f,#fff0)}.imagePreviews .imagePreviewTweaks .button:active{transform:translate(1px,1px)}.imagePreviews .imagePreviewTweaks .button.active{opacity:1}.imagePreviews .imagePreviewTweaks label{text-transform:uppercase;padding:8px 10px;color:#ffffff80;line-height:21px}.imagePreviews .value{width:50px}.imagePreviews .value{position:static}.imagePreviews .bigPreview{width:100%;height:100%;overflow:hidden;position:relative;cursor:move}.imagePreviews .fullImage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:98%;max-height:calc(100vh - 80px);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 60px #0000004d,0 0 30px #0000004d;transform-origin:top left}.imagePreviews .thumbnails{display:flex;left:0;right:0;bottom:0;background:#111;padding:10px;justify-content:flex-start;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px inset #00000080;flex-direction:column;max-width:100px;gap:10px;width:100px}.imagePreviews .thumbnails .thumb{width:100%;opacity:.2;cursor:pointer;position:relative;height:100%}.imagePreviews .thumbnails .thumb:hover{opacity:.7}.imagePreviews .thumbnails .thumb.active{opacity:1}.imagePreviews .thumbnails .thumb img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:10px}.imagePreviews .thumbnails .smallImage{border-radius:5px;max-width:100%;max-height:100%;margin:0 auto;display:block}.imagePreviews .mosaicGrid{width:100%;height:100%;position:absolute;top:50%;left:50%;transform-origin:top left}.imagePreviews .mosaicGrid .inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:row;align-content:center;flex-wrap:wrap;justify-content:center}.imagePreviews .mosaicGrid .mosaicImage{display:inline-block;transform:none;box-shadow:0 0 60px #0000004d,0 0 30px #0000004d}.imagePreviews .mosaicGrid .mosaicImage img{width:100%;height:100%}.imagePreviews .zoom{font-size:20px;font-weight:700;position:absolute;top:16px;right:15px;text-shadow:2px 2px 4px rgba(0,0,0,.7);cursor:pointer!important;cursor:pointer}.imagePreviews .zoom:hover{transform:scale(1.1);filter:saturate(1)}.imagePreviews .zoom:active{transform:scale(.9)}.imagePreviews .flipbookFps{font-size:20px;font-weight:700;position:absolute;top:15px;right:100px;text-shadow:2px 2px 4px rgba(0,0,0,.7);cursor:pointer!important}.imagePreviews .flipbookFps label{margin-right:10px}.imagePreviews .flipbookFps input{background:transparent;color:#fff;border:0;background:#0003;padding:5px 3px;border-radius:5px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;border-right:0;font-size:11px;color:#fff9;line-height:10px;width:40px;position:relative;font-size:16px;top:-1px;margin-right:20px}.imagePreviews .flipbookFps input[type=checkbox]{vertical-align:top;min-width:15px;max-width:15px;min-height:15px;max-height:15px;background-color:#0003;display:inline-block;margin-right:.8vh;border-radius:100%;margin-top:.45vh;box-shadow:0 0 0 .1vh #fff3;padding:.5vh;-webkit-appearance:none;outline:none;position:relative;top:3px}.imagePreviews .flipbookFps input[type=checkbox]:hover{background-color:#ffffff1a}.imagePreviews .flipbookFps input[type=checkbox]:checked{background:#fff}.imagePreviews .flipbookFps input[type=checkbox]:disabled{opacity:.2}.imagePreviews .imagePreviewHelp{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:#0003;padding:5px 3px;border-radius:5px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset}.imagePreviews .imagePreviewHelp p{padding:0 20px}.imagePreviews .imagePreviewHelp video{max-width:90vw;max-height:calc(90vh - 50px);float:left}.mapeBar .tweaks .promptTweaker{background:#333;padding:5px 0 10px;border-radius:0 0 5px 5px;position:relative;top:-5px}.mapeBar .tweaks .promptTweaker *{box-sizing:border-box}.mapeBar .tweaks .promptTweaker .promptTweakerPrompts{max-height:calc(100vh - 310px);overflow:auto}.mapeBar .tweaks .promptTweaker .buttons{display:flex;padding:0 10px 10px}.mapeBar .tweaks .promptTweaker button{flex:auto;vertical-align:top;border:0;text-transform:uppercase;text-shadow:2px 2px 1px #000000;-webkit-user-select:none;user-select:none;position:relative;display:inline-block;color:#fff;border-top:1px solid #0f0f12;background:#0f0f0f;margin:2px;border-radius:4px;cursor:pointer;line-height:1;transition:color 1s;outline:none;white-space:nowrap;font-size:11px;height:23px;padding:5px 8px}.mapeBar .tweaks .promptTweaker button.active{background:#490000}.mapeBar .tweaks .promptTweaker button:before{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:4px;background:linear-gradient(to bottom,#ffffff17,#ffffff0a);box-shadow:inset 0 1px #ffffff0d,inset 0 0 1px #fff3;content:"";pointer-events:none}.mapeBar .tweaks .promptTweaker button:hover:before{background:linear-gradient(to bottom,#ffffff1f,#ffffff0f)}.mapeBar .tweaks .promptTweaker button:active:before{box-shadow:inset 0 1px 3px #0000004d;background:linear-gradient(to bottom,#ffffff0f,#fff0)}.mapeBar .tweaks .promptTweaker button:active{transform:translate(1px,1px)}.mapeBar .tweaks .promptTweaker button.remove{width:25px;padding:5px 8px}.mapeBar .tweaks .promptTweaker .prompt{display:flex;padding:0 5px}.mapeBar .tweaks .promptTweaker .prompt label{max-width:130px;min-width:130px;height:auto;line-height:1.5;padding:2px;border-radius:5px}.mapeBar .tweaks .promptTweaker .prompt .weight{padding:0 10px;line-height:26px;min-width:43px;max-width:43px}.mapeBar .tweaks .promptTweaker .prompt input[type=range]{-moz-appearance:none;appearance:none;-webkit-appearance:none}.mapeBar .tweaks .promptTweaker .prompt input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:10px;width:10px;border-radius:50%;background:#fff;margin-top:-3px;box-shadow:1px 1px 2px #00000080;cursor:pointer}.mapeBar .tweaks .promptTweaker .prompt input[type=range]::-webkit-slider-runnable-track{width:60%;height:5px;background:#fff3;border-radius:3rem;transition:all .5s;cursor:pointer}.mapeBar .tweaks .promptTweaker .prompt input[type=range]:hover::-webkit-slider-runnable-track{background:#ffffff4d}.mapeBar .tweaks .promptTweaker .prompt.tmp{opacity:.5}.mapeBar .tweaks .promptTweaker .prompt input[type=checkbox]{vertical-align:top;min-width:15px;max-width:15px;min-height:15px;max-height:15px;background-color:#0003;display:inline-block;margin-right:.8vh;border-radius:100%;margin-top:.45vh;box-shadow:0 0 0 .1vh #fff3;padding:.5vh;-webkit-appearance:none;outline:none}.mapeBar .tweaks .promptTweaker .prompt input[type=checkbox]:hover{background-color:#ffffff1a}.mapeBar .tweaks .promptTweaker .prompt input[type=checkbox]:checked{background:#fff}.mapeBar .tweaks .promptTweaker .prompt input[type=checkbox]:disabled{opacity:.2}.mapeBar .tweaks .promptTweaker .prompt .arrows{padding:3px 5px 3px 0;position:relative;top:0}.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow{color:#fff3;font-size:12px;line-height:10px}.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow.disabled{pointer-events:none;opacity:0}.mapeBar .tweaks .promptTweaker .prompt .arrows .arrow:hover{cursor:pointer;color:#ffffffe6}.settingsPopup{position:fixed;background:#333;top:30px;right:0;color:#fff;font-family:arial;min-width:500px;z-index:1111111111;box-shadow:0 10px 20px #0000004d;border:1px solid #444}.settingsPopup .close{cursor:pointer;position:absolute;top:10px;right:10px;filter:saturate(0)}.settingsPopup .close:hover{transform:scale(1.1);filter:saturate(1)}.settingsPopup .close:active{transform:scale(.9)}.settingsPopup .header{background:#0000004d;border-bottom:1px solid rgba(255,255,255,.1);font-size:20px;padding:10px 15px;text-transform:uppercase}.settingsPopup .modalContent{max-height:calc(100vh - 100px);overflow:auto}.settingsPopup .mapeSetting{display:flex;position:relative;padding:1px 0;margin:0 3px;z-index:1}.settingsPopup .mapeSetting .name{background:#0003;padding:8px 10px;border-radius:5px 0 0 5px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;border-right:0;font-size:11px;color:#fff9;line-height:10px;min-width:400px;line-height:1.5}.settingsPopup .mapeSetting input{padding:5px;height:22px;color:#fff;font-size:11px;width:100%;border:0;background:transparent;resize:none;font-family:monospace}.settingsPopup .mapeSetting input:focus,.settingsPopup .mapeSetting input:active{outline:1px solid transparent}.settingsPopup .mapeSetting input[type=checkbox]{vertical-align:top;min-width:15px;max-width:15px;min-height:15px;max-height:15px;background-color:#0003;display:inline-block;margin-right:.8vh;border-radius:100%;margin-top:.45vh;box-shadow:0 0 0 .1vh #fff3;padding:.5vh;-webkit-appearance:none;outline:none;margin:0 auto;display:block}.settingsPopup .mapeSetting input[type=checkbox]:hover{background-color:#ffffff1a}.settingsPopup .mapeSetting input[type=checkbox]:checked{background:#fff}.settingsPopup .mapeSetting input[type=checkbox]:disabled{opacity:.2}.settingsPopup .mapeSetting input:focus{color:#ffa}.settingsPopup .mapeSetting input[type=color]{margin:-15px 0 -10px;height:36px;position:relative;top:4px}.settingsPopup .mapeSetting .reset{padding:5px;filter:saturate(0)}.settingsPopup .mapeSetting .reset:hover{filter:saturate(1)}.settingsPopup .mapeSetting .value{width:100%;position:relative;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;background:#222;border-radius:0 5px 5px 0;padding:8px 10px}.helpPopup{position:fixed;background:#333;top:30px;right:0;color:#fff;font-family:arial;min-width:500px;z-index:1111111111;box-shadow:0 10px 20px #0000004d;border:1px solid #444}.helpPopup .close{cursor:pointer;position:absolute;top:10px;right:10px;filter:saturate(0)}.helpPopup .close:hover{transform:scale(1.1);filter:saturate(1)}.helpPopup .close:active{transform:scale(.9)}.helpPopup .header{background:#0000004d;border-bottom:1px solid rgba(255,255,255,.1);font-size:20px;padding:10px 15px;text-transform:uppercase}.helpPopup .modalContent{max-height:calc(100vh - 100px);overflow:auto}.helpPopup .modalContent{display:flex}.helpPopup .modalContent .help{padding:15px}.helpPopup .modalContent .help .video,.helpPopup .modalContent .help .image{width:720px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 20px #0009;background:#000c}.helpPopup .modalContent .help .info{border:1px solid rgba(255,255,255,.1);background:#0000001a;margin:10px 0;border-radius:10px;overflow:hidden}.helpPopup .modalContent .help .title{font-size:25px;padding:15px 20px;font-weight:700;text-transform:uppercase;background:#0003;border-bottom:1px solid rgba(255,255,255,.1)}.helpPopup .modalContent .help .text{max-width:720px;font-size:15px;padding:20px 0;font-size:17px;color:#fffc;white-space:pre-wrap}.helpPopup .modalContent .help .text p{margin:0;padding:0 20px 1em;line-height:1.5}.helpPopup .modalContent .help .text p:last-child{padding-bottom:0}.helpPopup .modalContent .help .text code{outline:1px solid rgba(0,0,0,.3);background:#0000001a;border-radius:5px;padding:5px;margin:0 .2em}.helpPopup .modalContent .menu{background-color:#222;margin:0;padding:0}.helpPopup .modalContent .menu li{background:linear-gradient(to right,#0000001a,#0000 20%,#0000);border-left:1px solid #555;padding:10px 15px;list-style:none;color:#ffffff80;border-bottom:1px solid rgba(0,0,0,.2)}.helpPopup .modalContent .menu li:nth-child(odd){background:linear-gradient(to right,#0003,#0000001a 20%,#0000001a);border-bottom:1px solid rgba(0,0,0,.1)}.helpPopup .modalContent .menu li:hover{color:#fff;cursor:pointer}.helpPopup .modalContent .menu li.active{background:#333;color:#fff;box-shadow:6px 2px 6px #0003;border-left:1px solid transparent;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(0,0,0,.1);background:linear-gradient(to right,#333,#424242 20%,#333)}.helpPopup .modalContent .menu li.active:first-child{border-top:0}.mapeConfirmPrompt{font-family:arial;position:fixed;padding:10px;background:#333;border-bottom:1px solid #444;font-size:13px;z-index:111;border-radius:10px;border:2px solid #555;box-shadow:0 0 20px #0003;transform:translate(-50%,-50%)}.mapeConfirmPrompt *{box-sizing:border-box}.mapeConfirmPrompt .title{white-space:nowrap;text-transform:uppercase;padding:0 0 5px;text-align:center}.mapeConfirmPrompt input{position:relative;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;background:#222;color:#fff;border-radius:5px;padding:8px 10px;width:100%}.mapeConfirmPrompt input:focus,.mapeConfirmPrompt input:active{outline:1px solid transparent}.mapeConfirmPrompt .suggestions{background:#333;border-bottom:1px solid #444;font-size:13px;z-index:111;border:2px solid #555;box-shadow:0 0 20px #0003;position:absolute;top:100%;left:0;right:0;border-radius:5px}.mapeConfirmPrompt .suggestions .suggestion{padding:5px}.mapeConfirmPrompt .suggestions .suggestion:nth-child(odd){background:#0000001a}.mapeConfirmPrompt .suggestions .suggestion:hover,.mapeConfirmPrompt .suggestions .suggestion.selected{color:#ffa;background:#0000004d;cursor:pointer}.warningsPopup{position:fixed;background:#333;top:30px;right:0;color:#fff;font-family:arial;min-width:500px;z-index:1111111111;box-shadow:0 10px 20px #0000004d;border:1px solid #444}.warningsPopup .close{cursor:pointer;position:absolute;top:10px;right:10px;filter:saturate(0)}.warningsPopup .close:hover{transform:scale(1.1);filter:saturate(1)}.warningsPopup .close:active{transform:scale(.9)}.warningsPopup .header{background:#0000004d;border-bottom:1px solid rgba(255,255,255,.1);font-size:20px;padding:10px 15px;text-transform:uppercase}.warningsPopup .modalContent{max-height:calc(100vh - 100px);overflow:auto}.warningsPopup .mapeSetting{display:flex;position:relative;padding:4px 0;margin:0 3px;z-index:1}.warningsPopup .mapeSetting .name{background:#0003;padding:8px 10px;border-radius:5px 0 0 5px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;border-right:0;font-size:11px;color:#fff;line-height:10px;line-height:1.5;width:100%;font-size:16px}.warningsPopup .mapeSetting .name small{padding:0 10px;color:#fff9}.warningsPopup .mapeSetting button{flex:auto;vertical-align:top;border:0;text-transform:uppercase;text-shadow:2px 2px 1px #000000;-webkit-user-select:none;user-select:none;position:relative;display:inline-block;color:#fff;border-top:1px solid #0f0f12;background:#0f0f0f;margin:2px;border-radius:4px;cursor:pointer;line-height:1;transition:color 1s;outline:none;padding:0 10px;white-space:nowrap}.warningsPopup .mapeSetting button.active{background:#490000}.warningsPopup .mapeSetting button:before{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:4px;background:linear-gradient(to bottom,#ffffff17,#ffffff0a);box-shadow:inset 0 1px #ffffff0d,inset 0 0 1px #fff3;content:"";pointer-events:none}.warningsPopup .mapeSetting button:hover:before{background:linear-gradient(to bottom,#ffffff1f,#ffffff0f)}.warningsPopup .mapeSetting button:active:before{box-shadow:inset 0 1px 3px #0000004d;background:linear-gradient(to bottom,#ffffff0f,#fff0)}.warningsPopup .mapeSetting button:active{transform:translate(1px,1px)}@media only screen and (max-height: 850px){html body .comfy-menu{top:30px!important}}.mapeRoot *{box-sizing:border-box;font-family:arial;-webkit-user-select:none;user-select:none}.mapeRoot *::-webkit-scrollbar{width:5px;height:5px;background:linear-gradient(to right,#111,#222)}.mapeRoot *::-webkit-scrollbar-thumb{background:linear-gradient(to bottom,#fff,#aaa);border:1px solid #fff;border-radius:10px}.mapeBar{position:fixed;top:0;left:0;right:0;height:30px;background:#333;border-bottom:1px solid #444;display:flex;font-size:13px;z-index:1111111;border-top:1px solid rgba(255,255,255,.1);background:linear-gradient(to bottom,#353535,#313131 30%,#333)}.mapeBar:after{content:"";display:block;position:absolute;top:100%;left:0;right:0;height:20px;background:linear-gradient(to bottom,#0000002f,#0000);border-top:2px solid rgba(0,0,0,.3);pointer-events:none}.mapeBar .logo{background:url(https://comfyui.ma.pe/logo.svg);background-size:contain;background-repeat:no-repeat;min-width:26px;max-width:26px;margin:8px;cursor:pointer}.mapeBar .logo:hover{transform:scale(1.1);filter:saturate(1)}.mapeBar .logo:active{transform:scale(.9)}.mapeBar .tweakHighlight{position:relative}.mapeBar .tweakHighlight.siblingActive{opacity:.1}.mapeBar .tweakHighlight.active{opacity:1}.mapeBar .tweaks{display:flex}.mapeBar .tweaks .tweak{display:flex;position:relative;padding:4px 0;margin:0 3px;z-index:1}.mapeBar .tweaks .tweak label{background:#0003;padding:5px 8px;height:22px;border-radius:5px 0 0 5px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;border-right:0;font-size:11px;color:#fff9;line-height:10px}.mapeBar .tweaks .tweak label.interactable{cursor:pointer}.mapeBar .tweaks .tweak label.interactable:hover{color:#fff}.mapeBar .tweaks .tweak.defaultContainer label{border-radius:5px}.mapeBar .tweaks .tweak input,.mapeBar .tweaks .tweak textarea{padding:5px;height:22px;color:#fff;font-size:11px;width:100%;border:0;background:transparent;resize:none;font-family:monospace}.mapeBar .tweaks .tweak input:focus,.mapeBar .tweaks .tweak textarea:focus,.mapeBar .tweaks .tweak input:active,.mapeBar .tweaks .tweak textarea:active{outline:1px solid transparent}.mapeBar .tweaks .tweak input:focus{color:#ffa}.mapeBar .tweaks .tweak .image{position:absolute;top:0;left:0;width:50px;height:50px;border-radius:5px;background:#000;background-size:contain;background-repeat:no-repeat;background-position:center center}.mapeBar .tweaks .tweak .value{width:70px;position:relative;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;background:#222;height:22px;border-radius:0 5px 5px 0}.mapeBar .tweaks .tweak.stringContainer.focused .value{width:450px}.mapeBar .tweaks .tweak.stringContainer.focused textarea{height:150px;padding:10px;line-height:1.5;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px #0000004d inset;background:#222}.mapeBar .tweaks .tweak.imageContainer{cursor:pointer}.mapeBar .tweaks .tweak.imageContainer .value{width:50px}.mapeBar .tweaks .tweak.imageContainer .missingImage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#ffffff80;width:50px;text-align:center}.mapeBar .tweaks .tweak.imageContainer .missing{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px}.mapeBar .tweaks .tweak.imageContainer.focused{display:block;background:repeating-radial-gradient(#181818 0,#181818 4px,#1f1f1f 5px,#1f1f1f 5px);position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;margin:0;background-size:10px 10px}.mapeBar .tweaks .tweak.imageContainer.focused label{display:none}.mapeBar .tweaks .tweak.imageContainer.focused .value{position:static}.mapeBar .tweaks .tweak.imageContainer.focused .image{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}.mapeBar .tweaks .tweak.imageContainer.focused.hasMultiple{top:150px}.mapeBar .tweaks .tweak.imageContainer .fullImage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:98%;max-height:98%;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 60px #0000004d,0 0 30px #0000004d}.mapeBar .tweaks .tweak.imageContainer .thumbnails{display:flex;position:absolute;height:150px;left:0;right:0;bottom:100%;background:#111;padding:10px;justify-content:space-around;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 0 10px inset #00000080}.mapeBar .tweaks .tweak.imageContainer .thumbnails .thumb{width:100%}.mapeBar .tweaks .tweak.imageContainer .thumbnails .smallImage{border-radius:5px;max-width:100%;max-height:100%;margin:0 auto;display:block}.mapeBar button{width:100px}.mapeBar .options{position:absolute;top:0;font-weight:900;color:#fff;line-height:28px;font-size:18px;background:linear-gradient(to bottom,#353535,#313131 30%,#333);display:flex;right:5px;height:29px;gap:5px;padding:0 5px;z-index:9}.mapeBar .options .interact{filter:saturate(.8);cursor:pointer}.mapeBar .options .interact:hover{transform:scale(1.1);filter:saturate(1)}.mapeBar .options .interact:active{transform:scale(.9)}.mapeBar .options .interact small{position:absolute;top:6px;left:12px;font-size:62%}@keyframes fadeInOut{0%{opacity:.5}50%{opacity:1}to{opacity:.5}}.mapeBar .options .blink{animation:fadeInOut 1s ease-in-out infinite}.mapeBar .tweak.floating{display:block;box-shadow:0 0 20px #00000080;padding:0}.mapeBar .tweak.floating .promptTweaker{margin:0 0 -5px;border-radius:0}.mapeBar .tweak.floating>label{display:none}.mapeBar .tweak.floating .moveArea{cursor:move}.mapeBar .tweak.floating .moveArea .name{display:block}.mapeBar .tweak.floating textarea{resize:vertical}.mapeBar .tweak.floating .value{height:auto;border-radius:0}.mapeBar .moveBar{position:relative;height:20px;background:repeating-linear-gradient(45deg,#0000004d,#0000004d 2px,#0003 2px,#0003 9px)}.mapeBar .moveBar .moveArea{position:absolute;top:0;left:0;bottom:0;right:30px}.mapeBar .moveBar .moveArea .name{font-size:11px;padding:4px 6px;display:none}.mapeBar .moveBar .toggleFloating{position:absolute;top:-1px;right:5px;filter:saturate(0);cursor:pointer;font-size:15px}.mapeBar .moveBar .toggleFloating:hover{filter:saturate(1)}.mapeBar .groupToggle{position:relative}.mapeBar .groupToggle>span{cursor:pointer;display:block}.mapeBar .groupToggle>span:hover{transform:scale(1.1);filter:saturate(1)}.mapeBar .groupToggle>span:active{transform:scale(.9)}.mapeBar .groupToggle .groups{position:absolute;top:100%;left:0;background:#333;padding:0 5px;border-radius:0 0 5px 5px;transform:translate(-50%)}.mapeBar .groupToggle .groups .group{display:flex;white-space:nowrap;border-right:0;font-size:11px;color:#fff9;font-weight:400;border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:0 10px;margin:5px 0}.mapeBar .groupToggle .groups .group:nth-child(odd){background:#0000001a}.mapeBar .groupToggle .groups .group .groupName{width:100%;padding-right:10px;line-height:22px;max-width:300px;overflow:hidden;text-overflow:ellipsis}.mapeBar .groupToggle .groups input[type=checkbox]{vertical-align:top;min-width:15px;max-width:15px;min-height:15px;max-height:15px;background-color:#0003;display:inline-block;margin-right:.8vh;border-radius:100%;margin-top:.45vh;box-shadow:0 0 0 .1vh #fff3;padding:.5vh;-webkit-appearance:none;outline:none;position:relative;top:6px;margin:0;min-width:10px;min-height:10px;height:10px;width:10px}.mapeBar .groupToggle .groups input[type=checkbox]:hover{background-color:#ffffff1a}.mapeBar .groupToggle .groups input[type=checkbox]:checked{background:#fff}.mapeBar .groupToggle .groups input[type=checkbox]:disabled{opacity:.2}')),document.head.appendChild(e)}}catch(t){console.error("vite-plugin-css-injected-by-js",t)}})();
