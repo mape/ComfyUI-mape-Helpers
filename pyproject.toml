@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-mape-helpers"
 description = "Multi-monitor image preview, Variable Assigment/Wireless Nodes, Prompt Tweaking, Command Palette, Pinned favourite nodes, Node navigation, Fuzzy search, Node time tracking, Organizing and Error management. For more info visit: [a/https://comfyui.ma.pe/](https://comfyui.ma.pe/)"
-version = "0.5.0"
+version = "0.5.1"
 license = "LICENSE"
 
 [project.urls]
